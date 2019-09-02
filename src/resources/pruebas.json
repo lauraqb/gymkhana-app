@@ -1,0 +1,68 @@
+[
+    {
+        "challengeText": "Prueba 0"
+    },
+    {
+        "points": 1,
+        "challengeText": "En la azotea hay un patinete apoyado en la barandilla. Tienes 60 segundos para introducir el nombre de la marca del patinete",
+        "textoIngles": "In the rooftop there is a skateboard against the railing. You have 60 seconds to introduce the brand of it",
+        "placeholder": "Introduce el ..",
+        "solution": "jdbug",
+        "timer": "10"
+    },
+    {
+        "points": 2,
+        "challengeText": "Aprovecha las vistas desde la azotea para observar tu siguiente objetivo. Un coche de 4 focos esconde un código de 7 cifras.",
+        "textoIngles": "From the rooftop you'll see a car with 4 spotlights that hides a 7 digit code",
+        "placeholder": "Introduce el ..",
+        "solution": "7775djr"
+    },
+    {
+        "points": 1,
+        "challengeText": "Junto a este tanque hay un cartel en un árbol. ¿Qué pone en el cartel?",
+        "textoIngles": "Next to this tank there is a sign in a tree. What it says?",
+        "placeholder": "Texto del cartel",
+        "clue": "Si encuentras el tractor naranja estarás más cerca del tanque",
+        "images": "hi",
+        "solution": "privat"
+    },
+    {
+        "points": 1,
+        "challengeText": "En este objeto está escondido el código para desbloquear la siguiente prueba. (1 punto)",
+        "textoIngles": "In this object is hidden the code",
+        "placeholder": "Introduce el código",
+        "images": "hi",
+        "solution": "1234"
+    },
+    {
+        "points": 2,
+        "challengeText": "",
+        "textoIngles": "",
+        "placeholder": "",
+        "solution": ""
+    },
+    {
+        "points": 5,
+        "challengeText": "¡Ya estás más cerca del final! Tienes que hacer que Serabi se meta en la piscina (5 puntos)",
+        "textoIngles": "Serabi has to get into the pool",
+        "placeholder": "Ask Laura for the code after you have finished your mission",
+        "solution": "serabi",
+        "solution2": "lointente"
+    },
+    {
+        "points": 2,
+        "challengeText": "¡Quedan 10 minutos! Ésta es la última prueba. Antes de que se agote el tiempo, la herradura sagrada debe ser entregada a la Gran Caballera Templaria.",
+        "textoIngles": "Será más posible de superar si trabajais en equipo.",
+        "placeholder": "La orden de los caballeros le dará la última clave al vencedor",
+        "textMuted": "La orden de los caballeros le dará la última clave al vencedor",
+        "solution": "",
+        "timer": "9:59"
+    },
+    {
+        "points": 2,
+        "challengeText": "",
+        "textoIngles": "",
+        "placeholder": "",
+        "solution": ""
+    }
+]
