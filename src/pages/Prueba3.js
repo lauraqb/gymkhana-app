@@ -11,12 +11,6 @@ function mapDispatchToProps(dispatch) {
     }
 }
 
-const mapStateToProps = state => {
-    return { 
-      team: state.team,
-    };
-};
-
 /**Prueba del tanque */
 class Prueba3 extends React.Component {
     constructor(props) {

@@ -11,27 +11,27 @@ const initialState = {
 }
 
 function rootReducer(state=initialState, action) {
-    if(action.type == SET_TEAM) {
+    if(action.type === SET_TEAM) {
         return Object.assign({}, state, {
             team : action.payload
         })
     }
-    if(action.type == ADD_POINT) {
+    if(action.type === ADD_POINT) {
         return Object.assign({}, state, {
             points : state.points + action.payload
         })
     }
-    if(action.type == DELETE_POINTS) {
+    if(action.type === DELETE_POINTS) {
         return Object.assign({}, state, {
             points : state.points - action.payload
         })
     }
-    if(action.type == RESET_POINTS) {
+    if(action.type === RESET_POINTS) {
         return Object.assign({}, state, {
             points : 0
         })
     }
-    if(action.type ==  SET_TIME) {
+    if(action.type ===  SET_TIME) {
         return Object.assign({}, state, {
             time : action.payload
         })

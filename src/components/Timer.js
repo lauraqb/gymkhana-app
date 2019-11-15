@@ -4,9 +4,18 @@ class Timer extends React.Component {
 
     constructor(props) {
         super(props)
+        let min, sec;
+        const parts = this.props.time.split(':');
+        if (parts.length === 2) {
+            min = parts[0];
+            sec = parts[1];
+        } else {
+            min = 0;
+            sec = parts[0];
+        }
         this.state = {
-            seconds: this.props.seconds, 
-            minuts: this.props.minutos
+            seconds: sec, 
+            minuts: min
         }
         this.startCountDown = this.startCountDown.bind(this);
         this.tick = this.tick.bind(this);
@@ -25,12 +34,18 @@ class Timer extends React.Component {
             clearInterval(this.intervalHandle);
         } 
         else if (sec === 0) {
-            this.state.minuts--
-            this.state.seconds = 59
-            this.props.setTime(this.state.minuts)
+            this.setState({
+                minuts: this.state.minuts-1,
+                seconds: 59
+            })
+            // this.state.minuts--
+            // this.state.seconds = 59
         }
         else {
-            this.state.seconds--
+            this.setState({
+                minuts: this.state.minuts-1
+            })
+            // this.state.seconds--
         }
         
     }
@@ -41,7 +56,7 @@ class Timer extends React.Component {
     render() {
        return (
         <div>
-         <code><h1 style={{ fontSize: 100 }} id="timer">{this.props.minuts}:{this.state.seconds}</h1></code>
+         <code><h1 style={{ fontSize: 100 }} id="timer">{this.state.minuts}:{this.state.seconds}</h1></code>
         </div>
       );
     }

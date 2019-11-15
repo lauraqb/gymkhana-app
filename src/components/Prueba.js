@@ -10,14 +10,15 @@ class Prueba extends React.Component {
 
     constructor(props) {
         super(props)
-        this.challengeText = pruebasObject[this.props.id].challengeText
-        this.textoIngles = pruebasObject[this.props.id].textoIngles
-        this.placeholder = pruebasObject[this.props.id].placeholder
-        this.points = pruebasObject[this.props.id].points
-        this.solution = pruebasObject[this.props.id].solution
-        this.images = pruebasObject[this.props.id].images
-        this.clue = pruebasObject[this.props.id].clue
-        this.timer = pruebasObject[this.props.id].timer
+        const id = this.props.id //número de prueba
+        this.challengeText = pruebasObject[id].challengeText
+        this.textoIngles = pruebasObject[id].textoIngles
+        this.placeholder = pruebasObject[id].placeholder
+        this.points = pruebasObject[id].points
+        this.solution = pruebasObject[id].solution
+        this.images = pruebasObject[id].images
+        this.clue = pruebasObject[id].clue
+        this.time = pruebasObject[id].time
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //renombrar a pista
     }
@@ -25,10 +26,10 @@ class Prueba extends React.Component {
     handleSubmit(e) {
         const input = document.getElementById("inputText").value.toLowerCase()
         const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
-        if(input == this.solution) {
-            if (timer != "00") {
-                if(this.points == 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-                else if(this.points == 1) alert("¡Muy bien! Has ganado "+this.points+" punto.")
+        if(input === this.solution) {
+            if (timer !== "0:00") {
+                if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
+                else if(this.points === 1) alert("¡Muy bien! Has ganado "+this.points+" punto.")
                 else alert("¡Muy bien! Has ganado "+this.points+" puntos.")
             }
             else {
@@ -53,7 +54,7 @@ class Prueba extends React.Component {
                     <h2 className="g-prueba-title">Prueba #{this.props.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="g-english" >{this.textoIngles}</p>
-                    {this.images ? <img src={tanque} className="g-imagen"/>:"" }
+                    {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder={this.placeholder} id="inputText" />
@@ -63,9 +64,9 @@ class Prueba extends React.Component {
                             Enviar
                         </Button>
                     </Form>
-                    {this.timer ? <Timer seconds={this.timer} minuts={this.timer}/>:"" }
+                    {this.time ? <Timer seconds={this.time} time={this.time}/>:"" }
                     {this.clue ? <div className="g-line">
-            <p className="g-pista">¿Estás atascado porque no encuentras el tanque? Pide una pista a cambio un punto</p>
+            <p className="g-pista">¿Estás atascado? Pide una pista a cambio un punto</p>
             <Button variant="warning" onClick={this.handleClick}>
                 Conseguir pista
             </Button>

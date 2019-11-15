@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { setTeam, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-//import { Link } from 'react-router-dom';
 
 function mapDispatchToProps(dispatch) {
     return {
@@ -21,30 +20,32 @@ class Inicio extends React.Component {
 
         }
         navigator.geolocation.getCurrentPosition((position)=> {
-            debugger;
         })
-
 
         this.textoIntro = "Os disponeis a empezar la aventura más emocionante que ha ocurrido nunca en esta ciudad. "+
         "La *** debe escoger el mejor equipo "+
-        "Solo el equipo que consiga demostrar mayor liderazgo, creatividad e ingenio, será digno de merecer este puesto al más valiente. "+
-        "Para demostrarlo tendreis que consiguir encontrar la herradura sagrada y tener el mayor número de puntos. "+
-        "Tu objetivo será seguir las pistas hasta encontrar la herradura escondida. "+
-        "Por el camino irás acumulando puntos."
+        "Solo el equipo que consiga demostrar mayor liderazgo, creatividad e ingenio, será digno de merecer este puesto al más valiente. "
     }
+
+    componentWillMount() {
+
+      }
     
     handleSubmit(e){
         e.preventDefault();
         this.props.restartPoints()
         let codigo = document.getElementById('inputCodigo').value.toLowerCase()
+        debugger;
         switch(codigo) {
             case "b2345": 
                 this.props.setTeam("rojo")
                 this.props.history.push('/intro')
+                break
             case "1o345":
                 this.props.setTeam("azul")
                 this.props.history.push('/intro')
-            case "1o345":
+                break
+            case "12r45":
                 this.props.setTeam("verde")
                 this.props.history.push('/intro')
                 break

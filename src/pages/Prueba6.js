@@ -19,8 +19,9 @@ class Prueba6 extends React.Component {
     }
 
     goToNextChallenge(points) {
+        const nextChallengeId = this.id+1
         this.props.addPoints(points)
-        this.props.history.push('/prueba2')
+        this.props.history.push('/prueba'+nextChallengeId)
     }
 
     render() {

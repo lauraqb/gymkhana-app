@@ -29,7 +29,7 @@ class Prueba5 extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         const input = document.getElementById('inputText').value
-        if(input.toLowerCase() == "12") {
+        if(input.toLowerCase() === "12") {
             alert("¡Muy bien! Has ganado "+points+" puntos.")
             this.props.addPoints(points)
             this.props.history.push('/prueba6')
@@ -47,8 +47,8 @@ class Prueba5 extends React.Component {
             <div className="row">
                 <div className="col-12" align="center">
                     <h2 className="g-prueba-title">Prueba #5</h2>
-                    <img src={chickenIcon} className="g-animal-icon"></img>+<img src={dogIcon} className="g-animal-icon"></img>
-                    +<img src={horseIcon} className="g-animal-icon"></img> = ?
+                    <img src={chickenIcon} className="g-animal-icon" alt="x"></img>+<img src={dogIcon} className="g-animal-icon" alt="x"></img>
+                    +<img src={horseIcon} className="g-animal-icon" alt="x"></img> = ?
                     <p></p>
                     <p>{this.textoPrueba}</p>
                     <p className="g-english" >{this.textoIngles}</p>

@@ -4,6 +4,7 @@ import Navbar from '../components/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
+
 const mapStateToProps = state => {
     return { team: state.team };
 };
@@ -11,8 +12,7 @@ const mapStateToProps = state => {
 class Intro extends React.Component {
     constructor(props) {
         super(props)
-        this.textoIntro = " "
-
+        this.textoIntro = ""
     }
 
     render() {

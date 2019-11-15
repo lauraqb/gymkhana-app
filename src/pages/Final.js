@@ -1,10 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Navbar from '../components/Navbar';
-
 import horseGif from '../images/horse-gif.gif';
-
-
 
 const mapStateToProps = state => {
     return { 
@@ -31,7 +28,7 @@ class Final extends React.Component {
                     <p>{this.textoPrueba}</p>
                     <p className="g-english" >{this.textoIngles}</p>
                     
-                    <img src={horseGif} className="g-imagen"></img>
+                    <img src={horseGif} alt="icono" className="g-imagen"></img>
                 </div>
             </div>
         </div>

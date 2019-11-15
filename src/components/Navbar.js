@@ -21,7 +21,7 @@ class Menu extends React.Component {
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="justify-content-end">
             Points: {this.props.points}
-              <a href="https://wa.me/34670356948" target="_blank" className="App-link">
+              <a href="https://wa.me/34670356948" target="_blank" rel="noopener noreferrer" className="App-link">
                 <img src={horseIcon} alt="help" width={60} height={50}/></a>
           </Navbar.Text>
         </Navbar.Collapse>
