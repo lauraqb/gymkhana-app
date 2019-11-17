@@ -14,23 +14,22 @@ import Final from './pages/Final'
 import { connect } from 'react-redux' 
 import socketIOClient from "socket.io-client";
 
-const endpoint = 'http://localhost:8000' //'ws://localhost:8000'
+const endpoint = 'http://localhost:8000' 
 const socket = socketIOClient(endpoint);
 
 const mapStateToProps = state => {
   return { team: state.team }
 }
 function App({ team }) {
-
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {
               team: team,
               latitude: position.coords.latitude,
-              longitud: position.coords.longitude
+              longitude: position.coords.longitude
           }
       socket.emit("coordenadas", coordenadas);
-    //   //client.send(JSON.stringify(coordenadas))
+      //client.send(JSON.stringify(coordenadas))
     }
     function geo_error(error) {
       console.error("error "+error.message)

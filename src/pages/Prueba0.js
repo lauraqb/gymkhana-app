@@ -19,21 +19,20 @@ class Intro extends React.Component {
         return ( <div className="App">
                 <Navbar></Navbar>
                 <div className="g-body">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12" align="center">
-                            <h1>¡Enhorabuena <code>equipo {this.props.team}</code>!</h1>
-                            <p>{this.textoIntro}</p>                          
-                                <Link to="./prueba1" className="App-link">
-                                    <Button variant="primary" type="submit">Empezar la primera prueba</Button>
-                                </Link>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-12" align="center">
+                                <h1>¡Enhorabuena <code>equipo {this.props.team}</code>!</h1>
+                                <p>{this.textoIntro}</p>                          
+                                    <Link to="./prueba1" className="App-link">
+                                        <Button variant="primary" type="submit">Empezar la primera prueba</Button>
+                                    </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> 
-
-          );
+            </div> 
+        );
     }
 }
 const introConnected = connect(mapStateToProps)(Intro);
