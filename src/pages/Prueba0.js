@@ -1,9 +1,11 @@
 import React from 'react'
+import "../styles/prueba0.css";
 import { connect } from 'react-redux'
 import Navbar from '../components/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-
+import pistol from '../images/pistol.png';
+import map from '../images/map.png';
 
 const mapStateToProps = state => {
     return { team: state.team };
@@ -12,7 +14,7 @@ const mapStateToProps = state => {
 class Intro extends React.Component {
     constructor(props) {
         super(props)
-        this.textoIntro = ""
+        this.textoIntro = "¡Busca a tus compañeros y luego haz click en el botón!"
     }
 
     render() {
@@ -22,14 +24,17 @@ class Intro extends React.Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-12" align="center">
-                                <h1>¡Enhorabuena <code>equipo {this.props.team}</code>!</h1>
+                                <h1>Eres del equipo {this.props.team}</h1>
                                 <p>{this.textoIntro}</p>                          
                                     <Link to="./prueba1" className="App-link">
-                                        <Button variant="primary" type="submit">Empezar la primera prueba</Button>
+                                        <Button className="g-round-btn" type="submit">Empezar</Button>
                                     </Link>
                             </div>
                         </div>
                     </div>
+                    <div className="g-map-img"><img src={map} width={380}/></div>
+                    <div className="g-pistol-img"><img src={pistol} width={220}/></div>
+                    
                 </div>
             </div> 
         );

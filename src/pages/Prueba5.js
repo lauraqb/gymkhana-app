@@ -23,7 +23,7 @@ class Prueba5 extends React.Component {
     constructor(props) {
         super(props)
         this.textoPrueba = "("+points+" puntos)"
-        this.textoIngles = "Por cada intento fallido perderás un punto así que piensa bien tu respuesta."
+        this.textoSecundario = "Por cada intento fallido perderás un punto así que piensa bien tu respuesta."
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     handleSubmit(e){
@@ -51,7 +51,7 @@ class Prueba5 extends React.Component {
                     +<img src={horseIcon} className="g-animal-icon" alt="x"></img> = ?
                     <p></p>
                     <p>{this.textoPrueba}</p>
-                    <p className="g-english" >{this.textoIngles}</p>
+                    <p className="g-english" >{this.textoSecundario}</p>
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder="?" id="inputText" />

@@ -24,10 +24,10 @@ function App({ team }) {
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {
-              team: team,
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-          }
+          team: team,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+      }
       socket.emit("coordenadas", coordenadas);
       //client.send(JSON.stringify(coordenadas))
     }
@@ -35,8 +35,7 @@ function App({ team }) {
       console.error("error "+error.message)
       socket.emit("error", error.message);
     }
-    
-    navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
+    if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
 
   setInterval(sendPosition, 3000)

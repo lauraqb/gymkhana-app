@@ -2,7 +2,7 @@ import React from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Timer from './Timer'
-import tanque from '../images/tanque.PNG'; /**Crear un componente para las imagenes */
+import tanque from '../images/dios-neptuno.jpg'; /**Crear un componente para las imagenes */
 
 let pruebasObject = require('../resources/pruebas.json')
 
@@ -12,7 +12,8 @@ class Prueba extends React.Component {
         super(props)
         const id = this.props.id //número de prueba
         this.challengeText = pruebasObject[id].challengeText
-        this.textoIngles = pruebasObject[id].textoIngles
+        //this.challengeText = this.challengeText.replace(/\n/g, "<br>")
+        this.textoSecundario = pruebasObject[id].textoSecundario
         this.placeholder = pruebasObject[id].placeholder
         this.points = pruebasObject[id].points
         this.solution = pruebasObject[id].solution
@@ -25,12 +26,13 @@ class Prueba extends React.Component {
 
     handleSubmit(e) {
         const input = document.getElementById("inputText").value.toLowerCase()
+        const solution = this.solution.toLowerCase()
         const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
-        if(input === this.solution) {
+        if(input === solution) {
             if (timer !== "0:00") {
                 if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-                else if(this.points === 1) alert("¡Muy bien! Has ganado "+this.points+" punto.")
-                else alert("¡Muy bien! Has ganado "+this.points+" puntos.")
+                else if(this.points === 1) alert("¡Muy bien! Habéis ganado "+this.points+" punto.")
+                else alert("¡Muy bien! Habéis ganado "+this.points+" puntos.")
             }
             else {
                 alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
@@ -53,7 +55,7 @@ class Prueba extends React.Component {
                 <div className="col-12" align="center">
                     <h2 className="g-prueba-title">Prueba #{this.props.id}</h2>
                     <p>{this.challengeText}</p>
-                    <p className="g-english" >{this.textoIngles}</p>
+                    <p className="g-english" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>

@@ -5,7 +5,7 @@ import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
 
 const initialState = {
-    team: "Nandttea",
+    team: null,
     points: 0,
     time: 9
 }

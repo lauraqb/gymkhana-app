@@ -1,0 +1,13 @@
+.inicio-content {
+    max-width: 700px;
+    margin: 10px;
+}
+
+.g-brujula {
+    width: 120px;
+    height: 100px;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    overflow: hidden;
+}

@@ -13,6 +13,7 @@ code {
 
 .g-body {
   background-color: #282c34;
+  position: relative;
   min-height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
@@ -21,6 +22,15 @@ code {
   font-size: calc(10px + 2vmin);
   color: white;
   padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.g-body .container{
+  z-index: 1;
+}
+
+.g-body p{
+  white-space:pre-wrap;
 }
 
 .g-prueba-title {

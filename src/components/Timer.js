@@ -43,7 +43,7 @@ class Timer extends React.Component {
         }
         else {
             this.setState({
-                minuts: this.state.minuts-1
+                seconds: this.state.seconds-1
             })
             // this.state.seconds--
         }
