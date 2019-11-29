@@ -7,8 +7,8 @@ class Timer extends React.Component {
         let min, sec;
         const parts = this.props.time.split(':');
         if (parts.length === 2) {
-            min = parts[0];
-            sec = parts[1];
+            min = parseInt(parts[0])
+            sec = parseInt(parts[1])
         } else {
             min = 0;
             sec = parts[0];
@@ -31,6 +31,7 @@ class Timer extends React.Component {
         }
         
         if (sec === 0 && min === 0) {
+            
             clearInterval(this.intervalHandle);
         } 
         else if (sec === 0) {

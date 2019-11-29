@@ -3,6 +3,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg'; /**Crear un componente para las imagenes */
+import socketIOClient from "socket.io-client";
+
+const config = require('../config.json');
+const endpoint = config.server
+const socket = socketIOClient(endpoint);
 
 let pruebasObject = require('../resources/pruebas.json')
 
@@ -38,6 +43,8 @@ class Prueba extends React.Component {
                 alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
             }
             this.props.onSubmit(this.points)
+
+            socket.emit("pruebaCompletada", {challange: this.props.id, team: "rojo"});
         }
         else {
             alert("Sigue intentándolo")

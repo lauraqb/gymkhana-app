@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import './App.css';
 import Inicio from './pages/Inicio'
 import Prueba0 from './pages/Prueba0'
 import Prueba1 from './pages/Prueba1'
@@ -14,7 +14,8 @@ import Final from './pages/Final'
 import { connect } from 'react-redux' 
 import socketIOClient from "socket.io-client";
 
-const endpoint = 'http://localhost:8000' 
+const config = require('./config.json');
+const endpoint = config.server
 const socket = socketIOClient(endpoint);
 
 const mapStateToProps = state => {
