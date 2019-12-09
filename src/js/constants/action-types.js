@@ -1,3 +1,4 @@
+export const SET_NAME = "SET_NAME"
 export const SET_TEAM = "SET_TEAM"
 export const ADD_POINT = "ADD_POINT"
 export const RESET_POINTS = "RESET_POINTS"

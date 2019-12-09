@@ -1,3 +1,4 @@
+import { SET_NAME } from "../constants/action-types"
 import { SET_TEAM } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
@@ -5,12 +6,18 @@ import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
 
 const initialState = {
+    name: null,
     team: null,
     points: 0,
     time: 9
 }
 
 function rootReducer(state=initialState, action) {
+    if(action.type === SET_NAME) {
+        return Object.assign({}, state, {
+            name : action.payload
+        })
+    }
     if(action.type === SET_TEAM) {
         return Object.assign({}, state, {
             team : action.payload

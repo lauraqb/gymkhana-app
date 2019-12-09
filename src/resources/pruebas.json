@@ -4,7 +4,7 @@
     },
     {
         "points": 1,
-        "challengeText": "Demostrad que sabéis trabajar en equipo. \nTenéis que estar todos en contacto y el suelo sólo puede ser tocado por: \n- 2 pies izquierdos \n- 2 manos",
+        "challengeText": "Demostrad que sabéis trabajar en equipo. \nTodos los miembros del equipo deben estar en contacto y el suelo sólo puede ser tocado por: \n- 2 pies izquierdos \n- 2 manos",
         "textoSecundario": "Una vez conseguido, se os proporcionará el código para desbloquear la siguiente prueba",
         "placeholder": "",
         "solution": "000"
@@ -12,10 +12,10 @@
     {
         "points": 1,
         "challengeText": "¿Sabes ese tipo a caballo frente al ZOO? Agradécele este parque",
-        "textoSecundario": "(4 letras)",
+        "textoSecundario": "Si respondéis a tiempo ganaréis una moneda",
         "placeholder": "Introduce su nombre",
         "solution": "Prim",
-        "time": "0:01"
+        "time": "0:10"
     },
     {
         "points": 2,

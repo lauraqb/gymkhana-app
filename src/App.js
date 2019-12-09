@@ -11,32 +11,62 @@ import Prueba5 from './pages/Prueba5'
 import Prueba6 from './pages/Prueba6'
 import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
-import { connect } from 'react-redux' 
+import { connect } from 'react-redux'
+import { setName, setTeam, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 
 const config = require('./config.json');
 const endpoint = config.server
 const socket = socketIOClient(endpoint);
 
+/** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
-  return { team: state.team }
+  return { 
+    equipo: state.team,
+    jugador: state.name
+  };
 }
-function App({ team }) {
+
+/** Redux function. Sirve para enviar (dispatch) acciones al store */
+const mapDispatchToProps = (dispatch) => {
+  return {
+      setName: name => dispatch(setName(name)),
+      setTeam: team => dispatch(setTeam(team)),
+      restartPoints: points => dispatch(restartPoints())
+  }
+}
+
+function App({ equipo, jugador, setName, setTeam }) {
+  if(document.location.pathname !== "/intro" && jugador) {
+    socket.emit("checkJugadorFromApp", jugador, (data) => {
+      if(data === 0) {
+        setName(null)
+        setTeam(null)
+        document.location.href="/"
+      }    
+    })
+  }
+  if(document.location.pathname !== "/" && (!jugador || !equipo)) {
+    document.location.href="/"
+  }
+
+
   const sendPosition = () => {
     function geo_success(position) {
+      debugger
       var coordenadas = {
-          team: team,
+          nombre: jugador,
+          team: equipo,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
       }
       socket.emit("coordenadas", coordenadas);
-      //client.send(JSON.stringify(coordenadas))
     }
     function geo_error(error) {
       console.error("error "+error.message)
       socket.emit("error", error.message);
     }
-    if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
+    if (equipo) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
 
   setInterval(sendPosition, 3000)
@@ -60,6 +90,6 @@ function App({ team }) {
   );
 }
 
-const appConnected = connect(mapStateToProps)(App)
+const appConnected = connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default appConnected;

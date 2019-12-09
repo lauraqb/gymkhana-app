@@ -1,5 +1,8 @@
 # GYMKHANA DEL BORNE
 Esta aplicación es un juego.
+Instrucciones previas del juego.
+- Podréis ir ganando monedas con algunas pruebas, que os podrán servir en un futuro.
+- Solo es necesario que uno del grupo la pase con su movil.
 
 ## Available Scripts
 

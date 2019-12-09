@@ -12,7 +12,8 @@ code {
 }
 
 .g-body {
-  background-color: #282c34;
+  background-color: #181818;  /*#282c34; */
+  background-image: url("https://barriodogg.com/wp-content/uploads/2018/11/WEBSITE-WOOD-BACKGROUND.jpg");
   position: relative;
   min-height: calc(100vh - 50px);
   display: flex;
@@ -25,6 +26,9 @@ code {
   overflow: hidden;
 }
 
+.g-body.g-prueba-body {
+  background-image: none !important; 
+}
 .g-body .container{
   z-index: 1;
 }

@@ -1,6 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal'
+
+import IosIonic from 'react-ionicons/lib/IosRefresh'
+import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline'
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg'; /**Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client";
@@ -11,13 +16,26 @@ const socket = socketIOClient(endpoint);
 
 let pruebasObject = require('../resources/pruebas.json')
 
+const mapStateToProps = state => {
+    return { 
+      nombre: state.name,
+      team: state.team
+    };
+};
+
+//TODO resolver el problema de:
+// Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
 class Prueba extends React.Component {
 
     constructor(props) {
+        
         super(props)
+        this.state = {
+            modal: false,
+            textoModal: ""
+        };
         const id = this.props.id //número de prueba
         this.challengeText = pruebasObject[id].challengeText
-        //this.challengeText = this.challengeText.replace(/\n/g, "<br>")
         this.textoSecundario = pruebasObject[id].textoSecundario
         this.placeholder = pruebasObject[id].placeholder
         this.points = pruebasObject[id].points
@@ -26,27 +44,76 @@ class Prueba extends React.Component {
         this.clue = pruebasObject[id].clue
         this.time = pruebasObject[id].time
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleClick = this.handleClick.bind(this) //renombrar a pista
-    }
+        this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
 
-    handleSubmit(e) {
+        const This = this
+        socket.on("jugadoresRestantesFromServer", function(data) {
+            if(data === 0){
+                This.setState({
+                    textoModal: "¡Pasáis a la siguiente prueba!"
+                });
+                //Esperamos 1 segundo para cambiar la pantalla
+                setTimeout(function () {
+                    This.props.onSubmit(This.points)
+                }, 1000);
+            }
+        })
+    }
+    jugadoresPruebaCompletada(options) {
+        const data = {
+            pruebaId: options.pruebaId, 
+            nombre: options.nombre, 
+            team: options.equipo
+        }
+        return new Promise(function(resolve, reject) {
+            socket.emit("pruebaCompletada", data, function(jugadoresRestantes) {
+                resolve(jugadoresRestantes)
+            })
+        })
+    }
+    handleSubmit(event) {
+        event.preventDefault();
         const input = document.getElementById("inputText").value.toLowerCase()
         const solution = this.solution.toLowerCase()
         const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
         if(input === solution) {
-            if (timer !== "0:00") {
-                if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-                else if(this.points === 1) alert("¡Muy bien! Habéis ganado "+this.points+" punto.")
-                else alert("¡Muy bien! Habéis ganado "+this.points+" puntos.")
+            // if (timer !== "0:00") {
+            //     if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
+            //     else if(this.points === 1) alert("¡Muy bien! Habéis ganado "+this.points+" punto.")
+            //     else alert("¡Muy bien! Habéis ganado "+this.points+" puntos.")
+            // }
+            // else {
+            //     alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
+            // }
+            const This = this
+            const data = {
+                pruebaId: this.props.id, 
+                nombre: this.props.nombre, 
+                equipo: this.props.team
             }
-            else {
-                alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-            }
-            this.props.onSubmit(this.points)
-
-            socket.emit("pruebaCompletada", {challange: this.props.id, team: "rojo"});
+            this.jugadoresPruebaCompletada(data).then(function(jugadoresRestantes) {
+                if(jugadoresRestantes == 0) {
+                    This.setState({
+                        textoModal: "¡Pasáis a la siguiente prueba!"
+                    });
+                    //Esperamos 2 segundos para cambiar la pantalla
+                    setTimeout(function () {
+                        This.props.onSubmit(This.points)
+                    }, 2000);
+                }
+                else {
+                    This.setState({
+                        textoModal: "Esperando a que tus compañeros completen la prueba para pasar a la siguiente (faltan: "+jugadoresRestantes+")"
+                    }); 
+                }
+            })
+            this.setState({
+                modal: true
+              });
+            
         }
         else {
+            event.preventDefault();
             alert("Sigue intentándolo")
         }
     }
@@ -57,14 +124,14 @@ class Prueba extends React.Component {
     }
 
     render() {
-        return <div className="container g-body">
+        return <div className="container g-body g-prueba-body">
             <div className="row">
                 <div className="col-12" align="center">
                     <h2 className="g-prueba-title">Prueba #{this.props.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="g-english" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
-                    <Form onSubmit={this.handleSubmit}>
+                    <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder={this.placeholder} id="inputText" />
                             <Form.Text className="text-muted">{this.props.textMuted}</Form.Text>
@@ -73,6 +140,14 @@ class Prueba extends React.Component {
                             Enviar
                         </Button>
                     </Form>
+                    <Modal show={this.state.modal} aria-labelledby="contained-modal-title-vcenter" centered>
+                        <Modal.Header>
+                            <Modal.Title><IosCheckmarkCircleOutline fontSize="60px" color="green" />¡Correcto!</Modal.Title>
+                        </Modal.Header>
+                        <center> <IosIonic fontSize="55px" color="#347eff" rotate={true} /></center>
+                        <Modal.Body>{this.state.textoModal} </Modal.Body>
+                    </Modal>
+
                     {this.time ? <Timer seconds={this.time} time={this.time}/>:"" }
                     {this.clue ? <div className="g-line">
             <p className="g-pista">¿Estás atascado? Pide una pista a cambio un punto</p>
@@ -87,4 +162,6 @@ class Prueba extends React.Component {
     }
 }
 
-export default Prueba
+//export default Prueba
+const pruebaConnected = connect(mapStateToProps)(Prueba);
+export default pruebaConnected;
