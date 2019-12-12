@@ -53,10 +53,9 @@ function App({ equipo, jugador, setName, setTeam }) {
 
   const sendPosition = () => {
     function geo_success(position) {
-      debugger
       var coordenadas = {
           nombre: jugador,
-          team: equipo,
+          equipo: equipo,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
       }
