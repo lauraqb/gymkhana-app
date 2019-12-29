@@ -1,5 +1,6 @@
-import { SET_NAME } from "../constants/action-types"
-import { SET_TEAM } from "../constants/action-types"
+// import { SET_GAME } from "../constants/action-types"
+import { SET_GAME, SET_NAME, SET_TEAM } from "../constants/action-types"
+// import { SET_TEAM } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
@@ -13,6 +14,11 @@ const initialState = {
 }
 
 function rootReducer(state=initialState, action) {
+    if(action.type === SET_GAME) {
+        return Object.assign({}, state, {
+            name : action.payload
+        })
+    }
     if(action.type === SET_NAME) {
         return Object.assign({}, state, {
             name : action.payload

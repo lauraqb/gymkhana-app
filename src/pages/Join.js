@@ -1,5 +1,5 @@
 import React from 'react';
-import "../styles/inicio.css";
+import "../styles/join.css";
 import { connect } from 'react-redux'
 import { setName, setTeam, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form';

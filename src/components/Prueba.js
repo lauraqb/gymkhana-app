@@ -4,10 +4,10 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 
-import IosIonic from 'react-ionicons/lib/IosRefresh'
+import IosIonic from 'react-ionicons/lib/MdWalk'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline'
 import Timer from './Timer'
-import tanque from '../images/dios-neptuno.jpg'; /**Crear un componente para las imagenes */
+import tanque from '../images/dios-neptuno.jpg'; /**TODO Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client";
 
 const config = require('../config.json');
@@ -32,7 +32,7 @@ class Prueba extends React.Component {
         super(props)
         this.state = {
             modal: false,
-            textoModal: ""
+            textoModal: " "
         };
         const id = this.props.id //número de prueba
         this.challengeText = pruebasObject[id].challengeText
@@ -47,6 +47,7 @@ class Prueba extends React.Component {
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
 
         const This = this
+        //jugadoresRestantesPorCompletarLaPrueba
         socket.on("jugadoresRestantesFromServer", function(data) {
             if(data === 0){
                 This.setState({
@@ -103,7 +104,7 @@ class Prueba extends React.Component {
                 }
                 else {
                     This.setState({
-                        textoModal: "Esperando a que tus compañeros completen la prueba para pasar a la siguiente (faltan: "+jugadoresRestantes+")"
+                        textoModal: "Esperando a tus compañeros. (Faltan: "+jugadoresRestantes+")"
                     }); 
                 }
             })
@@ -144,8 +145,12 @@ class Prueba extends React.Component {
                         <Modal.Header>
                             <Modal.Title><IosCheckmarkCircleOutline fontSize="60px" color="green" />¡Correcto!</Modal.Title>
                         </Modal.Header>
-                        <center> <IosIonic fontSize="55px" color="#347eff" rotate={true} /></center>
-                        <Modal.Body>{this.state.textoModal} </Modal.Body>
+                        <Modal.Body>
+                            <center><div class="loader"></div></center>
+                            <br></br>
+                            {this.state.textoModal} 
+                            {/* <IosIonic fontSize="55px" color="#969ca2" /> */}
+                        </Modal.Body>
                     </Modal>
 
                     {this.time ? <Timer seconds={this.time} time={this.time}/>:"" }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import './App.css';
-import Inicio from './pages/Inicio'
+import './App.css'
+import Home from './pages/Home'
+import Join from './pages/Join'
 import Prueba0 from './pages/Prueba0'
 import Prueba1 from './pages/Prueba1'
 import Prueba2 from './pages/Prueba2'
@@ -50,7 +51,6 @@ function App({ equipo, jugador, setName, setTeam }) {
     document.location.href="/"
   }
 
-
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {
@@ -73,7 +73,8 @@ function App({ equipo, jugador, setName, setTeam }) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Inicio} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/join" component={Join} />
         <Route exact path="/intro" component={Prueba0} />
         <Route exact path="/prueba1" component={Prueba1} />
         <Route exact path="/prueba2" component={Prueba2} />

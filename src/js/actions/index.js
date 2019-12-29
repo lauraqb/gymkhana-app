@@ -1,9 +1,14 @@
+import { SET_GAME } from "../constants/action-types"
 import { SET_NAME } from "../constants/action-types"
 import { SET_TEAM } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
+
+export function setGame(payload) {
+    return { type: SET_GAME, payload }
+}
 
 export function setName(payload) {
     return { type: SET_NAME, payload }

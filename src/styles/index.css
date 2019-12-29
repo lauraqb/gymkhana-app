@@ -76,3 +76,24 @@ code {
 .g-final-points p{
   height: 80px;
 }
+
+.loader {
+  border: 10px solid #e4e3e3;
+  border-radius: 50%;
+  border-top: 10px solid rgb(128, 137, 165);
+  /* border-bottom: 16px solid rgb(107, 132, 218); */
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 1s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
