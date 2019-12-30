@@ -1,5 +1,4 @@
 import React from 'react';
-import "../styles/home.css";
 import { connect } from 'react-redux'
 import { setGame, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form';
@@ -13,7 +12,7 @@ const socket = socketIOClient(endpoint);
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
-        setGame: name => dispatch(setGame(name)),
+        setGame: game => dispatch(setGame(game)),
         restartPoints: points => dispatch(restartPoints())
     }
 }
@@ -32,7 +31,6 @@ class Inicio extends React.Component {
     }
 
     componentWillMount() {
-        debugger
         //Si el usuario ya ha entrado, omitimos esta pantalla
         if(this.props.game)  
             this.props.history.push('/join')
@@ -64,7 +62,7 @@ class Inicio extends React.Component {
                         <Form.Group>
                             <Form.Control className="g-input" type="text" placeholder="Game PIN" id="gamePin" />
                         </Form.Group>
-                        <Button className="g-home-btn" variant="primary" type="submit">
+                        <Button className="g-btn" variant="primary" type="submit">
                             Entrar
                         </Button>
                     </Form>

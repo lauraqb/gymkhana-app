@@ -91,15 +91,12 @@ class Inicio extends React.Component {
 
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Control type="text" placeholder="Nombre" id="inputNombre" />
+                            <Form.Control className="g-input" type="text" placeholder="Nickname" id="inputNombre" />
                         </Form.Group>
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Control type="text" placeholder="Código" id="inputCodigo" />
-                            {/* <Form.Text className="text-muted">Introduce el código</Form.Text> */}
+                            <Form.Control className="g-input" type="text" placeholder="Código Equipo" id="inputCodigo" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Entrar
-                        </Button>
+                        <Button className="g-btn" variant="primary" type="submit">OK, go!</Button>
                     </Form>
                 </div>
                 <div className="g-brujula"><img src={brujula} width={150} height={150} alt=""/></div>

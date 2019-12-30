@@ -23,6 +23,7 @@ const socket = socketIOClient(endpoint);
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
   return { 
+    game: state.game,
     equipo: state.team,
     jugador: state.name
   };
@@ -37,9 +38,14 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-function App({ equipo, jugador, setName, setTeam }) {
-  if(document.location.pathname !== "/intro" && jugador) {
-    socket.emit("checkJugadorFromApp", jugador, (data) => {
+function App({ game, equipo, jugador, setName, setTeam }) {
+  debugger
+  const path = document.location.pathname
+  if(path !== "/" && !game) {
+    document.location.href="/"
+  }
+  else if((path !== "/join" && path !== "/intro") && jugador) {
+    socket.emit("isPlayerInDB", jugador, (data) => {
       if(data === 0) {
         setName(null)
         setTeam(null)
@@ -47,9 +53,7 @@ function App({ equipo, jugador, setName, setTeam }) {
       }    
     })
   }
-  if(document.location.pathname !== "/" && (!jugador || !equipo)) {
-    document.location.href="/"
-  }
+
 
   const sendPosition = () => {
     function geo_success(position) {
