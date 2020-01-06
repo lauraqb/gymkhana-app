@@ -11,83 +11,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-.g-body {
-  background-color: #181818;  /*#282c34; */
-  background-image: url("https://barriodogg.com/wp-content/uploads/2018/11/WEBSITE-WOOD-BACKGROUND.jpg");
-  position: relative;
-  min-height: calc(100vh - 50px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  padding-bottom: 10px;
-  overflow: hidden;
-}
-
-.g-body.g-prueba-body {
-  background-image: none !important; 
-}
-.g-body .container{
-  z-index: 1;
-}
-
-.g-body p{
-  white-space:pre-wrap;
-}
-
-.g-prueba-title {
-  color: #fac833;
-  margin-bottom: 30px;
-  padding-top: 10px
-}
-
-.g-english {
-  font-size: calc(5px + 2vmin);
-  color: rgb(172, 172, 172);
-}
-
-.g-imagen {
-  width: 80%;
-  margin-bottom: 15px;
-}
-
-.g-animal-icon {
-  width: 25%;
-  margin: 0 2px ;
-  background-color: #fac833
-}
-
-.g-line {
-  margin: 20px;
-  border-bottom: 1px solid grey
-}
-
-.g-pista {
-  color: rgb(172, 172, 172);
-  font-size: calc(7px + 2vmin);
-}
-
-.g-final-points{
-  padding-bottom: 30px;
-}
-
-.g-final-points p{
-  height: 80px;
-}
-
-.loader {
-  border: 10px solid #e4e3e3;
-  border-radius: 50%;
-  border-top: 10px solid rgb(128, 137, 165);
-  /* border-bottom: 16px solid rgb(107, 132, 218); */
-  width: 60px;
-  height: 60px;
-  -webkit-animation: spin 1s linear infinite;
-  animation: spin 1s linear infinite;
-}
-
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -98,16 +21,3 @@ code {
   100% { transform: rotate(360deg); }
 }
 
-input.g-input {
-  font-weight: bold;
-  text-align: center;
-}
-
-button.g-btn {
-  width: 100%;
-  font-weight: bold;
-}
-
-input.g-input::placeholder {
-  color: rgb(141, 141, 141);
-}

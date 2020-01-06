@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import './App.css'
+import './styles/App.css'
 import Home from './pages/Home'
 import Join from './pages/Join'
 import Prueba0 from './pages/Prueba0'
@@ -39,22 +39,23 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function App({ game, equipo, jugador, setName, setTeam }) {
-  debugger
+  if (!socket.connected) {
+    return (<div>Error de conexión con el servidor {config.server}</div>)
+  }
   const path = document.location.pathname
   if(path !== "/" && !game) {
     document.location.href="/"
   }
   else if((path !== "/join" && path !== "/intro") && jugador) {
-    socket.emit("isPlayerInDB", jugador, (data) => {
-      if(data === 0) {
-        setName(null)
-        setTeam(null)
-        document.location.href="/"
-      }    
-    })
+      socket.emit("isPlayerInDB", jugador, (data) => {
+        if(data === 0) {
+          setName(null)
+          setTeam(null)
+          document.location.href="/"
+        }    
+      })
   }
-
-
+alert("Hola")
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {

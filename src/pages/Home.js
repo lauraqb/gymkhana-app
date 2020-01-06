@@ -45,7 +45,7 @@ class Inicio extends React.Component {
         }
         else {
             socket.emit("validateGamePin", {pin: gamePin}, (result)=> {
-                if(result.length == 0) alert("PIN no válido")
+                if(result.length === 0) alert("PIN no válido")
                 else {
                     this.props.setGame(result.id)
                     this.props.history.push('/join')
@@ -56,7 +56,7 @@ class Inicio extends React.Component {
 
     render() {
         return  <div className="App">
-            <header className="App-header">
+            <header className="App-content">
                 <div className="inicio-content">
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group>

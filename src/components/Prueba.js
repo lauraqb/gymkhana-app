@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 
-import IosIonic from 'react-ionicons/lib/MdWalk'
+//import IosIonic from 'react-ionicons/lib/MdWalk'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline'
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg'; /**TODO Crear un componente para las imagenes */
@@ -76,7 +76,7 @@ class Prueba extends React.Component {
         event.preventDefault();
         const input = document.getElementById("inputText").value.toLowerCase()
         const solution = this.solution.toLowerCase()
-        const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
+        //const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
         if(input === solution) {
             // if (timer !== "0:00") {
             //     if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
@@ -93,7 +93,7 @@ class Prueba extends React.Component {
                 equipo: this.props.team
             }
             this.jugadoresPruebaCompletada(data).then(function(jugadoresRestantes) {
-                if(jugadoresRestantes == 0) {
+                if(jugadoresRestantes === 0) {
                     This.setState({
                         textoModal: "¡Pasáis a la siguiente prueba!"
                     });
