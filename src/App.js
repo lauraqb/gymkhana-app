@@ -39,9 +39,9 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 function App({ game, equipo, jugador, setName, setTeam }) {
-  if (!socket.connected) {
-    return (<div>Error de conexión con el servidor {config.server}</div>)
-  }
+  // if (!socket.connected) {
+  //   return (<div>Error de conexión con el servidor {config.server}</div>)
+  // }
   const path = document.location.pathname
   if(path !== "/" && !game) {
     document.location.href="/"

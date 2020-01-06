@@ -48,7 +48,7 @@ class Prueba extends React.Component {
 
         const This = this
         //jugadoresRestantesPorCompletarLaPrueba
-        socket.on("jugadoresRestantesFromServer", function(data) {
+        socket.on("server/playersLeftToComplete", function(data) {
             if(data === 0){
                 This.setState({
                     textoModal: "¡Pasáis a la siguiente prueba!"
@@ -67,7 +67,7 @@ class Prueba extends React.Component {
             team: options.equipo
         }
         return new Promise(function(resolve, reject) {
-            socket.emit("pruebaCompletada", data, function(jugadoresRestantes) {
+            socket.emit("app/challengeDone", data, function(jugadoresRestantes) {
                 resolve(jugadoresRestantes)
             })
         })
