@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Navbar from '../components/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import chickenIcon from '../images/chicken.png';
@@ -41,29 +40,32 @@ class Prueba5 extends React.Component {
     }
 
     render() {
-        return <div className="g-app">
-        <Navbar></Navbar>
-        <div className="container g-body">
-            <div className="row">
-                <div className="col-12" align="center">
-                    <h2 className="g-prueba-title">Prueba #5</h2>
-                    <img src={chickenIcon} className="g-animal-icon" alt="x"></img>+<img src={dogIcon} className="g-animal-icon" alt="x"></img>
-                    +<img src={horseIcon} className="g-animal-icon" alt="x"></img> = ?
-                    <p></p>
-                    <p>{this.textoPrueba}</p>
-                    <p className="g-english" >{this.textoSecundario}</p>
-                    <Form onSubmit={this.handleSubmit}>
-                        <Form.Group>
-                            <Form.Control type="text" placeholder="?" id="inputText" />
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Enviar
-                        </Button>
-                    </Form>
+        return (
+            <React.Fragment>
+                <div className="g-app">
+                <div className="container g-body">
+                    <div className="row">
+                        <div className="col-12" align="center">
+                            <h2 className="g-prueba-title">Prueba #5</h2>
+                            <img src={chickenIcon} className="g-animal-icon" alt="x"></img>+<img src={dogIcon} className="g-animal-icon" alt="x"></img>
+                            +<img src={horseIcon} className="g-animal-icon" alt="x"></img> = ?
+                            <p></p>
+                            <p>{this.textoPrueba}</p>
+                            <p className="g-english" >{this.textoSecundario}</p>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Form.Group>
+                                    <Form.Control type="text" placeholder="?" id="inputText" />
+                                </Form.Group>
+                                <Button variant="primary" type="submit">
+                                    Enviar
+                                </Button>
+                            </Form>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                </div>
+            </React.Fragment>
+        )
     }
 }
 

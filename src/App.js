@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/App.css'
+import Layout from './components/Layout'
 import Home from './pages/Home'
 import Join from './pages/Join'
 import Prueba0 from './pages/Prueba0'
@@ -12,6 +13,7 @@ import Prueba5 from './pages/Prueba5'
 import Prueba6 from './pages/Prueba6'
 import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
+import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
 import { setName, setTeam, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
@@ -42,11 +44,13 @@ function App({ game, equipo, jugador, setName, setTeam }) {
   // if (!socket.connected) {
   //   return (<div>Error de conexión con el servidor {config.server}</div>)
   // }
-  const path = document.location.pathname
-  if(path !== "/" && !game) {
-    document.location.href="/"
-  }
-  else if((path !== "/join" && path !== "/intro") && jugador) {
+
+  const redirectToHomePageIfNecessary = () => {
+    const path = document.location.pathname
+    if(path !== "/" && !game) {
+      document.location.href="/"
+    }
+    else if((path !== "/join" && path !== "/intro") && jugador) {
       socket.emit("isPlayerInDB", jugador, (data) => {
         if(data === 0) {
           setName(null)
@@ -54,8 +58,11 @@ function App({ game, equipo, jugador, setName, setTeam }) {
           document.location.href="/"
         }    
       })
+    }
   }
-alert("Hola")
+
+  redirectToHomePageIfNecessary()
+
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {
@@ -77,19 +84,22 @@ alert("Hola")
 
   return (
     <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/join" component={Join} />
-        <Route exact path="/intro" component={Prueba0} />
-        <Route exact path="/prueba1" component={Prueba1} />
-        <Route exact path="/prueba2" component={Prueba2} />
-        <Route exact path="/prueba3" component={Prueba3} />
-        <Route exact path="/prueba4" component={Prueba4} />
-        <Route exact path="/prueba5" component={Prueba5} />
-        <Route exact path="/prueba6" component={Prueba6} />
-        <Route exact path="/prueba7" component={Prueba7} />
-        <Route exact path="/final" component={Final} />
-      </Switch>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/join" component={Join} />
+          <Route exact path="/intro" component={Prueba0} />
+          <Route exact path="/prueba1" component={Prueba1} />
+          <Route exact path="/prueba2" component={Prueba2} />
+          <Route exact path="/prueba3" component={Prueba3} />
+          <Route exact path="/prueba4" component={Prueba4} />
+          <Route exact path="/prueba5" component={Prueba5} />
+          <Route exact path="/prueba6" component={Prueba6} />
+          <Route exact path="/prueba7" component={Prueba7} />
+          <Route exact path="/final" component={Final} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
     </BrowserRouter>
    
   );

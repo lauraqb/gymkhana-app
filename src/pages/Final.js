@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Navbar from '../components/Navbar';
 import horseGif from '../images/horse-gif.gif';
 
 const mapStateToProps = state => {
@@ -19,20 +18,21 @@ class Final extends React.Component {
     }
 
     render() {
-        return <div className="g-app">
-        <Navbar></Navbar>
-        <div className="container g-body">
-            <div className="row">
-                <div className="col-12" align="center">
-                    <h2 className="g-prueba-title">¡Felicidades!</h2>
-                    <p>{this.textoPrueba}</p>
-                    <p className="g-english" >{this.textoIngles}</p>
-                    
-                    <img src={horseGif} alt="icono" className="g-imagen"></img>
+        return <React.Fragment>
+            <div className="g-app">
+                <div className="container g-body">
+                    <div className="row">
+                        <div className="col-12" align="center">
+                            <h2 className="g-prueba-title">¡Felicidades!</h2>
+                            <p>{this.textoPrueba}</p>
+                            <p className="g-english" >{this.textoIngles}</p>
+                            
+                            <img src={horseGif} alt="icono" className="g-imagen"></img>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </React.Fragment>
 
     }
 }

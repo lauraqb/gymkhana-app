@@ -1,7 +1,6 @@
 import React from 'react'
 import "../styles/prueba0.css";
 import { connect } from 'react-redux'
-import Navbar from '../components/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import pistol from '../images/pistol.png';
@@ -22,25 +21,27 @@ class Intro extends React.Component {
     }
 
     render() {
-        return ( <div className="App">
-                <Navbar></Navbar>
-                <div className="g-body">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-12" align="center">
-                                <h2>Hola {this.props.name}. Eres del equipo {this.props.team}</h2>
-                                <p>{this.textoIntro}</p>                          
-                                    <Link to="./prueba1" className="App-link">
-                                        <Button className="g-round-btn" type="submit">Empezar</Button>
-                                    </Link>
+        return ( 
+            <React.Fragment>
+                <div className="App">
+                    <div className="g-body">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-12" align="center">
+                                    <h2>Hola {this.props.name}. Eres del equipo {this.props.team}</h2>
+                                    <p>{this.textoIntro}</p>                          
+                                        <Link to="./prueba1" className="App-link">
+                                            <Button className="g-round-btn" type="submit">Empezar</Button>
+                                        </Link>
+                                </div>
                             </div>
                         </div>
+                        <div className="g-map-img"><img src={map} width={380} alt=""/></div>
+                        <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div>
                     </div>
-                    <div className="g-map-img"><img src={map} width={380} alt=""/></div>
-                    <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div>
-                </div>
-            </div> 
-        );
+                </div> 
+            </React.Fragment>
+        )
     }
 }
 const introConnected = connect(mapStateToProps)(Intro);

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import Navbar from '../components/Navbar';
 import Prueba from '../components/Prueba'
 import { addPoints } from '../js/actions/index'
 
@@ -25,10 +24,13 @@ class Prueba2 extends React.Component {
     }
 
     render() {
-        return <div className="g-app">
-            <Navbar></Navbar>
-            <Prueba id={this.id} onSubmit={this.goToNextChallenge} />
-        </div>
+        return (
+            <React.Fragment>
+                <div className="g-app">
+                    <Prueba id={this.id} onSubmit={this.goToNextChallenge} />
+                </div>
+            </React.Fragment>
+        )
     }
 }
 
