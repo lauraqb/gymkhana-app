@@ -1,7 +1,7 @@
 import React from 'react';
 import "../styles/join.css";
 import { connect } from 'react-redux'
-import { setName, setTeam, restartPoints } from '../js/actions/index'
+import { setGame, setName, setTeam, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import brujula from '../images/brujula.png';
@@ -14,6 +14,7 @@ const socket = socketIOClient(endpoint);
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
+        setGame: game => dispatch(setGame(game)),
         setName: name => dispatch(setName(name)),
         setTeam: team => dispatch(setTeam(team)),
         restartPoints: points => dispatch(restartPoints())
@@ -43,6 +44,17 @@ class Inicio extends React.Component {
             this.props.history.push('/intro')
         //this.props.setTeam(null)
     }
+    //TODO pendiente manejar refresco pagina
+    componentDidMount() {
+        window.addEventListener('beforeunload', this.beforeunload.bind(this));
+      }
+     beforeunload(e) {
+        debugger
+        const confirmationMessage = 'Some message'
+        e.returnValue = confirmationMessage
+
+        return confirmationMessage;  
+      }
     
     handleSubmit(e){
         e.preventDefault();
