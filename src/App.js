@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import axios from 'axios'
 import './styles/App.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
@@ -26,8 +27,8 @@ const socket = socketIOClient(endpoint);
 const mapStateToProps = state => {
   return { 
     game: state.game,
-    equipo: state.team,
-    jugador: state.name
+    team: state.team,
+    player: state.name
   };
 }
 
@@ -40,24 +41,44 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-function App({ game, equipo, jugador, setName, setTeam }) {
-  // if (!socket.connected) {
-  //   return (<div>Error de conexión con el servidor {config.server}</div>)
-  // }
+function App({ game, team, player, setName, setTeam }) {
 
+  socket.on('connect', () => {
+    console.log("socket connected "+socket.id)
+  });
+
+  socket.on('connect_error', (error) => {
+    console.log("connect_error "+error);
+  });
+
+  socket.on('disconnect', (reason) => {
+    console.log("disconnect "+reason);
+  });
+  
   const redirectToHomePageIfNecessary = () => {
     const path = document.location.pathname
     if(path !== "/" && !game) {
       document.location.href="/"
     }
-    else if((path !== "/join" && path !== "/intro") && jugador) {
-      socket.emit("isPlayerInDB", jugador, (data) => {
-        if(data === 0) {
+    else if((path !== "/join" && path !== "/intro") && player) {
+      axios.post(endpoint+"/checkPlayerInDB", {player: player})
+      .then(res => {
+        console.log(res)
+        if(res === 0) {
           setName(null)
           setTeam(null)
           document.location.href="/"
-        }    
+        }   
       })
+      .catch(error => console.log("error en checkPlayerInDB"));
+      //TODO descomentar pero cambiar a http request
+      // socket.emit("isPlayerInDB", player, (data) => {
+      //   if(data === 0) {
+      //     setName(null)
+      //     setTeam(null)
+      //     document.location.href="/"
+      //   }    
+      // })
     }
   }
 
@@ -66,21 +87,21 @@ function App({ game, equipo, jugador, setName, setTeam }) {
   const sendPosition = () => {
     function geo_success(position) {
       var coordenadas = {
-          nombre: jugador,
-          equipo: equipo,
+          nombre: player,
+          equipo: team,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
       }
-      socket.emit("coordenadas", coordenadas);
+      //TODO descomentar socket.emit("coordenadas", coordenadas);
     }
     function geo_error(error) {
       console.error("error "+error.message)
-      socket.emit("error", error.message);
+      //socket.emit("error", error.message);
     }
-    if (equipo) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
+    if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
 
-  setInterval(sendPosition, 3000)
+  if (player) setInterval(sendPosition, 3000)
 
   return (
     <BrowserRouter>

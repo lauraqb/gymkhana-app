@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import axios from 'axios'
 import { setGame, setName, setTeam, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import socketIOClient from "socket.io-client";
 
 const config = require('../config.json');
 const endpoint = config.server
-const socket = socketIOClient(endpoint);
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -29,6 +28,11 @@ class Inicio extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            loading: false,
+            error: null,
+            invalidPinGame: false
+        }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
@@ -56,26 +60,18 @@ class Inicio extends React.Component {
                 alert("Rellene el campo")
                 break
             default:
-                socket.emit("validateGamePin", {pin: gamePin}, (result)=> {
-                    if(result.length === 0) alert("PIN no válido")
-                    else {
-                        this.startGame(result.id)
-                    }
-                });     
-
+                this.setState({ loading: true }, () => {                      
+                    axios.post(endpoint+"/validateGame", {pin: gamePin})
+                    .then(res => {
+                        this.setState({ loading: false, error: false })
+                        if(res.data === "No existe") {
+                            this.setState({ invalidPinGame: true })
+                        }
+                        console.log(res.data);
+                    })
+                    .catch(error => this.setState({ loading: false, error: error.message }));
+                })
         }
-        // if(!gamePin) {
-        //     alert("Rellene el campo")
-        // }
-        // else {
-        //     socket.emit("validateGamePin", {pin: gamePin}, (result)=> {
-        //         if(result.length === 0) alert("PIN no válido")
-        //         else {
-        //             this.props.setGame(result.id)
-        //             this.props.history.push('/join')
-        //         }
-        //     });     
-        // }
     }
     startGame(gameId) {
         this.props.setGame(gameId)
@@ -83,10 +79,17 @@ class Inicio extends React.Component {
     }
 
     render() {
-        return  <div className="App">
+        if(this.state.loading) {
+            return <h1>loading</h1>
+        }
+        if(this.state.error) {
+            return <h1>Error: {this.state.error}</h1>
+        }
+        return <div className="App">
             <header className="App-content">
                 <div className="inicio-content">
                     <Form onSubmit={this.handleSubmit}>
+                        {this.state.invalidPinGame && <div>We didn't recognize that game PIN. Please check and try again.</div>}
                         <Form.Group>
                             <Form.Control className="g-input" type="text" placeholder="Game PIN" id="gamePin" />
                         </Form.Group>
