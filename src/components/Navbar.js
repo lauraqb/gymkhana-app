@@ -1,8 +1,8 @@
-import React from "react";
+import React from "react"
 import { connect } from 'react-redux'
-import "./styles/navbar.css";
-import Navbar from 'react-bootstrap/Navbar';
-import pirateIcon from '../images/pirataLogo.png';
+import "./styles/navbar.css"
+import Navbar from 'react-bootstrap/Navbar'
+import pirateIcon from '../images/pirataLogo.png'
 
 const mapStateToProps = state => {
   return { 

@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { setGame, setName, setTeam, restartPoints } from '../js/actions/index'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Loading from '../components/Loading'
 
-const config = require('../config.json');
+const config = require('../config.json')
 const endpoint = config.server
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
@@ -38,7 +39,7 @@ class Inicio extends React.Component {
 
     componentWillMount() {
         //Si el usuario ya ha entrado, omitimos esta pantalla
-        if(this.props.game)  
+        if(this.props.game && this.props.name)  
             this.props.history.push('/join')
         else {
             //reseteamos los valores del estado
@@ -80,7 +81,7 @@ class Inicio extends React.Component {
 
     render() {
         if(this.state.loading) {
-            return <h1>loading</h1>
+            return <Loading/>
         }
         if(this.state.error) {
             return <h1>Error: {this.state.error}</h1>
