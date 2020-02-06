@@ -1,8 +1,12 @@
-import { SET_GAME, SET_NAME, SET_TEAM } from "../constants/action-types"
+import { SET_GAME, SET_NAME, SET_TEAM, SET_SERVER_CONNECTED } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
+
+export function setServerConnected(payload) {
+    return { type: SET_SERVER_CONNECTED, payload }
+}
 
 export function setGame(payload) {
     return { type: SET_GAME, payload }

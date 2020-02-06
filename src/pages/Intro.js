@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/prueba0.css";
+import "./styles/Intro.css";
 import { connect } from 'react-redux'
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
@@ -11,8 +11,8 @@ const mapStateToProps = state => {
     return { 
         team: state.team,
         name: state.name
-    };
-};
+    }
+}
 
 class Intro extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Intro extends React.Component {
                                     <h2>Hola {this.props.name}. Eres del equipo {this.props.team}</h2>
                                     <p>{this.textoIntro}</p>                          
                                         <Link to="./prueba1" className="App-link">
-                                            <Button className="g-round-btn" type="submit">Empezar</Button>
+                                            <Button className="" type="submit">Empezar</Button>
                                         </Link>
                                 </div>
                             </div>

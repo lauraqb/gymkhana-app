@@ -1,6 +1,7 @@
 export const SET_GAME = "SET_GAME"
 export const SET_NAME = "SET_NAME"
 export const SET_TEAM = "SET_TEAM"
+export const SET_SERVER_CONNECTED = "SET_SERVER_CONNECTED"
 export const ADD_POINT = "ADD_POINT"
 export const RESET_POINTS = "RESET_POINTS"
 export const DELETE_POINTS = "DELETE_POINTS"

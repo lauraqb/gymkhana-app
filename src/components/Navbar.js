@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import "./styles/navbar.css"
+import "./styles/Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import pirateIcon from '../images/pirataLogo.png'
 

@@ -5,7 +5,7 @@ import './styles/App.css'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Join from './pages/Join'
-import Prueba0 from './pages/Prueba0'
+import Intro from './pages/Intro'
 import Prueba1 from './pages/Prueba1'
 import Prueba2 from './pages/Prueba2'
 import Prueba3 from './pages/Prueba3'
@@ -16,7 +16,7 @@ import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import { setName, setTeam, restartPoints } from './js/actions/index'
+import { setServerConnected, setName, setTeam, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 
 const config = require('./config.json');
@@ -25,7 +25,8 @@ const socket = socketIOClient(endpoint);
 
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
-  return { 
+  return {
+    serverConnected: state.serverConnected,
     game: state.game,
     team: state.team,
     player: state.name
@@ -35,16 +36,18 @@ const mapStateToProps = state => {
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 const mapDispatchToProps = (dispatch) => {
   return {
+      setServerConnected: x => dispatch(setServerConnected(x)),
       setName: name => dispatch(setName(name)),
       setTeam: team => dispatch(setTeam(team)),
       restartPoints: points => dispatch(restartPoints())
   }
 }
 
-function App({ game, team, player, setName, setTeam }) {
+function App({ game, team, player, setName, setTeam, setServerConnected }) {
 
   socket.on('connect', () => {
     console.log("socket connected "+socket.id)
+    setServerConnected(true)
   });
 
   socket.on('connect_error', (error) => {
@@ -101,7 +104,7 @@ function App({ game, team, player, setName, setTeam }) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/join" component={Join} />
-          <Route exact path="/intro" component={Prueba0} />
+          <Route exact path="/intro" component={Intro} />
           <Route exact path="/prueba1" component={Prueba1} />
           <Route exact path="/prueba2" component={Prueba2} />
           <Route exact path="/prueba3" component={Prueba3} />

@@ -7,21 +7,22 @@ import Modal from 'react-bootstrap/Modal'
 //import IosIonic from 'react-ionicons/lib/MdWalk'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline'
 import Timer from './Timer'
-import tanque from '../images/dios-neptuno.jpg'; /**TODO Crear un componente para las imagenes */
-import socketIOClient from "socket.io-client";
+import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
+import socketIOClient from "socket.io-client"
 
-const config = require('../config.json');
+const config = require('../config.json')
 const endpoint = config.server
-const socket = socketIOClient(endpoint);
+const socket = socketIOClient(endpoint)
 
 let pruebasObject = require('../resources/pruebas.json')
 
 const mapStateToProps = state => {
     return { 
-      nombre: state.name,
-      team: state.team
-    };
-};
+        serverConnected: state.serverConnected,
+        nombre: state.name,
+        team: state.team
+    }
+}
 
 //TODO resolver el problema de:
 // Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
@@ -31,9 +32,10 @@ class Prueba extends React.Component {
         
         super(props)
         this.state = {
+            serverConnected: this.props.serverConnected,
             modal: false,
             textoModal: " "
-        };
+        }
         const id = this.props.id //número de prueba
         this.challengeText = pruebasObject[id].challengeText
         this.textoSecundario = pruebasObject[id].textoSecundario
@@ -96,22 +98,21 @@ class Prueba extends React.Component {
                 if(jugadoresRestantes === 0) {
                     This.setState({
                         textoModal: "¡Pasáis a la siguiente prueba!"
-                    });
+                    })
                     //Esperamos 2 segundos para cambiar la pantalla
                     setTimeout(function () {
                         This.props.onSubmit(This.points)
-                    }, 2000);
+                    }, 2000)
                 }
                 else {
                     This.setState({
                         textoModal: "Esperando a tus compañeros. (Faltan: "+jugadoresRestantes+")"
-                    }); 
+                    })
                 }
             })
             this.setState({
                 modal: true
-              });
-            
+            })
         }
         else {
             event.preventDefault();
@@ -146,7 +147,9 @@ class Prueba extends React.Component {
                             <Modal.Title><IosCheckmarkCircleOutline fontSize="60px" color="green" />¡Correcto!</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <center><div class="loader"></div></center>
+                            {!this.state.serverConnected && <p>server disconnected</p>}
+                            {this.state.serverConnected && <center><div class="loader"></div></center>}
+                           
                             <br></br>
                             {this.state.textoModal} 
                             {/* <IosIonic fontSize="55px" color="#969ca2" /> */}

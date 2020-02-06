@@ -22,8 +22,8 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = state => {
     return { 
       game: state.game
-    };
-};
+    }
+}
 
 class Inicio extends React.Component {
 

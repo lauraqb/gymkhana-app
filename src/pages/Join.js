@@ -69,6 +69,9 @@ class Inicio extends React.Component {
         }
         //TODO validar que nombre no tenga ningun espacio, acento o símbolo
         switch(codigo) {
+            case "test": 
+                equipo = "test"
+                break
             case "b2345": 
                 equipo = "rojo"
                 break
@@ -88,10 +91,9 @@ class Inicio extends React.Component {
             this.props.setTeam(equipo)
             socket.emit("nuevoJugador", {jugador: jugador, equipo: equipo});
             this.props.history.push('/intro')
-        }
-        
+        }   
     }
-     render() {
+    render() {
         return  <div className="App">
             <header className="App-header">
                 <div className="inicio-content">
@@ -99,7 +101,6 @@ class Inicio extends React.Component {
                     </p>
                      <p>{this.textoIntro}</p>  
                      */}
-
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Control className="g-input" type="text" placeholder="Nickname" id="inputNombre" />
@@ -118,6 +119,3 @@ class Inicio extends React.Component {
 
 const inicioConnected = connect(mapStateToProps, mapDispatchToProps)(Inicio)
 export default inicioConnected;
-
-
-//<Link to="./prueba1" className="App-link"><h1>Empieza el juego</h1></Link>
