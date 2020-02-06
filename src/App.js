@@ -29,7 +29,7 @@ const mapStateToProps = state => {
     game: state.game,
     team: state.team,
     player: state.name
-  };
+  }
 }
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
@@ -71,14 +71,6 @@ function App({ game, team, player, setName, setTeam }) {
         }   
       })
       .catch(error => console.log("error en checkPlayerInDB"));
-      //TODO descomentar pero cambiar a http request
-      // socket.emit("isPlayerInDB", player, (data) => {
-      //   if(data === 0) {
-      //     setName(null)
-      //     setTeam(null)
-      //     document.location.href="/"
-      //   }    
-      // })
     }
   }
 

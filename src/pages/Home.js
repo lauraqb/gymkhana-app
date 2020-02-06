@@ -87,7 +87,6 @@ class Inicio extends React.Component {
             return <h1>Error: {this.state.error}</h1>
         }
         return <div className="App">
-            <header className="App-content">
                 <div className="inicio-content">
                     <Form onSubmit={this.handleSubmit}>
                         {this.state.invalidPinGame && <div>We didn't recognize that game PIN. Please check and try again.</div>}
@@ -99,7 +98,6 @@ class Inicio extends React.Component {
                         </Button>
                     </Form>
                 </div>           
-            </header>
         </div>
     }
 }

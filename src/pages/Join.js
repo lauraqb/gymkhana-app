@@ -1,11 +1,11 @@
-import React from 'react';
-import "../styles/join.css";
+import React from 'react'
+import "./styles/join.css"
 import { connect } from 'react-redux'
 import { setGame, setName, setTeam, restartPoints } from '../js/actions/index'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import brujula from '../images/brujula.png';
-import socketIOClient from "socket.io-client";
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import brujula from '../images/brujula.png'
+import socketIOClient from "socket.io-client"
 
 const config = require('../config.json');
 const endpoint = config.server
@@ -25,8 +25,8 @@ const mapStateToProps = state => {
     return { 
       jugador: state.name,
       team: state.team
-    };
-};
+    }
+}
 
 class Inicio extends React.Component {
 
@@ -95,8 +95,7 @@ class Inicio extends React.Component {
         return  <div className="App">
             <header className="App-header">
                 <div className="inicio-content">
-                    {/*<p>
-                        Bienvenido a la <code>Gymkhana de Urbanita</code>.
+                    {/*<p> Bienvenido a la <code>Gymkhana de Urbanita</code>.
                     </p>
                      <p>{this.textoIntro}</p>  
                      */}
@@ -112,7 +111,6 @@ class Inicio extends React.Component {
                     </Form>
                 </div>
                 <div className="g-brujula"><img src={brujula} width={150} height={150} alt=""/></div>
-                
             </header>
         </div>
     }
