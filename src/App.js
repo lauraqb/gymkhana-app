@@ -48,22 +48,24 @@ function App({ game, team, player, setName, setTeam, setServerConnected }) {
   socket.on('connect', () => {
     console.log("socket connected "+socket.id)
     setServerConnected(true)
-  });
+  })
 
   socket.on('connect_error', (error) => {
-    console.log("connect_error "+error);
-  });
+    console.log("connect_error "+error)
+    setServerConnected(false)
+  })
 
   socket.on('disconnect', (reason) => {
-    console.log("disconnect "+reason);
-  });
+    console.log("disconnect "+reason)
+    setServerConnected(false)
+  })
   
   const redirectToHomePageIfNecessary = () => {
     const path = document.location.pathname
     if(path !== "/" && !game) {
       document.location.href="/"
     }
-    else if((path !== "/join" && path !== "/intro") && player) {
+    else if((path !== "/join" && path !== "/intro") && player && player != "test") {
       axios.post(endpoint+"/checkPlayerInDB", {player: player})
       .then(res => {
         console.log(res)

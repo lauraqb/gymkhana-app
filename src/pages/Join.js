@@ -87,8 +87,10 @@ class Inicio extends React.Component {
                 break
         }
         if (datosValidos) {
+            debugger
             this.props.setName(jugador)
             this.props.setTeam(equipo)
+            //TODO cambiarlo a un httprequest
             socket.emit("nuevoJugador", {jugador: jugador, equipo: equipo});
             this.props.history.push('/intro')
         }   

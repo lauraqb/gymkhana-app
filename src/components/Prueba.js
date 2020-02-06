@@ -149,7 +149,6 @@ class Prueba extends React.Component {
                         <Modal.Body>
                             {!this.state.serverConnected && <p>server disconnected</p>}
                             {this.state.serverConnected && <center><div class="loader"></div></center>}
-                           
                             <br></br>
                             {this.state.textoModal} 
                             {/* <IosIonic fontSize="55px" color="#969ca2" /> */}
