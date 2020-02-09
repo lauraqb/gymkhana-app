@@ -61,14 +61,17 @@ class Inicio extends React.Component {
                 alert("Rellene el campo")
                 break
             default:
-                this.setState({ loading: true }, () => {                      
+                this.setState({ loading: true }, () => {                    
                     axios.post(endpoint+"/validateGame", {pin: gamePin})
                     .then(res => {
                         this.setState({ loading: false, error: false })
+                        console.log(res.data);
                         if(res.data === "No existe") {
                             this.setState({ invalidPinGame: true })
                         }
-                        console.log(res.data);
+                        else {
+                            this.startGame(res.data.id)
+                        }
                     })
                     .catch(error => this.setState({ loading: false, error: error.message }));
                 })

@@ -65,7 +65,7 @@ function App({ game, team, player, setName, setTeam, setServerConnected }) {
     if(path !== "/" && !game) {
       document.location.href="/"
     }
-    else if((path !== "/join" && path !== "/intro") && player && player != "test") {
+    else if((path !== "/join" && path !== "/intro") && player && player !== "test") {
       axios.post(endpoint+"/checkPlayerInDB", {player: player})
       .then(res => {
         console.log(res)

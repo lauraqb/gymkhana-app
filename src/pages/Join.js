@@ -1,20 +1,18 @@
 import React from 'react'
-import "./styles/join.css"
 import { connect } from 'react-redux'
-import { setGame, setName, setTeam, restartPoints } from '../js/actions/index'
+import { setName, setTeam, restartPoints } from '../js/actions/index'
+import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import brujula from '../images/brujula.png'
-import socketIOClient from "socket.io-client"
+import "./styles/join.css"
 
-const config = require('../config.json');
+const config = require('../config.json')
 const endpoint = config.server
-const socket = socketIOClient(endpoint);
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
-        setGame: game => dispatch(setGame(game)),
         setName: name => dispatch(setName(name)),
         setTeam: team => dispatch(setTeam(team)),
         restartPoints: points => dispatch(restartPoints())
@@ -23,8 +21,9 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => {
     return { 
-      jugador: state.name,
-      team: state.team
+        game: state.game,
+        player: state.name,
+        team: state.team
     }
 }
 
@@ -32,6 +31,11 @@ class Inicio extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            loading: false,
+            error: null,
+            invalidKeyTeam: false
+        }
         this.handleSubmit = this.handleSubmit.bind(this)
         // this.textoIntro = "Estás a punto de empezar la aventura más emocionante que ha ocurrido nunca en esta ciudad. "+
        // "Un tesoro se esconde en estas tierras. Para poder encontrarlo, antes debéis demostrar que sois verdaderos piratas."
@@ -40,13 +44,13 @@ class Inicio extends React.Component {
 
     componentWillMount() {
         //Si el usuario ya se ha registrado, omitimos esta pantalla
-        if(this.props.jugador && this.props.team)  
+        if(this.props.player && this.props.team)  
             this.props.history.push('/intro')
         //this.props.setTeam(null)
     }
     //TODO pendiente manejar refresco pagina
     componentDidMount() {
-        window.addEventListener('beforeunload', this.beforeunload.bind(this));
+        window.addEventListener('beforeunload', this.beforeunload.bind(this))
       }
      beforeunload(e) {
         debugger
@@ -59,41 +63,38 @@ class Inicio extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         this.props.restartPoints()
-        const jugador = document.getElementById('inputNombre').value
+        const player = document.getElementById('inputNombre').value
         const codigo = document.getElementById('inputCodigo').value.toLowerCase()
-        let equipo = null
-        let datosValidos = true
-        if(!jugador) {
-            datosValidos = false
-            alert("Rellene el campo nombre")
+        let team = null
+        if(!player) {
+            return alert("Rellene el campo nombre")
         }
-        //TODO validar que nombre no tenga ningun espacio, acento o símbolo
-        switch(codigo) {
-            case "test": 
-                equipo = "test"
-                break
-            case "b2345": 
-                equipo = "rojo"
-                break
-            case "1o345":
-                equipo = "azul"
-                break
-            case "12r45":
-                equipo = "verde"
-                break
-            default:
-                datosValidos = false
-                alert("código incorrecto")
-                break
+        else if (codigo=== "test") {
+            team = "test"
+            this.playerJoined(player, team)
         }
-        if (datosValidos) {
-            debugger
-            this.props.setName(jugador)
-            this.props.setTeam(equipo)
-            //TODO cambiarlo a un httprequest
-            socket.emit("nuevoJugador", {jugador: jugador, equipo: equipo});
-            this.props.history.push('/intro')
-        }   
+        else {
+            axios.post(endpoint+"/joinTeam", {player: player, key: codigo, game_id: this.props.game })
+            .then(res => {
+                this.setState({ loading: false, error: false })
+                console.log(res.data);
+                debugger
+                if(res.data === "No existe") {
+                    this.setState({ invalidKeyTeam: true })
+                }
+                else {
+                    team = res.data
+                    this.playerJoined(player, team)
+                }
+            })
+            .catch(error => this.setState({ loading: false, error: error.message })) 
+        }
+        
+    }
+    playerJoined(player, team) {
+        this.props.setName(player)
+        this.props.setTeam(team)
+        this.props.history.push('/intro')
     }
     render() {
         return  <div className="App">
