@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 class Menu extends React.Component {
 
   render() {
-    if(document.location.pathname === "/") {
+    if(document.location.pathname === "/" || document.location.pathname === "/join") {
       return <div></div>
     }
     return (

@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 
 //import IosIonic from 'react-ionicons/lib/MdWalk'
-import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline'
+import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline' //TODO cambiarlo por react-icons 
+//TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client"
@@ -163,7 +164,6 @@ class Prueba extends React.Component {
             </Button>
             <p className="g-pista" id="pista"></p> </div>:"" }
                 </div>
-                
             </div>
         </div>
     }

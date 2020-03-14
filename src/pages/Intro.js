@@ -10,7 +10,7 @@ import map from '../images/map.png';
 const mapStateToProps = state => {
     return { 
         team: state.team,
-        name: state.name
+        username: state.username,
     }
 }
 
@@ -18,17 +18,18 @@ class Intro extends React.Component {
     constructor(props) {
         super(props)
         this.textoIntro = "¡Busca a tus compañeros y luego haz click en el botón!"
+        this.name = this.props.username
+        this.team = this.props.team
     }
 
     render() {
         return ( 
             <React.Fragment>
-                <div className="App">
                     <div className="g-body">
                         <div className="container">
                             <div className="row">
                                 <div className="col-12" align="center">
-                                    <h2>Hola {this.props.name}. Eres del equipo {this.props.team}</h2>
+                                    <h2>Eres del equipo {this.team}</h2>
                                     <p>{this.textoIntro}</p>                          
                                         <Link to="./prueba1" className="App-link">
                                             <Button className="" type="submit">Empezar</Button>
@@ -39,7 +40,6 @@ class Intro extends React.Component {
                         <div className="g-map-img"><img src={map} width={380} alt=""/></div>
                         <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div>
                     </div>
-                </div> 
             </React.Fragment>
         )
     }

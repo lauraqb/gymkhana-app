@@ -8,6 +8,11 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  /* background-image: url("../images/wood.jpeg"); */
+}
+
+.App-bg-wood {
+  background-image: url("../images/wood.jpeg");
 }
 
 .App-link {
@@ -15,16 +20,17 @@
 }
 
 .g-body {
-  background-color: #181818;  /*#282c34; */
-  background-image: url("https://barriodogg.com/wp-content/uploads/2018/11/WEBSITE-WOOD-BACKGROUND.jpg");
-  position: relative;
+  /* background-color: #181818;  #282c34; */
+  width: 100%;
   min-height: calc(100vh - 50px);
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-shadow: 1px 1px 3px black;
   padding-bottom: 10px;
   overflow: hidden;
 }
@@ -83,6 +89,18 @@
 input.g-input {
   font-weight: bold;
   text-align: center;
+}
+
+.g-input-error {
+  border: 2px solid #ff0028;
+}
+
+.g-invalid-input-warning {
+  color: #f93050;
+  text-align: left;
+  text-shadow: 1px 1px 4px #080808;
+  font-size: 13px;
+  background-color: #181818ba;
 }
 
 button.g-btn {

@@ -1,15 +1,16 @@
 import React from "react"
-import GridLoader from "react-spinners/GridLoader"
+import { css } from "@emotion/core";
+import IconLoader from "react-spinners/MoonLoader" //GridLoader
+import "./styles/Loading.css";
+
 
 class Loading extends React.Component {
     render() {
         return (
-            <div className="">
-                <GridLoader
-                    size={15}
-                    color={"#36D7B7"}
-                    //margin=
-                    // loading={this.state.loading}
+            <div className="g-loading">
+                <IconLoader
+                    size={60}
+                    color={"#79fbe1"}
                 />
             </div>
         )

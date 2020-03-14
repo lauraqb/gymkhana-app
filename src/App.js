@@ -16,7 +16,7 @@ import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import { setServerConnected, setName, setTeam, restartPoints } from './js/actions/index'
+import { setServerConnected, setUsername, setTeam, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 
 const config = require('./config.json');
@@ -37,13 +37,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
       setServerConnected: x => dispatch(setServerConnected(x)),
-      setName: name => dispatch(setName(name)),
+      setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
       restartPoints: points => dispatch(restartPoints())
   }
 }
 
-function App({ game, team, player, setName, setTeam, setServerConnected }) {
+function App({ game, team, player, setUsername, setTeam, setServerConnected }) {
 
   socket.on('connect', () => {
     console.log("socket connected "+socket.id)
@@ -70,7 +70,7 @@ function App({ game, team, player, setName, setTeam, setServerConnected }) {
       .then(res => {
         console.log(res)
         if(res === 0) {
-          setName(null)
+          setUsername(null)
           setTeam(null)
           document.location.href="/"
         }   
@@ -119,7 +119,6 @@ function App({ game, team, player, setName, setTeam, setServerConnected }) {
         </Switch>
       </Layout>
     </BrowserRouter>
-   
   );
 }
 

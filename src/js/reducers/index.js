@@ -1,4 +1,4 @@
-import { SET_GAME, SET_NAME, SET_TEAM, SET_SERVER_CONNECTED } from "../constants/action-types"
+import { SET_GAME, SET_USERNAME, SET_USERID, SET_TEAM, SET_SERVER_CONNECTED } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
@@ -7,7 +7,8 @@ import { SET_TIME } from "../constants/action-types"
 const initialState = {
     serverConnected: false,
     game: null,
-    name: null,
+    username: null,
+    userid: null,
     team: null,
     points: 0,
     time: 9
@@ -24,9 +25,14 @@ function rootReducer(state=initialState, action) {
             game : action.payload
         })
     }
-    if(action.type === SET_NAME) {
+    if(action.type === SET_USERNAME) {
         return Object.assign({}, state, {
-            name : action.payload
+            username : action.payload
+        })
+    }
+    if(action.type === SET_USERID) {
+        return Object.assign({}, state, {
+            userid : action.payload
         })
     }
     if(action.type === SET_TEAM) {
