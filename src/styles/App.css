@@ -1,12 +1,14 @@
 .App {
   text-align: center;
-  background-color: #181818;  /*#282c34; */
+  background-color: #181818; 
   min-height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  font-family: Roboto;
   color: white;
   /* background-image: url("../images/wood.jpeg"); */
 }
@@ -20,10 +22,11 @@
 }
 
 .g-body {
-  /* background-color: #181818;  #282c34; */
-  width: 100%;
-  min-height: calc(100vh - 50px);
   position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 50px;
+  padding-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,13 +34,10 @@
   font-size: calc(10px + 2vmin);
   color: white;
   text-shadow: 1px 1px 3px black;
-  padding-bottom: 10px;
   overflow: hidden;
 }
 
-.g-body.g-prueba-body {
-  background-image: none !important; 
-}
+
 .g-body .container{
   z-index: 1;
 }
@@ -46,37 +46,13 @@
   white-space:pre-wrap;
 }
 
-.g-prueba-title {
-  color: #fac833;
-  margin-bottom: 30px;
-  padding-top: 10px
-}
-
 .g-english {
   font-size: calc(5px + 2vmin);
   color: rgb(172, 172, 172);
 }
 
-.g-imagen {
-  width: 80%;
-  margin-bottom: 15px;
-}
 
-.g-animal-icon {
-  width: 25%;
-  margin: 0 2px ;
-  background-color: #fac833
-}
 
-.g-line {
-  margin: 20px;
-  border-bottom: 1px solid grey
-}
-
-.g-pista {
-  color: rgb(172, 172, 172);
-  font-size: calc(7px + 2vmin);
-}
 
 .g-final-points{
   padding-bottom: 30px;
@@ -103,6 +79,10 @@ input.g-input {
   background-color: #181818ba;
 }
 
+.g-invalid-input-warning svg{
+  margin-bottom: 3px;
+}
+
 button.g-btn {
   width: 100%;
   font-weight: bold;
@@ -116,7 +96,6 @@ input.g-input::placeholder {
   border: 10px solid #e4e3e3;
   border-radius: 50%;
   border-top: 10px solid rgb(128, 137, 165);
-  /* border-bottom: 16px solid rgb(107, 132, 218); */
   width: 60px;
   height: 60px;
   -webkit-animation: spin 1s linear infinite;

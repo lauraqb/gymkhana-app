@@ -1,3 +1,27 @@
+h2.g-intro-text {
+    top: 20%;
+    position: absolute;
+    text-shadow: 1px 1px 4px #080808;
+    background-color: #181818ba;
+    padding: 5px 20px;
+    box-shadow: 0 4px 8px 0 rgb(0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-bottom: 50px
+}
+
+p.g-intro-text {
+    text-shadow: 1px 1px 4px #080808;
+    background-color: #181818ba;
+    padding: 4px 20px;
+}
+
+.g-start-btn {
+    background-color: #ff006f;
+    font-weight: bold;
+    border-radius: 20px;
+    border-color: #ff006f;
+    padding: 6px 40px;
+}
+
 .g-pistol-img {
     bottom: -45px;
     right: -25px;

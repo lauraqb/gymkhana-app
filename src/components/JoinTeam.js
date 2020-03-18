@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setTeam } from '../js/actions/index'
+import { setTeam, setTeamId } from '../js/actions/index'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
@@ -15,6 +15,7 @@ const endpoint = config.server
 function mapDispatchToProps(dispatch) {
     return {
         setTeam: team => dispatch(setTeam(team)),
+        setTeamId: teamId => dispatch(setTeamId(teamId)),
     }
 }
 
@@ -74,8 +75,11 @@ class Inicio extends React.Component {
                     this.setState({ invalidKeyTeam: true })
                 }
                 else if(res.data.result) {
-                    team = res.data.result.name
-                    this.props.setTeam(team)
+                    const teamName = res.data.result.name
+                    const teamId = res.data.result.id
+                    this.props.setTeam(teamName)
+                    this.props.setTeamId(teamId)
+                    
                     this.setState({ redirect: true })
                 }
             })
@@ -83,7 +87,9 @@ class Inicio extends React.Component {
         }
     }
     render() {
-        const inputError = (this.state.duplicatedName || this.state.emptyInput) ? true : false
+        const inputError = (this.state.invalidKeyTeam || this.state.emptyInput) ? true : false
+        const inputErrorClassName = inputError ? "g-input-error" : ""
+
         if(this.state.error) {
             return <h1>Error: {this.state.error}</h1>
         }
@@ -91,16 +97,16 @@ class Inicio extends React.Component {
             return <Redirect to='/intro' />
         }
         return  <React.Fragment>
-            <p>¡Hola {this.username}! Bienvenida/o a la Gymkhana de Urbanita.</p>
-            {this.state.loading && <Loading/>}
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group controlId="formBasicEmail">
-                    <Form.Control className={"g-input "+ `${inputError ? "g-input-error" : ""}`} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />
-                    { this.state.invalidKeyTeam && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Esta clave no existe</Form.Text>}
-                    { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ey! Necesitas indicar la clave</Form.Text>}
-                    </Form.Group>
-                <Button className="g-btn" variant="primary" type="submit">OK, go!</Button>
-            </Form> 
+                <p className="g-welcome-message">¡Hola {this.username}!</p>
+                {this.state.loading && <Loading/>}
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />
+                        { this.state.invalidKeyTeam && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Esta clave no existe</Form.Text>}
+                        { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ey! Necesitas indicar la clave</Form.Text>}
+                        </Form.Group>
+                    <Button className="g-btn" variant="primary" type="submit">OK, go!</Button>
+                </Form>
         </React.Fragment>
     }
 }

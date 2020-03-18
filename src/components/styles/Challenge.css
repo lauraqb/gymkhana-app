@@ -1,0 +1,30 @@
+.g-challenge-container {
+    background-color: #101010c7;
+  }
+
+.g-prueba-title {
+    color: #fac833;
+    margin-bottom: 30px;
+    padding-top: 10px
+}
+
+.g-imagen {
+    width: 80%;
+    margin-bottom: 15px;
+}
+
+.g-line {
+    margin: 20px;
+    border-bottom: 1px solid grey
+}
+
+.g-animal-icon {
+    width: 25%;
+    margin: 0 2px ;
+    background-color: #fac833
+}
+
+.g-pista {
+color: rgb(172, 172, 172);
+font-size: calc(7px + 2vmin);
+}

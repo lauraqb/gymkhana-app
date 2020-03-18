@@ -1,4 +1,4 @@
-import { SET_GAME, SET_USERNAME, SET_USERID, SET_TEAM, SET_SERVER_CONNECTED } from "../constants/action-types"
+import { SET_GAME, SET_USERNAME, SET_USERID, SET_TEAM, SET_TEAMID, SET_SERVER_CONNECTED } from "../constants/action-types"
 import { ADD_POINT } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
@@ -19,6 +19,9 @@ export function setUserId(payload) {
 }
 export function setTeam(payload) {
     return { type: SET_TEAM, payload }
+}
+export function setTeamId(payload) {
+    return { type: SET_TEAMID, payload }
 }
 export function addPoints(payload) {
     return { type: ADD_POINT, payload }

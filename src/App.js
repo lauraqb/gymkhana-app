@@ -3,13 +3,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import './styles/App.css'
 import Layout from './components/Layout'
+import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Join from './pages/Join'
 import Intro from './pages/Intro'
-import Prueba1 from './pages/Prueba1'
-import Prueba2 from './pages/Prueba2'
-import Prueba3 from './pages/Prueba3'
-import Prueba4 from './pages/Prueba4'
+import Challenge from './components/Challenge'
 import Prueba5 from './pages/Prueba5'
 import Prueba6 from './pages/Prueba6'
 import Prueba7 from './pages/Prueba7'
@@ -106,16 +104,18 @@ function App({ game, team, player, setUsername, setTeam, setServerConnected }) {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/join" component={Join} />
-          <Route exact path="/intro" component={Intro} />
-          <Route exact path="/prueba1" component={Prueba1} />
-          <Route exact path="/prueba2" component={Prueba2} />
-          <Route exact path="/prueba3" component={Prueba3} />
-          <Route exact path="/prueba4" component={Prueba4} />
-          <Route exact path="/prueba5" component={Prueba5} />
-          <Route exact path="/prueba6" component={Prueba6} />
-          <Route exact path="/prueba7" component={Prueba7} />
-          <Route exact path="/final" component={Final} />
-          <Route component={NotFound} />
+          <React.Fragment> 
+            <Navbar/>
+            <Switch>
+              <Route exact path="/intro" component={Intro} />
+              <Route exact path="/challenge/:id" component={Challenge} />
+              <Route exact path="/prueba5" component={Prueba5} />
+              <Route exact path="/prueba6" component={Prueba6} />
+              <Route exact path="/prueba7" component={Prueba7} />
+              <Route exact path="/final" component={Final} />
+              <Route component={NotFound} />
+            </Switch>
+          </React.Fragment>
         </Switch>
       </Layout>
     </BrowserRouter>

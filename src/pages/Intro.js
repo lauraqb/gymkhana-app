@@ -1,8 +1,8 @@
 import React from 'react'
-import "./styles/Intro.css";
 import { connect } from 'react-redux'
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom'
+import "./styles/Intro.css"
 import pistol from '../images/pistol.png';
 import map from '../images/map.png';
 
@@ -17,29 +17,25 @@ const mapStateToProps = state => {
 class Intro extends React.Component {
     constructor(props) {
         super(props)
-        this.textoIntro = "¡Busca a tus compañeros y luego haz click en el botón!"
+        this.textoIntro = "Busca a tus compañeros y empieza el juego"
         this.name = this.props.username
         this.team = this.props.team
+        console.log(props)
     }
 
     render() {
         return ( 
             <React.Fragment>
-                    <div className="g-body">
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-12" align="center">
-                                    <h2>Eres del equipo {this.team}</h2>
-                                    <p>{this.textoIntro}</p>                          
-                                        <Link to="./prueba1" className="App-link">
-                                            <Button className="" type="submit">Empezar</Button>
-                                        </Link>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="g-map-img"><img src={map} width={380} alt=""/></div>
-                        <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div>
-                    </div>
+                <div className="g-body">
+                    <h2 className="g-intro-text">¡Eres del equipo {this.team}!</h2>
+                    <p className="g-intro-text">{this.textoIntro}</p>                          
+                    {/* <Link to="./prueba1" className="App-link"> */}
+                    <Link to="./challenge/1" className="App-link">
+                        <Button className="g-start-btn" type="submit">START</Button>
+                    </Link>
+                    <div className="g-map-img"><img src={map} width={380} alt=""/></div>
+                    <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div>
+                </div>
             </React.Fragment>
         )
     }

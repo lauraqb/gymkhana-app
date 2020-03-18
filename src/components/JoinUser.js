@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setUsername, setUserId, restartPoints } from '../js/actions/index'
-import JoinTeam from '../components/JoinTeam'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
@@ -11,6 +10,7 @@ import Loading from '../components/Loading'
 
 const config = require('../config.json')
 const endpoint = config.server
+const gameData = require('../resources/data.json')
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -86,15 +86,18 @@ class Inicio extends React.Component {
 
     render() {
         const inputError = (this.state.duplicatedName || this.state.emptyInput) ? true : false
+        const inputErrorClassName = inputError ? "g-input-error" : ""
+
         return  <React.Fragment>
             {this.state.loading && <Loading/>}
+            <p className="g-welcome-message"> {gameData.welcomeMessage}</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Control className={"g-input "+ `${inputError ? "g-input-error" : ""}`} type="text" placeholder="Nickname" name="username" value={this.state.username} onChange={this.handleChange} />
+                    <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Nickname" name="username" value={this.state.username} onChange={this.handleChange} />
                     { this.state.duplicatedName && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Este nombre ya existe</Form.Text>}
                     { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ey! No olvides poner tu nombre</Form.Text>}
                 </Form.Group>
-                <Button className="g-btn" variant="primary" type="submit">Next</Button>
+                <Button className="g-btn" variant="primary" type="submit">Siguiente</Button>
             </Form>
         </React.Fragment>
     }

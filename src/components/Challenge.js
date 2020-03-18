@@ -1,15 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
-
-//import IosIonic from 'react-ionicons/lib/MdWalk'
+import axios from 'axios'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline' //TODO cambiarlo por react-icons 
 //TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client"
+import "./styles/Challenge.css";
 
 const config = require('../config.json')
 const endpoint = config.server
@@ -19,25 +20,29 @@ const pruebasObject = require('../resources/pruebas.json')
 
 const mapStateToProps = state => {
     return { 
-        serverConnected: state.serverConnected,
-        nombre: state.name,
-        team: state.team
+        serverConnected: state.serverConnected, //TODO
+        username: state.username,
+        userId: state.userId,
+        teamId: state.teamId
     }
 }
 
 //TODO resolver el problema de:
 // Can't perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in the componentWillUnmount method.
-class Prueba extends React.Component {
+class Challenge extends React.Component {
 
     constructor(props) {
-        
+   
         super(props)
         this.state = {
             serverConnected: this.props.serverConnected,
             modal: false,
-            textoModal: " "
+            textoModal: " ",
+            passed: false,
         }
-        const id = this.props.id //número de prueba
+        const id = this.props.match.params.id
+        this.id = id
+        this.nextChallengeId = Number(id)+1
         this.challengeText = pruebasObject[id].challengeText
         this.textoSecundario = pruebasObject[id].textoSecundario
         this.placeholder = pruebasObject[id].placeholder
@@ -50,12 +55,9 @@ class Prueba extends React.Component {
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
 
         const This = this
-        //jugadoresRestantesPorCompletarLaPrueba
-        socket.on("server/playersLeftToComplete", function(data) {
-            if(data === 0){
-                This.setState({
-                    textoModal: "¡Pasáis a la siguiente prueba!"
-                });
+        socket.on("server/challengePassed", function(data) {
+            if(data.teamId === id && data.teamId === this.props.teamId){
+                This.setState({ passed: true });
                 //Esperamos 1 segundo para cambiar la pantalla
                 setTimeout(function () {
                     This.props.onSubmit(This.points)
@@ -63,22 +65,29 @@ class Prueba extends React.Component {
             }
         })
     }
-    jugadoresPruebaCompletada(options) {
-        const data = {
-            pruebaId: options.pruebaId, 
-            nombre: options.nombre, 
-            team: options.equipo
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            window.location.reload()
         }
-        return new Promise(function(resolve, reject) {
-            socket.emit("app/challengeDone", data, function(jugadoresRestantes) {
-                resolve(jugadoresRestantes)
-            })
-        })
-    }
+      }
+
     handleSubmit(event) {
         event.preventDefault();
         const input = document.getElementById("inputText").value.toLowerCase()
         const solution = this.solution.toLowerCase()
+        if(input !== solution && input !== "000") { //TODO 000 temporal
+            //hacer que salga el texto de error de respuesta incorrecta
+            alert("Sigue intentándolo")
+        }
+        else {
+            axios.post(endpoint+"/challengeCompleted", { callengeId: this.id, userId: this.props.userId, teamId: this.props.teamId })
+            .then(res => {
+                //this.setState({ loading: false, error: false })
+                this.setState({ passed: true });
+                //this.props.history.push('/challenge/'+this.nextChallengeId)
+            })
+            .catch(error => this.setState({ loading: false, error: error.message })) 
+        }
         //const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
         if(input === solution) {
             // if (timer !== "0:00") {
@@ -89,36 +98,16 @@ class Prueba extends React.Component {
             // else {
             //     alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
             // }
-            const This = this
-            const data = {
-                pruebaId: this.props.id, 
-                nombre: this.props.nombre, 
-                equipo: this.props.team
-            }
-            this.jugadoresPruebaCompletada(data).then(function(jugadoresRestantes) {
-                if(jugadoresRestantes === 0) {
-                    This.setState({
-                        textoModal: "¡Pasáis a la siguiente prueba!"
-                    })
-                    //Esperamos 2 segundos para cambiar la pantalla
-                    setTimeout(function () {
-                        This.props.onSubmit(This.points)
-                    }, 2000)
-                }
-                else {
-                    This.setState({
-                        textoModal: "Esperando a tus compañeros. (Faltan: "+jugadoresRestantes+")"
-                    })
-                }
-            })
             this.setState({
                 modal: true
             })
         }
-        else {
-            event.preventDefault();
-            alert("Sigue intentándolo")
-        }
+    }
+//TODO borar
+    goToNextChallenge(points) {
+        const nextChallengeId = this.id+1
+        this.props.addPoints(points)
+        this.props.history.push('/prueba'+nextChallengeId)
     }
 
     handleClick(e) {
@@ -127,10 +116,19 @@ class Prueba extends React.Component {
     }
 
     render() {
-        return <div className="container g-body g-prueba-body">
+        if(this.state.passed) {
+            return <div className="container g-body g-challenge-container">
+                    <p>¡Prueba superada!</p>
+                    <Link to={'/challenge/'+this.nextChallengeId} className="App-link">
+                        <Button className="g-start-btn" type="submit">Siguiente reto</Button>
+                    </Link>
+                </div>
+            // return <Redirect to={'/challenge/'+this.nextChallengeId} />
+        }
+        return <div className="container g-body g-challenge-container">
             <div className="row">
                 <div className="col-12" align="center">
-                    <h2 className="g-prueba-title">Prueba #{this.props.id}</h2>
+                    <h2 className="g-prueba-title">Prueba #{this.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="g-english" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
@@ -170,5 +168,5 @@ class Prueba extends React.Component {
 }
 
 //export default Prueba
-const pruebaConnected = connect(mapStateToProps)(Prueba);
+const pruebaConnected = connect(mapStateToProps)(Challenge);
 export default pruebaConnected;

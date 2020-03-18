@@ -89,7 +89,7 @@ class Inicio extends React.Component {
                             this.startGame(res.data.result.id)
                         }
                     })
-                    .catch(error => this.setState({ loading: false, error: error.message }));
+                    .catch(error => this.setState({ loading: false, error: error.message }))
                 })
         }
     }
@@ -100,23 +100,23 @@ class Inicio extends React.Component {
 
     render() {
         const inputError = (this.state.invalidPinGame || this.state.emptyInput) ? true : false
+        const inputErrorClassName = inputError ? "g-input-error" : ""
+
         if(this.state.error) {
             return <h1>Error: {this.state.error}</h1>
         }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
-            <div className="inicio-content">
-                <Form onSubmit={this.handleSubmit}>
-                    <Form.Group>
-                        <Form.Control className={"g-input "+ `${inputError ? "g-input-error" : ""}`} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>
-                        { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> PIN incorrecto</Form.Text>}
-                        { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
-                    </Form.Group>
-                    <Button className="g-btn" variant="primary" type="submit">
-                        Entrar
-                    </Button>
-                </Form>
-            </div>      
+            <Form onSubmit={this.handleSubmit}>
+                <Form.Group>
+                    <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>
+                    { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
+                    { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
+                </Form.Group>
+                <Button className="g-btn" variant="primary" type="submit">
+                    Entrar
+                </Button>
+            </Form>     
         </React.Fragment>
     }
 }
