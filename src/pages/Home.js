@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { setGame, setUsername, setTeam, restartPoints } from '../js/actions/index'
+import { setGame, setUserId, setUsername, setTeam, setTeamId, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Loading from '../components/Loading'
@@ -16,8 +16,10 @@ function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
         //setBackground: game => dispatch(setBackground(game)),
+        setUserId: name => dispatch(setUserId(name)),
         setUsername: name => dispatch(setUsername(name)),
         setTeam: team => dispatch(setTeam(team)),
+        setTeamId: teamId => dispatch(setTeamId(teamId)),
         restartPoints: points => dispatch(restartPoints())
     }
 }
@@ -28,14 +30,14 @@ const mapStateToProps = state => {
     }
 }
 
-class Inicio extends React.Component {
+class Home extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             loading: false,
             error: null,
-            gamePin: null,
+            gamePin: "",
             invalidPinGame: false,
             emptyInput: false
         }
@@ -44,15 +46,17 @@ class Inicio extends React.Component {
     }
 
     componentWillMount() {
-        //Si el usuario ya ha entrado, omitimos esta pantalla
-        if(this.props.game && this.props.name)  
-            this.props.history.push('/join')
-        else {
-            //reseteamos los valores del estado
-            this.props.setGame(null)
-            this.props.setUsername(null)
-            this.props.setTeam(null)
-        }
+        //Comentamos esto porque de momento no hay botón para salir del juego
+        //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
+        // if(this.props.game) {
+        //     this.props.history.push('/join')
+        // }
+            
+        //reseteamos los valores del estado
+        this.props.setGame(null)
+        this.props.setUserId(null)
+        this.props.setUsername(null)
+        this.props.setTeam(null)
     }
         
     handleChange(event) {
@@ -121,5 +125,5 @@ class Inicio extends React.Component {
     }
 }
 
-const inicioConnected = connect(mapStateToProps, mapDispatchToProps)(Inicio)
-export default inicioConnected;
+const homeConnected = connect(mapStateToProps, mapDispatchToProps)(Home)
+export default homeConnected;

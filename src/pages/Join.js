@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import { setUsername, setTeam, restartPoints } from '../js/actions/index'
 import JoinTeam from '../components/JoinTeam'
 import JoinUser from '../components/JoinUser'
-import brujula from '../images/brujula.png'
 import "./styles/Join.css"
+
+const gameData = require('../resources/data.json')
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -16,7 +17,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 const mapStateToProps = state => {
-    return { 
+    return {
         game: state.game,
         username: state.username,
         team: state.team
@@ -34,19 +35,12 @@ class Inicio extends React.Component {
         }
         this.handleStepChange = this.handleStepChange.bind(this)
 
-        // this.textoIntro = "Estás a punto de empezar la aventura más emocionante que ha ocurrido nunca en esta ciudad. "+
-       // "Un tesoro se esconde en estas tierras. Para poder encontrarlo, antes debéis demostrar que sois verdaderos piratas."
-        //"Solo el equipo que consiga demostrar mayor liderazgo, creatividad e ingenio, será digno de merecer este puesto al más valiente. "
-    }
+     }
 
     componentWillMount() {
         if(this.props.username)  {
             this.setState({step: 2})
         }
-        //Si el usuario ya se ha registrado, omitimos esta pantalla
-        // if(this.props.username && this.props.team)  
-        //     this.props.history.push('/intro')
-        //this.props.setTeam(null)
     }
     //TODO pendiente manejar refresco pagina
     componentDidMount() {
@@ -55,9 +49,8 @@ class Inicio extends React.Component {
     beforeunload(e) {
         const confirmationMessage = 'Some message'
         e.returnValue = confirmationMessage
-        return confirmationMessage;  
+        return confirmationMessage;
     }
-
 
     handleStepChange() {
         this.setState({ step: 2 })
@@ -65,13 +58,20 @@ class Inicio extends React.Component {
 
     render() {
         return <React.Fragment>
-            {this.state.step===1 && 
-                <JoinUser gameId={this.props.game} onChangeStep={this.handleStepChange}/> 
+            {/* <div className="g-join-container"></div> */}
+            {this.state.step===1 &&
+                <JoinUser  gameId={this.props.game}
+                           welcomeMessage={gameData.welcomeMessage}
+                           onChangeStep={this.handleStepChange}/>
             }
-            {this.state.step===2 && 
-                <JoinTeam gameId={this.props.game}/> 
+            {this.state.step===2 &&
+                <JoinTeam gameId={this.props.game}/>
             }
-            <div className="g-brujula"><img src={brujula} width={150} height={150} alt=""/></div>
+
+            <div className="g-img-left"><img src={require("../images/"+gameData.joinPage[0])} alt=""/></div>
+            <div className="g-img-right"><img src={require(`../images/`+gameData.joinPage[1])} alt=""/></div>
+            {/* <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div> */}
+
         </React.Fragment>
     }
 }

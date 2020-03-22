@@ -1,10 +1,10 @@
-.g-brujula {
-    width: 120px;
-    height: 100px;
-    bottom: 0;
-    right: 0;
-    position: absolute;
-    overflow: hidden;
+@keyframes slideInFromTop {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
 }
 
 .g-welcome-message {
@@ -15,4 +15,52 @@
     text-shadow: 1px 1px 4px #080808;
     background-color: #181818ba;
     padding: 4px 20px;
+    animation: 0.7s ease-out 0s 1 slideInFromTop;
+}
+  
+.g-join-container {
+    z-index: 5;
+}
+
+
+.g-img-left {
+    /* height: 300px;  */
+    bottom: -60px;
+    left: -50px;
+    position: fixed;
+    overflow: hidden;
+    transform: rotate(0.06turn);
+    
+    animation: 1.4s ease-out 0s 1 slideInFromLeft;
+}
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%) rotate(0.06turn);
+    }
+    100% {
+      transform: translateX(0) rotate(0.06turn);
+    }
+}
+.g-img-right {
+    /* max-width: 40vw;
+    max-height: 30vh; */
+    bottom: -0px;
+    right: -20px;
+    position: fixed;
+    overflow: hidden;
+    animation-delay: 2s;
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}
+.g-img-right img{
+    max-height: 50vh;
+    max-width: 60vw;
+}
+
+@keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
 }

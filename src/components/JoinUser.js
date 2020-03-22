@@ -10,7 +10,7 @@ import Loading from '../components/Loading'
 
 const config = require('../config.json')
 const endpoint = config.server
-const gameData = require('../resources/data.json')
+
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -90,7 +90,7 @@ class Inicio extends React.Component {
 
         return  <React.Fragment>
             {this.state.loading && <Loading/>}
-            <p className="g-welcome-message"> {gameData.welcomeMessage}</p>
+            <p className="g-welcome-message"> {this.props.welcomeMessage}</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Nickname" name="username" value={this.state.username} onChange={this.handleChange} />

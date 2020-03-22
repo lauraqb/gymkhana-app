@@ -1,41 +1,42 @@
 [
     {
-        "challengeText": "Prueba 0"
+        "challengeText": "Para participar en este juego, hay que pensar, actuar rápido. Hay que ser valiente y no hay que tener vergüenza. Si no deseas seguir adelante, aún estás a tiempo para abandonar.", 
+        "text":"Competición por descubrir la vacuna"
     },
     {
         "points": 1,
-        "challengeText": "Demostrad que sabéis trabajar en equipo. \nTodos los miembros del equipo deben estar en contacto y el suelo sólo puede ser tocado por: \n- 2 pies izquierdos \n- 2 manos",
-        "textoSecundario": "Una vez conseguido, se os proporcionará el código para desbloquear la siguiente prueba",
-        "placeholder": "",
+        "challengeText": "Hay un coronavirus escondido en esta casa",
+        "textoSecundario": "Una vez encontrado, ¡no lo toques! Disimula, sigue buscando un poco más para no dar pistas a tus rivales y susúrrale al oído a la doctora dónde lo has encontrado para que te de la contraseña",
+        "placeholder": "Contraseña",
         "solution": "000"
     },
     {
         "points": 1,
-        "challengeText": "¿Sabes ese tipo a caballo frente al ZOO? Agradécele este parque",
-        "textoSecundario": "Si respondéis a tiempo ganaréis una moneda",
-        "placeholder": "Introduce su nombre",
-        "solution": "Prim",
+        "challengeText": "¡Rápido! Ha llegado el momento de alertar a la sociedad. Tienes que abrir una ventana en la que no haya nadie y gritar '¡He encontrado el coronavirus!",
+        "textoSecundario": "Si la doctora considera que no has gritado suficiente, no te dará la contraseña",
+        "placeholder": "Contraseña",
+        "solution": "coronita",
         "time": "0:10"
     },
     {
         "points": 2,
-        "challengeText": "En este parque la diosa Venus alza los brazos. Bajo ella, unos caballos marinos. ¿Quién los observa?",
-        "textoSecundario": "7 letras",
-        "placeholder": "Introduce su nombre",
-        "solution": "Neptuno"
+        "challengeText": "Ahora que lo has encontrado, debes tomar precauciones. Construyete una mascarilla casera",
+        "textoSecundario": "Tómate tu tiempo. Solo una mascarilla bien hecha te permitirá seguir avanzando",
+        "placeholder": "Contraseña",
+        "images" : "persona con mascarilla",
+        "solution": "mascarillacasera"
     },
     {
         "points": 1,
-        "challengeText": "Al dios Neptuno no le gusta ser observado. ¡Salid corriendo o os robará todos los puntos!",
-        "textoSecundario": "¡Refugiaros bajo el gran arco!",
-        "placeholder": "¡Corred!",
-        "images": "hi",
+        "challengeText": "Necesitas dinero y material para desarrollar la vacuna. Tu gobierno te lo ha proporcionado y dejado en tal sitio",
+        "textoSecundario": "¡Tened cuidado de la policía!",
+        "placeholder": "En su interior está la contraseña",
         "solution": "000",
         "time": "6:59"
     },
     {
         "points": 1,
-        "challengeText": "En este objeto está escondido el código para desbloquear la siguiente prueba. (1 punto)",
+        "challengeText": "",
         "textoSecundario": "In this object is hidden the code",
         "placeholder": "Introduce el código",
         "images": "hi",

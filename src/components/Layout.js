@@ -12,6 +12,9 @@ function Layout(props) {
     if (background === 1) {
         backgroundClassName = "App-bg-wood"
     }
+    if (background === 2) {
+        backgroundClassName = "App-bg-corona"
+    }
     return (
         <React.Fragment>
             <div className={"App "+backgroundClassName}>

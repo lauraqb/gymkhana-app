@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import axios from 'axios'
 import './styles/App.css'
@@ -14,7 +14,7 @@ import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import { setServerConnected, setUsername, setTeam, restartPoints } from './js/actions/index'
+import { setServerConnected, setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 
 const config = require('./config.json');
@@ -26,8 +26,8 @@ const mapStateToProps = state => {
   return {
     serverConnected: state.serverConnected,
     game: state.game,
+    userid: state.userid,
     team: state.team,
-    player: state.name
   }
 }
 
@@ -35,14 +35,36 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
       setServerConnected: x => dispatch(setServerConnected(x)),
+      setUserId: name => dispatch(setUserId(name)),
       setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
+      setTeamId: teamId => dispatch(setTeamId(teamId)),
       restartPoints: points => dispatch(restartPoints())
   }
 }
 
-function App({ game, team, player, setUsername, setTeam, setServerConnected }) {
+const resetValues = () => {
+    //Comentamos esto porque de momento no hay botón para salir del juego
+  //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
+  // if(this.props.game) {
+  //     this.props.history.push('/join')
+  // }
+  // o preguntar si se desea salir y hacer un   setGame(null)
+    
+  //reseteamos los valores del estado
 
+  setUserId(null)
+  setUsername(null)
+  setTeam(null)
+}
+
+function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
+
+  const path = document.location.pathname
+  if(path === "/") {
+    resetValues()
+  }
+  
   socket.on('connect', () => {
     console.log("socket connected "+socket.id)
     setServerConnected(true)
@@ -63,11 +85,13 @@ function App({ game, team, player, setUsername, setTeam, setServerConnected }) {
     if(path !== "/" && !game) {
       document.location.href="/"
     }
-    else if((path !== "/join" && path !== "/intro") && player && player !== "test") {
-      axios.post(endpoint+"/checkPlayerInDB", {player: player})
+    else if((path !== "/join" && path !== "/intro") && userid ) {
+      //TODO mirar que hace esto y si lo necesito
+      axios.post(endpoint+"/checkPlayerInDB", {player: userid})
       .then(res => {
         console.log(res)
         if(res === 0) {
+          //TODO resetear todo, o sí estamos en la home que allí se resetee todo 
           setUsername(null)
           setTeam(null)
           document.location.href="/"
@@ -77,26 +101,39 @@ function App({ game, team, player, setUsername, setTeam, setServerConnected }) {
     }
   }
 
+
+
   redirectToHomePageIfNecessary()
 
   const sendPosition = () => {
+    debugger
     function geo_success(position) {
       var coordenadas = {
-          nombre: player,
+          playerId: userid,
           equipo: team,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
       }
-      //TODO descomentar socket.emit("coordenadas", coordenadas);
+      socket.emit("coordenadas", coordenadas);
     }
     function geo_error(error) {
+      //TODO hacer un state con route que lo pinte en pantalla
       console.error("error "+error.message)
       //socket.emit("error", error.message);
+      return false
     }
-    if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
+    //if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
+    navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
+  if (userid){
+    navigator.geolocation.getCurrentPosition((success)=>{
+      setInterval(sendPosition, 3000)
+    }, (error)=>{alert(error.message)
+    }, {timeout:10000})
+   }
 
-  if (player) setInterval(sendPosition, 3000)
+
+   
 
   return (
     <BrowserRouter>

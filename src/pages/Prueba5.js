@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import chickenIcon from '../images/chicken.png';
-import dogIcon from '../images/dog.png';
-import horseIcon from '../images/horse.png';
+import chickenIcon from '../images/brujula.png';
+import dogIcon from '../images/brujula.png';
+import horseIcon from '../images/brujula.png';
 import { addPoints, deletePoints } from '../js/actions/index'
 
 let points = 3;

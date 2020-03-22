@@ -59,13 +59,12 @@ class Inicio extends React.Component {
     handleSubmit(e){
         e.preventDefault()
         const teamKey = this.state.teamKey
-        let team = null
         if(!teamKey) {
             this.setState({ emptyInput: true })
         }
-        else if (teamKey === "test") {
-            team = "test"
-        }
+        // else if (teamKey === "test") {
+        //     team = "test"
+        // }
         else {
             this.setState({ loading: true })
             axios.post(endpoint+"/joinTeam", {userId: this.userId, key: teamKey, gameId: this.gameId })

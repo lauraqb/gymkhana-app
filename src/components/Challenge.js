@@ -5,6 +5,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal'
 import axios from 'axios'
+import { FaExclamationCircle} from 'react-icons/fa/'
+import NotFound from '../pages/NotFound'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline' //TODO cambiarlo por react-icons 
 //TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
@@ -14,6 +16,7 @@ import "./styles/Challenge.css";
 
 const config = require('../config.json')
 const endpoint = config.server
+//TODO usar socket de App.js
 const socket = socketIOClient(endpoint)
 
 const pruebasObject = require('../resources/pruebas.json')
@@ -35,12 +38,17 @@ class Challenge extends React.Component {
    
         super(props)
         this.state = {
-            serverConnected: this.props.serverConnected,
-            modal: false,
-            textoModal: " ",
-            passed: false,
+            serverConnected : this.props.serverConnected,
+            modal : false,
+            textoModal : " ",
+            passed : false,
+            answer : null,
+            wrongAnswer : false,
         }
         const id = this.props.match.params.id
+        if(pruebasObject.length <= id) {
+            return
+        } 
         this.id = id
         this.nextChallengeId = Number(id)+1
         this.challengeText = pruebasObject[id].challengeText
@@ -53,15 +61,12 @@ class Challenge extends React.Component {
         this.time = pruebasObject[id].time
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
+        this.handleChange = this.handleChange.bind(this)
 
         const This = this
         socket.on("server/challengePassed", function(data) {
             if(data.teamId === id && data.teamId === this.props.teamId){
                 This.setState({ passed: true });
-                //Esperamos 1 segundo para cambiar la pantalla
-                setTimeout(function () {
-                    This.props.onSubmit(This.points)
-                }, 1000);
             }
         })
     }
@@ -73,35 +78,28 @@ class Challenge extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const input = document.getElementById("inputText").value.toLowerCase()
+        const answer = this.state.answer
         const solution = this.solution.toLowerCase()
-        if(input !== solution && input !== "000") { //TODO 000 temporal
-            //hacer que salga el texto de error de respuesta incorrecta
-            alert("Sigue intentándolo")
+        if(answer !== solution && answer !== "000") { //TODO 000 temporal
+            this.setState({wrongAnswer: true})
         }
         else {
             axios.post(endpoint+"/challengeCompleted", { callengeId: this.id, userId: this.props.userId, teamId: this.props.teamId })
             .then(res => {
                 //this.setState({ loading: false, error: false })
                 this.setState({ passed: true });
-                //this.props.history.push('/challenge/'+this.nextChallengeId)
             })
             .catch(error => this.setState({ loading: false, error: error.message })) 
         }
-        //const timer = document.getElementById("timer") ? document.getElementById("timer").innerHTML : "00"
-        if(input === solution) {
-            // if (timer !== "0:00") {
-            //     if(this.points === 0) alert("¡Muy bien! No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-            //     else if(this.points === 1) alert("¡Muy bien! Habéis ganado "+this.points+" punto.")
-            //     else alert("¡Muy bien! Habéis ganado "+this.points+" puntos.")
-            // }
-            // else {
-            //     alert("Has acertado pero estás fuera de tiempo. No has ganado ningún punto pero desbloqueas la siguiente prueba.")
-            // }
-            this.setState({
-                modal: true
-            })
-        }
+    }
+
+    handleChange(event) {
+        const value = event.target.value
+        const name = event.target.name
+        this.setState({
+          [name]: value,
+          wrongAnswer: false
+        });
     }
 //TODO borar
     goToNextChallenge(points) {
@@ -116,10 +114,13 @@ class Challenge extends React.Component {
     }
 
     render() {
+        if(!this.id) {
+            return <NotFound/>
+        }
         if(this.state.passed) {
             return <div className="container g-body g-challenge-container">
                     <p>¡Prueba superada!</p>
-                    <Link to={'/challenge/'+this.nextChallengeId} className="App-link">
+                    <Link to={'./'+this.nextChallengeId} className="App-link">
                         <Button className="g-start-btn" type="submit">Siguiente reto</Button>
                     </Link>
                 </div>
@@ -134,7 +135,9 @@ class Challenge extends React.Component {
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
                     <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>
-                            <Form.Control type="text" placeholder={this.placeholder} id="inputText" />
+                            <Form.Control type="text" placeholder={this.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
+                            { this.state.wrongAnswer && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Respuesta incorrecta. ¡Sigue intentándolo!</Form.Text>}
+
                             <Form.Text className="text-muted">{this.props.textMuted}</Form.Text>
                         </Form.Group>
                         <Button variant="primary" type="submit">

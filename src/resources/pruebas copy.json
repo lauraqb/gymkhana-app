@@ -1,0 +1,90 @@
+[
+    {
+        "challengeText": "Prueba 0"
+    },
+    {
+        "points": 1,
+        "challengeText": "Demostrad que sabéis trabajar en equipo. \nTodos los miembros del equipo deben estar en contacto y el suelo sólo puede ser tocado por: \n- 2 pies izquierdos \n- 2 manos",
+        "textoSecundario": "Una vez conseguido, se os proporcionará el código para desbloquear la siguiente prueba",
+        "placeholder": "",
+        "solution": "000"
+    },
+    {
+        "points": 1,
+        "challengeText": "¿Sabes ese tipo a caballo frente al ZOO? Agradécele este parque",
+        "textoSecundario": "Si respondéis a tiempo ganaréis una moneda",
+        "placeholder": "Introduce su nombre",
+        "solution": "Prim",
+        "time": "0:10"
+    },
+    {
+        "points": 2,
+        "challengeText": "En este parque la diosa Venus alza los brazos. Bajo ella, unos caballos marinos. ¿Quién los observa?",
+        "textoSecundario": "7 letras",
+        "placeholder": "Introduce su nombre",
+        "solution": "Neptuno"
+    },
+    {
+        "points": 1,
+        "challengeText": "Al dios Neptuno no le gusta ser observado. ¡Salid corriendo o os robará todos los puntos!",
+        "textoSecundario": "¡Refugiaros bajo el gran arco!",
+        "placeholder": "¡Corred!",
+        "images": "hi",
+        "solution": "000",
+        "time": "6:59"
+    },
+    {
+        "points": 1,
+        "challengeText": "En este objeto está escondido el código para desbloquear la siguiente prueba. (1 punto)",
+        "textoSecundario": "In this object is hidden the code",
+        "placeholder": "Introduce el código",
+        "images": "hi",
+        "solution": "000"
+    },
+    {
+        "points": 5,
+        "challengeText": "Un pirata de verdad bebe ron. Demostrad que lo sois.",
+        "textoSecundario": "Cada uno de los miembros debe beber un chupito de Ron.",
+        "placeholder": "",
+        "solution": ""
+    },
+    {
+        "points": 5,
+        "challengeText": "Un pirata es un ser de mundo. Haceros un selfie con un alemán.",
+        "textoSecundario": "",
+        "placeholder": "",
+        "solution": ""
+    },
+    {
+        "points": 5,
+        "challengeText": "Mensaje en una botella",
+        "textoSecundario": "",
+        "placeholder": "",
+        "solution": ""
+    },
+    {
+        "points": 5,
+        "challengeText": "¡Ya estás más cerca del final! Tienes que hacer que Serabi se meta en la piscina (5 puntos)",
+        "textoSecundario": "Serabi has to get into the pool",
+        "placeholder": "Ask Laura for the code after you have finished your mission",
+        "solution": "000",
+        "solution2": "lointente"
+    },
+    {
+        "points": 2,
+        "challengeText": "¡Quedan 10 minutos! Ésta es la última prueba. Antes de que se agote el tiempo, la herradura sagrada debe ser entregada a la Gran Caballera Templaria.",
+        "textoSecundario": "Será más posible de superar si trabajais en equipo.",
+        "placeholder": "La orden de los caballeros le dará la última clave al vencedor",
+        "textMuted": "La orden de los caballeros le dará la última clave al vencedor",
+        "solution": "000",
+        "time": "9:59"
+    },
+    {
+        "points": 2,
+        "challengeText": "",
+        "textoSecundario": "",
+        "placeholder": "",
+        "clue": "Si encuentras el ",
+        "solution": ""
+    }
+]

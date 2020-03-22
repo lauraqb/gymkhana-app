@@ -17,6 +17,11 @@
   background-image: url("../images/wood.jpeg");
 }
 
+.App-bg-corona {
+  background-image: url("../images/coronavirus_bg.jpg");
+  background-size: cover;
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -35,6 +40,7 @@
   color: white;
   text-shadow: 1px 1px 3px black;
   overflow: hidden;
+  z-index: 1;
 }
 
 
