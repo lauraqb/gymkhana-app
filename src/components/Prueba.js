@@ -10,9 +10,9 @@ import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutl
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client"
+import { SERVER_ENDPOINT  } from '../api-config'
 
-const config = require('../config.json')
-const endpoint = config.server
+const endpoint = SERVER_ENDPOINT
 const socket = socketIOClient(endpoint)
 
 const pruebasObject = require('../resources/pruebas.json')

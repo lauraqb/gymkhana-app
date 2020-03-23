@@ -16,10 +16,9 @@ import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
 import { setServerConnected, setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
+import { SERVER_ENDPOINT  } from './api-config'
 
-const config = require('./config.json');
-const endpoint = config.server
-const socket = socketIOClient(endpoint);
+const socket = socketIOClient(SERVER_ENDPOINT);
 
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
@@ -87,7 +86,7 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     }
     else if((path !== "/join" && path !== "/intro") && userid ) {
       //TODO mirar que hace esto y si lo necesito
-      axios.post(endpoint+"/checkPlayerInDB", {player: userid})
+      axios.post(`${SERVER_ENDPOINT}/checkPlayerInDB`, {player: userid})
       .then(res => {
         console.log(res)
         if(res === 0) {
@@ -132,8 +131,6 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     }, {timeout:10000})
    }
 
-
-   
 
   return (
     <BrowserRouter>

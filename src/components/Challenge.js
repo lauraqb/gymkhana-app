@@ -13,11 +13,10 @@ import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
 import socketIOClient from "socket.io-client"
 import "./styles/Challenge.css";
+import { SERVER_ENDPOINT  } from '../api-config'
 
-const config = require('../config.json')
-const endpoint = config.server
 //TODO usar socket de App.js
-const socket = socketIOClient(endpoint)
+const socket = socketIOClient(SERVER_ENDPOINT)
 
 const pruebasObject = require('../resources/pruebas.json')
 
@@ -84,7 +83,7 @@ class Challenge extends React.Component {
             this.setState({wrongAnswer: true})
         }
         else {
-            axios.post(endpoint+"/challengeCompleted", { callengeId: this.id, userId: this.props.userId, teamId: this.props.teamId })
+            axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.id, userId: this.props.userId, teamId: this.props.teamId })
             .then(res => {
                 //this.setState({ loading: false, error: false })
                 this.setState({ passed: true });

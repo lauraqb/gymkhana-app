@@ -4,12 +4,12 @@ import axios from 'axios'
 import { setGame, setUserId, setUsername, setTeam, setTeamId, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import Loading from '../components/Loading'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import "./styles/Home.css"
+import { SERVER_ENDPOINT  } from '../api-config'
 
-const config = require('../config.json')
-const endpoint = config.server
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -82,7 +82,7 @@ class Home extends React.Component {
                 break
             default:
                 this.setState({ loading: true }, () => {                    
-                    axios.post(endpoint+"/validateGame", {pin: gamePin})
+                    axios.post(`${SERVER_ENDPOINT}/validateGame`, {pin: gamePin})
                     .then(res => {
                         this.setState({ loading: false, error: false })
                         console.log(res.data);
@@ -106,11 +106,13 @@ class Home extends React.Component {
         const inputError = (this.state.invalidPinGame || this.state.emptyInput) ? true : false
         const inputErrorClassName = inputError ? "g-input-error" : ""
 
-        if(this.state.error) {
-            return <h1>Error: {this.state.error}</h1>
-        }
+        // if(this.state.error) {
+        //     return <h1>Error: {this.state.error}</h1>
+        // }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
+            {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
+            <p className="g-gymkhana">Gymkhana!</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>

@@ -6,11 +6,7 @@ import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
 import Loading from '../components/Loading'
-
-
-const config = require('../config.json')
-const endpoint = config.server
-
+import { SERVER_ENDPOINT  } from '../api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -67,7 +63,7 @@ class Inicio extends React.Component {
         }
         else {
             this.setState({ loading: true })
-            axios.post(endpoint+"/joinUser", {username: username, game_id: this.props.game })
+            axios.post(`${SERVER_ENDPOINT}/joinUser`, {username: username, game_id: this.props.game })
             .then(res => {
                 this.setState({ loading: false, error: false })
                 if(res.data.duplicated) {
@@ -90,7 +86,7 @@ class Inicio extends React.Component {
 
         return  <React.Fragment>
             {this.state.loading && <Loading/>}
-            <p className="g-welcome-message"> {this.props.welcomeMessage}</p>
+            <p className="g-welcome-message">{this.props.welcomeMessage}</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Nickname" name="username" value={this.state.username} onChange={this.handleChange} />

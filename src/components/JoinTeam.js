@@ -7,9 +7,7 @@ import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
 import Loading from '../components/Loading'
-
-const config = require('../config.json')
-const endpoint = config.server
+import { SERVER_ENDPOINT  } from '../api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -67,7 +65,7 @@ class Inicio extends React.Component {
         // }
         else {
             this.setState({ loading: true })
-            axios.post(endpoint+"/joinTeam", {userId: this.userId, key: teamKey, gameId: this.gameId })
+            axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userId: this.userId, key: teamKey, gameId: this.gameId })
             .then(res => {
                 this.setState({ loading: false, error: false })
                 if(!res.data.valid) {
