@@ -10,8 +10,8 @@
 .g-welcome-message {
     top: 20%;
     position: absolute;
-    font-size: 1.15em;
-    font-weight: bold;
+    font-family: 'Boogaloo';
+    font-size: 2em;
     text-shadow: 1px 1px 4px #080808;
     background-color: #181818ba;
     padding: 4px 20px;

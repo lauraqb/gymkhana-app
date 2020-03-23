@@ -128,7 +128,7 @@ class Challenge extends React.Component {
         return <div className="container g-body g-challenge-container">
             <div className="row">
                 <div className="col-12" align="center">
-                    <h2 className="g-prueba-title">Prueba #{this.id}</h2>
+                    <h2 className="g-challenge-title">Prueba #{this.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="g-english" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }

@@ -2,10 +2,11 @@
     background-color: #101010c7;
   }
 
-.g-prueba-title {
+.g-challenge-title {
     color: #fac833;
     margin-bottom: 30px;
-    padding-top: 10px
+    padding-top: 10px;
+    font-family: 'Boogaloo';
 }
 
 .g-imagen {

@@ -43,14 +43,14 @@ class Inicio extends React.Component {
         }
     }
     //TODO pendiente manejar refresco pagina
-    componentDidMount() {
-        window.addEventListener('beforeunload', this.beforeunload.bind(this))
-    }
-    beforeunload(e) {
-        const confirmationMessage = 'Some message'
-        e.returnValue = confirmationMessage
-        return confirmationMessage;
-    }
+    // componentDidMount() {
+    //     window.addEventListener('beforeunload', this.beforeunload.bind(this))
+    // }
+    // beforeunload(e) {
+    //     const confirmationMessage = 'Some message'
+    //     e.returnValue = confirmationMessage
+    //     return confirmationMessage;
+    // }
 
     handleStepChange() {
         this.setState({ step: 2 })
