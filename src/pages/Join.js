@@ -58,18 +58,20 @@ class Inicio extends React.Component {
 
     render() {
         return <React.Fragment>
-            {/* <div className="g-join-container"></div> */}
-            {this.state.step===1 &&
-                <JoinUser  gameId={this.props.game}
-                           welcomeMessage={gameData.welcomeMessage}
-                           onChangeStep={this.handleStepChange}/>
-            }
-            {this.state.step===2 &&
-                <JoinTeam gameId={this.props.game}/>
-            }
-
+            <div className="g-body">
+                {this.state.step===1 &&
+                    <JoinUser  gameId={this.props.game}
+                            welcomeMessage={gameData.welcomeMessage}
+                            onChangeStep={this.handleStepChange}/>
+                }
+                {this.state.step===2 &&
+                    <JoinTeam gameId={this.props.game}/>
+                }
+            </div>
+            <div>
             <div className="g-img-left"><img src={require("../images/"+gameData.joinPage[0])} alt=""/></div>
             <div className="g-img-right"><img src={require(`../images/`+gameData.joinPage[1])} alt=""/></div>
+            </div>
             {/* <div className="g-pistol-img"><img src={pistol} width={220} alt=""/></div> */}
 
         </React.Fragment>
