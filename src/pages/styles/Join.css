@@ -22,7 +22,7 @@
     animation: 1s ease-out 0s 1 slideInFromLeft;
 }
 .g-img-left img{
-  max-height: 40vh;
+  max-height: 35vh;
 }
 @keyframes slideInFromLeft {
     0% {
@@ -33,9 +33,7 @@
     }
 }
 .g-img-right {
-    /* max-width: 40vw;
-    max-height: 30vh; */
-    bottom: -0px;
+    bottom: -5px;
     right: -20px;
     position: fixed;
     overflow: hidden;
@@ -43,7 +41,7 @@
     animation: 1s ease-out 0s 1 slideInFromRight;
 }
 .g-img-right img{
-    max-height: 40vh;
+    max-height: 35vh;
     max-width: 60vw;
 }
 
