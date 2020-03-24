@@ -69,7 +69,7 @@ class Home extends React.Component {
         })
     }
     
-    handleSubmit(e){
+    handleSubmit(e) {
         e.preventDefault();
         //this.props.restartPoints()
         const gamePin = this.state.gamePin

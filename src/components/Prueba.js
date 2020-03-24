@@ -9,11 +9,11 @@ import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutl
 //TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
-import socketIOClient from "socket.io-client"
+// import socketIOClient from "socket.io-client"
 import { SERVER_ENDPOINT  } from '../api-config'
 
 const endpoint = SERVER_ENDPOINT
-const socket = socketIOClient(endpoint)
+// const socket = socketIOClient(endpoint)
 
 const pruebasObject = require('../resources/pruebas.json')
 
@@ -51,17 +51,17 @@ class Prueba extends React.Component {
 
         const This = this
         //jugadoresRestantesPorCompletarLaPrueba
-        socket.on("server/playersLeftToComplete", function(data) {
-            if(data === 0){
-                This.setState({
-                    textoModal: "¡Pasáis a la siguiente prueba!"
-                });
-                //Esperamos 1 segundo para cambiar la pantalla
-                setTimeout(function () {
-                    This.props.onSubmit(This.points)
-                }, 1000);
-            }
-        })
+        // socket.on("server/playersLeftToComplete", function(data) {
+        //     if(data === 0){
+        //         This.setState({
+        //             textoModal: "¡Pasáis a la siguiente prueba!"
+        //         });
+        //         //Esperamos 1 segundo para cambiar la pantalla
+        //         setTimeout(function () {
+        //             This.props.onSubmit(This.points)
+        //         }, 1000);
+        //     }
+        // })
     }
     jugadoresPruebaCompletada(options) {
         const data = {
@@ -70,9 +70,9 @@ class Prueba extends React.Component {
             team: options.equipo
         }
         return new Promise(function(resolve, reject) {
-            socket.emit("app/challengeDone", data, function(jugadoresRestantes) {
-                resolve(jugadoresRestantes)
-            })
+            // socket.emit("app/challengeDone", data, function(jugadoresRestantes) {
+            //     resolve(jugadoresRestantes)
+            // })
         })
     }
     handleSubmit(event) {

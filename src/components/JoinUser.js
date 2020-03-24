@@ -5,6 +5,7 @@ import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import Loading from '../components/Loading'
 import { SERVER_ENDPOINT  } from '../api-config'
 
@@ -33,7 +34,7 @@ class Inicio extends React.Component {
             loading: false,
             error: null,
             duplicatedName: false,
-            username: null,
+            username: "",
             userId: null,
         }
         this.handleChange = this.handleChange.bind(this)
@@ -50,7 +51,8 @@ class Inicio extends React.Component {
         this.setState({
           [name]: value,
           duplicatedName: false,
-          emptyInput: false
+          emptyInput: false,
+          error: null,
         });
     }
 
@@ -86,6 +88,7 @@ class Inicio extends React.Component {
 
         return  <React.Fragment>
             {this.state.loading && <Loading/>}
+            {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
             <p className="g-welcome-message">{this.props.welcomeMessage}</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">

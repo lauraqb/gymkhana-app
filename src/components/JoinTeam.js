@@ -6,6 +6,7 @@ import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
 import Loading from '../components/Loading'
 import { SERVER_ENDPOINT  } from '../api-config'
 
@@ -34,7 +35,7 @@ class Inicio extends React.Component {
             loading: false,
             error: null,
             invalidKeyTeam: false,
-            teamKey: null,
+            teamKey: "",
             redirect: false
         }
         this.userId = this.props.userid
@@ -50,7 +51,8 @@ class Inicio extends React.Component {
         this.setState({
           [name]: value,
           invalidKeyTeam: false,
-          emptyInput: false
+          emptyInput: false,
+          error: null,
         });
     }
 
@@ -94,8 +96,9 @@ class Inicio extends React.Component {
             return <Redirect to='/intro' />
         }
         return  <React.Fragment>
-                <p className="g-welcome-message">¡Hola {this.username}!</p>
                 {this.state.loading && <Loading/>}
+                {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
+                <p className="g-welcome-message">¡Hola {this.username}!</p>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />

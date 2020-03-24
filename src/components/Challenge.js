@@ -11,12 +11,12 @@ import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutl
 //TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
 import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
-import socketIOClient from "socket.io-client"
+// import socketIOClient from "socket.io-client"
 import "./styles/Challenge.css";
 import { SERVER_ENDPOINT  } from '../api-config'
 
 //TODO usar socket de App.js
-const socket = socketIOClient(SERVER_ENDPOINT)
+// const socket = socketIOClient(SERVER_ENDPOINT)
 
 const pruebasObject = require('../resources/pruebas.json')
 
@@ -63,11 +63,14 @@ class Challenge extends React.Component {
         this.handleChange = this.handleChange.bind(this)
 
         const This = this
-        socket.on("server/challengePassed", function(data) {
-            if(data.teamId === id && data.teamId === this.props.teamId){
-                This.setState({ passed: true });
-            }
-        })
+        if (this.props.socket) {
+            this.props.socket.on("server/challengePassed", function(data) {
+                if(data.teamId === id && data.teamId === this.props.teamId){
+                    This.setState({ passed: true });
+                }
+            })
+        }
+        
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {

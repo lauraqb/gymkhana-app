@@ -18,7 +18,7 @@ import { setServerConnected, setUserId, setUsername, setTeam, setTeamId, restart
 import socketIOClient from "socket.io-client";
 import { SERVER_ENDPOINT  } from './api-config'
 
-const socket = socketIOClient(SERVER_ENDPOINT);
+
 const path = document.location.pathname
 
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
@@ -51,42 +51,24 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-const resetValues = () => {
-    //Comentamos esto porque de momento no hay botón para salir del juego
-  //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
-  // if(this.props.game) {
-  //     this.props.history.push('/join')
-  // }
-  // o preguntar si se desea salir y hacer un   setGame(null)
-    
-  //reseteamos los valores del estado
-
-  setUserId(null)
-  setUsername(null)
-  setTeam(null)
-}
-
 function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
+  const resetValues = () => {
+      //Comentamos esto porque de momento no hay botón para salir del juego
+    //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
+    // if(this.props.game) {
+    //     this.props.history.push('/join')
+    // }
+    // o preguntar si se desea salir y hacer un   setGame(null)
+      
+    //reseteamos los valores del estado
 
+    setUserId(null)
+    setUsername(null)
+    setTeam(null)
+  }
 
-  
-  socket.on('connect', () => {
-    console.log("socket connected "+socket.id)
-    setServerConnected(true)
-  })
-
-  socket.on('connect_error', (error) => {
-    console.log("connect_error "+error)
-    setServerConnected(false)
-  })
-
-  socket.on('disconnect', (reason) => {
-    console.log("disconnect "+reason)
-    setServerConnected(false)
-  })
-  
   const redirectToHomePageIfNecessary = () => {
-    
+      
     if(path !== "/" && !game) {
       document.location.href="/"
     }
@@ -106,7 +88,7 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     }
   }
 
-  const sendPosition = () => {
+  const sendPosition = (socket) => {
     function geo_success(position) {
       var coordenadas = {
           playerId: userid,
@@ -124,8 +106,8 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
 
-  const startPollingIfPossible = () => {
-    if (userid && path !== "/"){
+  const sendPositionPolling = () => {
+    if (userid){
       navigator.geolocation.getCurrentPosition((success)=>{
         setInterval(sendPosition, 3000)
       }, (error)=>{
@@ -134,12 +116,36 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     }
   }
 
+  const socketListeners = (socket) => {
+    socket.on('connect', () => {
+      console.log("socket connected "+socket.id)
+      setServerConnected(true)
+    })
+
+    socket.on('connect_error', (error) => {
+      console.log("connect_error "+error)
+      setServerConnected(false)
+    })
+
+    socket.on('disconnect', (reason) => {
+      console.log("disconnect "+reason)
+      setServerConnected(false)
+    })
+  }
+
   const init = () => {
+    redirectToHomePageIfNecessary()
     if(path === "/") {
       resetValues()
     }
-    redirectToHomePageIfNecessary()
-    startPollingIfPossible()
+    else {
+      debugger
+      const socket = socketIOClient(SERVER_ENDPOINT);
+      sendPositionPolling(socket)
+      socketListeners(socket)
+    }
+
+    
   }
 
   init()
