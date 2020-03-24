@@ -6,21 +6,21 @@
     {
         "points": 1,
         "challengeText": "Hay un coronavirus escondido en esta casa",
-        "textoSecundario": "Una vez encontrado, ¡no lo toques! Disimula, sigue buscando un poco más para no dar pistas a tus rivales y susúrrale al oído a la doctora dónde lo has encontrado para que te de la contraseña",
+        "textoSecundario": "Una vez encontrado, ¡no lo toques! Informa a tu persona de contacto dónde lo has encontrado.",
         "placeholder": "Contraseña",
         "solution": "000"
     },
     {
         "points": 1,
-        "challengeText": "¡Rápido! Ha llegado el momento de alertar a la sociedad. Tienes que abrir una ventana en la que no haya nadie y gritar '¡He encontrado el coronavirus!",
-        "textoSecundario": "Si la doctora considera que no has gritado suficiente, no te dará la contraseña",
+        "challengeText": "¡Rápido! Ha llegado el momento de alertar a la sociedad. Asómate una ventana y grita '¡He encontrado el coronavirus!",
+        "textoSecundario": "Si la persona de contacto considera que no has gritado suficiente, no te dará la contraseña",
         "placeholder": "Contraseña",
         "solution": "coronita",
         "time": "0:10"
     },
     {
         "points": 2,
-        "challengeText": "Ahora que lo has encontrado, debes tomar precauciones. Construyete una mascarilla casera",
+        "challengeText": "Debes tomar precauciones. Separación mínima de 1 metro y medio con otras personas. Construyete una mascarilla casera",
         "textoSecundario": "Tómate tu tiempo. Solo una mascarilla bien hecha te permitirá seguir avanzando",
         "placeholder": "Contraseña",
         "images" : "persona con mascarilla",

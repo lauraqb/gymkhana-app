@@ -22,7 +22,7 @@ const mapStateToProps = state => {
     return { 
         game: state.game,
         username: state.username,
-        team: state.team
+        // team: state.team
     }
 }
 
@@ -34,8 +34,7 @@ class Inicio extends React.Component {
             loading: false,
             error: null,
             duplicatedName: false,
-            username: "",
-            userId: null,
+            username: ""
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -72,10 +71,8 @@ class Inicio extends React.Component {
                     this.setState({ duplicatedName: true })
                 }
                 else {
-                    this.props.setUsername(username)
                     this.props.setUserId(res.data.result.id)
-                    this.setState({ userId: res.data.result.id })
-                    this.props.onChangeStep()
+                    this.props.setUsername(username) //esto provocará que se actualice el state y se renderice la página co joinTeam
                 }
             })
             .catch(error => this.setState({ loading: false, error: error.message })) 

@@ -60,6 +60,13 @@
   box-shadow: 2px 2px 4px 0px #000000c4;
 }
 
+p.g-message {
+  text-shadow: 1px 1px 4px #080808;
+  background-color: #181818ba;
+  padding: 4px 20px;
+}
+
+/* //TODO */
 .g-english {
   font-size: calc(5px + 2vmin);
   color: rgb(172, 172, 172);

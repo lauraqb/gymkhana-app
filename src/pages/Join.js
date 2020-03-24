@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setUsername, setTeam, restartPoints } from '../js/actions/index'
+import { restartPoints } from '../js/actions/index'
 import JoinTeam from '../components/JoinTeam'
 import JoinUser from '../components/JoinUser'
 import "./styles/Join.css"
@@ -10,8 +10,6 @@ const gameData = require('../resources/data.json')
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
-        setUsername: username => dispatch(setUsername(username)),
-        setTeam: team => dispatch(setTeam(team)),
         restartPoints: points => dispatch(restartPoints())
     }
 }
@@ -20,7 +18,6 @@ const mapStateToProps = state => {
     return {
         game: state.game,
         username: state.username,
-        team: state.team
     }
 }
 
@@ -30,11 +27,7 @@ class Inicio extends React.Component {
         super(props)
         this.state = {
             step: 1,
-            username: null,
-            userId: null
         }
-        this.handleStepChange = this.handleStepChange.bind(this)
-
      }
 
     componentWillMount() {
@@ -52,20 +45,14 @@ class Inicio extends React.Component {
     //     return confirmationMessage;
     // }
 
-    handleStepChange() {
-        this.setState({ step: 2 })
-    }
-
     render() {
         return <React.Fragment>
             <div className="g-body">
-                {this.state.step===1 &&
-                    <JoinUser  gameId={this.props.game}
-                            welcomeMessage={gameData.welcomeMessage}
-                            onChangeStep={this.handleStepChange}/>
+                {!this.props.username &&
+                    <JoinUser welcomeMessage={gameData.welcomeMessage}/>
                 }
-                {this.state.step===2 &&
-                    <JoinTeam gameId={this.props.game}/>
+                {this.props.username &&
+                    <JoinTeam message={gameData.joinTeamMessage}/>
                 }
             </div>
             <div>

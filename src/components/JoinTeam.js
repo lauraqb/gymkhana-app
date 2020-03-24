@@ -40,7 +40,7 @@ class Inicio extends React.Component {
         }
         this.userId = this.props.userid
         this.username = this.props.username
-        this.gameId = this.props.gameId
+        this.gameId = this.props.game
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -70,7 +70,10 @@ class Inicio extends React.Component {
             axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userId: this.userId, key: teamKey, gameId: this.gameId })
             .then(res => {
                 this.setState({ loading: false, error: false })
-                if(!res.data.valid) {
+                if(res.data.error) {
+                    this.setState({ error: res.data.error })
+                }
+                else if(!res.data.valid) {
                     this.setState({ invalidKeyTeam: true })
                 }
                 else if(res.data.result) {
@@ -89,9 +92,6 @@ class Inicio extends React.Component {
         const inputError = (this.state.invalidKeyTeam || this.state.emptyInput) ? true : false
         const inputErrorClassName = inputError ? "g-input-error" : ""
 
-        if(this.state.error) {
-            return <h1>Error: {this.state.error}</h1>
-        }
         if(this.state.redirect) {
             return <Redirect to='/intro' />
         }
@@ -99,6 +99,7 @@ class Inicio extends React.Component {
                 {this.state.loading && <Loading/>}
                 {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
                 <p className="g-welcome-message">¡Hola {this.username}!</p>
+                <p className="g-message">{this.props.message}</p>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />

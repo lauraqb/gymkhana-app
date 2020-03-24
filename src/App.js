@@ -108,10 +108,11 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
 
   const sendPositionPolling = () => {
     if (userid){
-      navigator.geolocation.getCurrentPosition((success)=>{
+      navigator.geolocation.getCurrentPosition((success)=> {
         setInterval(sendPosition, 3000)
       }, (error)=>{
-        alert(error.message)
+        console.log("error al intentar getCurrentPosition ")
+        //alert(error.message)
       }, {timeout:10000})
     }
   }
@@ -134,12 +135,12 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
   }
 
   const init = () => {
+    console.log("entra en App en path: "+path)
     redirectToHomePageIfNecessary()
     if(path === "/") {
       resetValues()
     }
     else {
-      debugger
       const socket = socketIOClient(SERVER_ENDPOINT);
       sendPositionPolling(socket)
       socketListeners(socket)

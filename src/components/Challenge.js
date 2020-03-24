@@ -41,7 +41,7 @@ class Challenge extends React.Component {
             modal : false,
             textoModal : " ",
             passed : false,
-            answer : null,
+            answer : "",
             wrongAnswer : false,
         }
         const id = this.props.match.params.id
@@ -121,9 +121,9 @@ class Challenge extends React.Component {
         }
         if(this.state.passed) {
             return <div className="container g-body g-challenge-container">
-                    <p>¡Prueba superada!</p>
+                    <p>¡Mission cumplida!</p>
                     <Link to={'./'+this.nextChallengeId} className="App-link">
-                        <Button className="g-start-btn" type="submit">Siguiente reto</Button>
+                        <Button className="g-start-btn" type="submit">Siguiente</Button>
                     </Link>
                 </div>
             // return <Redirect to={'/challenge/'+this.nextChallengeId} />
@@ -131,7 +131,7 @@ class Challenge extends React.Component {
         return <div className="container g-body g-challenge-container">
             <div className="row">
                 <div className="col-12" align="center">
-                    <h2 className="g-challenge-title">Prueba #{this.id}</h2>
+                    <h2 className="g-challenge-title">Misión #{this.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="g-english" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
