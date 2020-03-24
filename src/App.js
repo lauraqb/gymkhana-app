@@ -19,6 +19,7 @@ import socketIOClient from "socket.io-client";
 import { SERVER_ENDPOINT  } from './api-config'
 
 const socket = socketIOClient(SERVER_ENDPOINT);
+const path = document.location.pathname
 
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
@@ -67,10 +68,7 @@ const resetValues = () => {
 
 function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
 
-  const path = document.location.pathname
-  if(path === "/") {
-    resetValues()
-  }
+
   
   socket.on('connect', () => {
     console.log("socket connected "+socket.id)
@@ -88,7 +86,7 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
   })
   
   const redirectToHomePageIfNecessary = () => {
-    const path = document.location.pathname
+    
     if(path !== "/" && !game) {
       document.location.href="/"
     }
@@ -108,12 +106,7 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     }
   }
 
-
-
-  redirectToHomePageIfNecessary()
-
   const sendPosition = () => {
-    debugger
     function geo_success(position) {
       var coordenadas = {
           playerId: userid,
@@ -126,19 +119,30 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     function geo_error(error) {
       //TODO hacer un state con route que lo pinte en pantalla
       console.error("error "+error.message)
-      //socket.emit("error", error.message);
       return false
     }
-    //if (team) navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
     navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10000})
   }
-  if (userid){
-    navigator.geolocation.getCurrentPosition((success)=>{
-      setInterval(sendPosition, 3000)
-    }, (error)=>{alert(error.message)
-    }, {timeout:10000})
-   }
 
+  const startPollingIfPossible = () => {
+    if (userid && path !== "/"){
+      navigator.geolocation.getCurrentPosition((success)=>{
+        setInterval(sendPosition, 3000)
+      }, (error)=>{
+        alert(error.message)
+      }, {timeout:10000})
+    }
+  }
+
+  const init = () => {
+    if(path === "/") {
+      resetValues()
+    }
+    redirectToHomePageIfNecessary()
+    startPollingIfPossible()
+  }
+
+  init()
 
   return (
     <BrowserRouter>
