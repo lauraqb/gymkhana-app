@@ -1,4 +1,4 @@
-.g-challenge-container {
+.challenge-container {
     background-color: #101010c7;
     position: relative;
     width: 100%;
@@ -16,15 +16,20 @@
     z-index: 1;
 }
 
-.g-challenge-container p{
+.challenge-container p{
     white-space:pre-wrap;
 }
 
-.g-challenge-title {
+.challenge-title {
     color: #fac833;
     margin-bottom: 30px;
     padding-top: 10px;
     font-family: 'Boogaloo';
+}
+
+.challenge-subtext {
+    font-size: calc(7px + 2vmin);
+    color: rgb(172, 172, 172);
 }
 
 .g-imagen {

@@ -2,7 +2,7 @@
     "welcomeMessage" : "Bienvenid@ a la Gymkhana del Coronavirus",
     "joinPage" : ["danger_virus.png", "danger-virus2.png"],
     "introPage" : ["injection.png"],
-    "joinTeamMessage" : "AVISO: Has sido escogido para salvar vidas. Para ello tendrás que pensar y actuar rápido. Ser valiente y no tener vergüenza. ¿Estás preparado?",
+    "joinTeamMessage" : "ATENCIÓN: Está en tus manos salvar vidas -incluida la tuya. Requisitos: pensar y actuar rápido, ser valiente y no tener vergüenza. ¿Estás preparado?",
     "introText" : "Te financia este país. Dependes de este país. Solo si actúas correctamente recibirás lo que necesitas para conseguir el objetivo final.",
     "textoIntroPiratas": "Estás a punto de empezar la aventura más emocionante que ha ocurrido nunca en esta ciudad.  Un tesoro se esconde en estas tierras. Para poder encontrarlo, antes debéis demostrar que sois verdaderos piratas. Solo el equipo que consiga demostrar mayor liderazgo, creatividad e ingenio, será digno de merecer este puesto al más valiente. "
 }

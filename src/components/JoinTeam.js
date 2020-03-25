@@ -77,7 +77,6 @@ class Inicio extends React.Component {
                     this.setState({ invalidKeyTeam: true })
                 }
                 else if(res.data.result) {
-                    debugger
                     const teamName = res.data.result.name
                     const teamId = res.data.result.id
                     this.props.setTeam(teamName)
@@ -99,8 +98,12 @@ class Inicio extends React.Component {
         return  <React.Fragment>
                 {this.state.loading && <Loading/>}
                 {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
-                <p className="g-welcome-message">¡Hola {this.username}!</p>
-                <p className="g-message">{this.props.message}</p>
+                <div className="join-team-message">
+                    <h1>¡Hola {this.username}!</h1>
+                    <p>{this.props.message}</p>
+                </div>
+                {/* <p className="join-team-message"></p>
+                <p className="g-message">{this.props.message}</p> */}
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />

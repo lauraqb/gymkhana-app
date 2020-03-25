@@ -86,7 +86,7 @@ class Inicio extends React.Component {
         return  <React.Fragment>
             {this.state.loading && <Loading/>}
             {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
-            <p className="g-welcome-message">{this.props.welcomeMessage}</p>
+            <p className="join-welcome-message">{this.props.welcomeMessage}</p>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Nickname" name="username" value={this.state.username} onChange={this.handleChange} />

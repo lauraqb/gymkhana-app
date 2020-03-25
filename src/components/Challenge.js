@@ -120,7 +120,7 @@ class Challenge extends React.Component {
             return <NotFound/>
         }
         if(this.state.passed) {
-            return <div className="container g-body g-challenge-container">
+            return <div className="container g-body challenge-container">
                     <p>¡Mission cumplida!</p>
                     <Link to={'./'+this.nextChallengeId} className="App-link">
                         <Button className="g-start-btn" type="submit">Siguiente</Button>
@@ -128,12 +128,12 @@ class Challenge extends React.Component {
                 </div>
             // return <Redirect to={'/challenge/'+this.nextChallengeId} />
         }
-        return <div className="container g-body g-challenge-container">
+        return <div className="container g-body challenge-container">
             <div className="row">
                 <div className="col-12" align="center">
-                    <h2 className="g-challenge-title">Misión #{this.id}</h2>
+                    <h2 className="challenge-title">Misión #{this.id}</h2>
                     <p>{this.challengeText}</p>
-                    <p className="g-english" >{this.textoSecundario}</p>
+                    <p className="challenge-subtext" >{this.textoSecundario}</p>
                     {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
                     <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>

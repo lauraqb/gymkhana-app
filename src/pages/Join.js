@@ -47,7 +47,7 @@ class Inicio extends React.Component {
 
     render() {
         return <React.Fragment>
-            <div className="g-body">
+            <div className="join-container">
                 {!this.props.username &&
                     <JoinUser welcomeMessage={gameData.welcomeMessage}/>
                 }
