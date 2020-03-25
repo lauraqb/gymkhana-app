@@ -77,6 +77,7 @@ class Inicio extends React.Component {
                     this.setState({ invalidKeyTeam: true })
                 }
                 else if(res.data.result) {
+                    debugger
                     const teamName = res.data.result.name
                     const teamId = res.data.result.id
                     this.props.setTeam(teamName)

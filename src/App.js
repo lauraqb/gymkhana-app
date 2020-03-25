@@ -18,9 +18,6 @@ import { setServerConnected, setUserId, setUsername, setTeam, setTeamId, restart
 import socketIOClient from "socket.io-client";
 import { SERVER_ENDPOINT  } from './api-config'
 
-
-const path = document.location.pathname
-
 /** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
 const mapStateToProps = state => {
   return {
@@ -52,6 +49,7 @@ window.addEventListener('resize', () => {
 });
 
 function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
+  const path = document.location.pathname
   const resetValues = () => {
       //Comentamos esto porque de momento no hay botón para salir del juego
     //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
