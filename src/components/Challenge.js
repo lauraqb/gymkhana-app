@@ -55,12 +55,14 @@ class Challenge extends React.Component {
         this.placeholder = challengeInfo.placeholder
         this.points = challengeInfo.points
         this.solution = challengeInfo.solution
-        this.images = challengeInfo.images
         this.clue = challengeInfo.clue
         this.time = challengeInfo.time
+        
+        this.image = challengeInfo.images ? this.tryRequire(challengeInfo.images) : null
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
         this.handleChange = this.handleChange.bind(this)
+
 
         const This = this
         if (this.props.socket) {
@@ -71,6 +73,15 @@ class Challenge extends React.Component {
             })
         }
         
+        
+    }
+    
+    tryRequire(image) {
+        try {
+         return require('../images/'+image);
+        } catch (err) {
+         return null;
+        }
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
@@ -122,13 +133,13 @@ class Challenge extends React.Component {
                 </div>
             // return <Redirect to={'/challenge/'+this.nextChallengeId} />
         }
-        return <div className="container challenge-container">
+        return <React.Fragment>
+        <div className="container challenge-container">
             <h2 className="challenge-title">Misión #{this.id}</h2>
             <div className="row">
                 <div className="col-12" align="center">
                     <p>{this.challengeText}</p>
                     <p className="challenge-subtext" >{this.textoSecundario}</p>
-                    {this.images ? <img src={require("../images/"+this.images)} alt={this.images}/>:"" }
                     <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder={this.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
@@ -162,7 +173,10 @@ class Challenge extends React.Component {
             <p className="g-pista" id="pista"></p> </div>:"" }
                 </div>
             </div>
+            
         </div>
+        {this.image ? <div className="challenge-img-right"><img src={this.image} alt={this.image}/></div>:"" }
+        </React.Fragment>
     }
 }
 

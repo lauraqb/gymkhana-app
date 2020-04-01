@@ -50,7 +50,7 @@
     z-index: 2;
 }
 
-.g-img-left {
+.join-img-left {
     /* height: 300px;  */
     bottom: -60px;
     left: -50px;
@@ -60,7 +60,7 @@
     
     animation: 1s ease-out 0s 1 slideInFromLeft;
 }
-.g-img-left img{
+.join-img-left img{
   max-height: 35vh;
 }
 @keyframes slideInFromLeft {

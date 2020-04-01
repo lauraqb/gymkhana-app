@@ -25,9 +25,9 @@ class Intro extends React.Component {
         this.image = gameData && gameData.introPage ? this.tryRequire(gameData.introPage[0]) : null
     }
     
-    tryRequire(path) {
+    tryRequire(image) {
         try {
-         return require(`${path}`);
+         return require('../images/'+image);
         } catch (err) {
          return null;
         }

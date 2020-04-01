@@ -62,9 +62,6 @@ class Inicio extends React.Component {
         if(!teamKey) {
             this.setState({ emptyInput: true })
         }
-        // else if (teamKey === "test") {
-        //     team = "test"
-        // }
         else {
             this.setState({ loading: true })
             axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userId: this.userId, key: teamKey, gameId: this.gameId })

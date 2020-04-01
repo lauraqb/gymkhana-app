@@ -34,6 +34,19 @@
     color: rgb(172, 172, 172);
 }
 
+.challenge-img-right {
+    bottom: -5px;
+    right: -20px;
+    position: fixed;
+    overflow: hidden;
+    animation-delay: 2s;
+    animation: 1s ease-out 0s 1 slideInFromRight;
+}
+.challenge-img-right img{
+    max-height: 35vh;
+    max-width: 60vw;
+}
+
 .g-imagen {
     width: 80%;
     margin-bottom: 15px;

@@ -40,9 +40,9 @@ class Inicio extends React.Component {
         }
     }
 
-    tryRequire(path) {
+    tryRequire(image) {
         try {
-         return require(`${path}`);
+         return require('../images/'+image);
         } catch (err) {
          return null;
         }
@@ -59,8 +59,8 @@ class Inicio extends React.Component {
                 }
             </div>
             <div>
-            {this.image1 && <div className="g-img-left"><img src={this.image1} alt={this.image1}/></div>}
-            {this.image2 && <div className="g-img-left"><img src={this.image2} alt={this.image2}/></div>}
+            {this.image1 && <div className="join-img-left"><img src={this.image1} alt={this.image1}/></div>}
+            {this.image2 && <div className="g-img-right"><img src={this.image2} alt={this.image2}/></div>}
             </div>
 
         </React.Fragment>
