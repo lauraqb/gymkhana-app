@@ -1,15 +1,21 @@
 .g-navbar{
-    top: 0;
-    position: fixed;
     z-index: 5;
     width: 100%;
-    height: 50px;
-    border-bottom: 1px solid rgb(207, 164, 164);
+    height: 37px;
+    border-top: 1px solid rgb(207, 164, 164);
+    /* border-bottom: 1px solid rgb(207, 164, 164); */
 }
 
 .g-navbar .navbar-brand {
     font-size: 1.15rem;
     letter-spacing: -1px;
+}
+
+.g-navbar-points {
+    background-color: #0c0c0c;
+    color: white !important;
+    padding: 0 10px;
+    border-radius: 10px;
 }
 
 .g-logo {

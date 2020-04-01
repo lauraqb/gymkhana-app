@@ -14,29 +14,26 @@ import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import { setServerConnected, setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
+import { setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 import { SERVER_ENDPOINT  } from './api-config'
-
-/** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
-const mapStateToProps = state => {
-  return {
-    serverConnected: state.serverConnected,
-    game: state.game,
-    userid: state.userid,
-    team: state.team,
-  }
-}
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 const mapDispatchToProps = (dispatch) => {
   return {
-      setServerConnected: x => dispatch(setServerConnected(x)),
       setUserId: name => dispatch(setUserId(name)),
       setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
       setTeamId: teamId => dispatch(setTeamId(teamId)),
       restartPoints: points => dispatch(restartPoints())
+  }
+}
+/** [Redux function] selecciona los datos del store que el componente "connect" necesita*/
+const mapStateToProps = state => {
+  return {
+    game: state.game,
+    userid: state.userid,
+    team: state.team,
   }
 }
 
@@ -48,7 +45,7 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
+function App({ game, userid, team, setUsername, setTeam }) {
   const path = document.location.pathname
   const resetValues = () => {
       //Comentamos esto porque de momento no hay botón para salir del juego
@@ -59,7 +56,6 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
     // o preguntar si se desea salir y hacer un   setGame(null)
       
     //reseteamos los valores del estado
-
     setUserId(null)
     setUsername(null)
     setTeam(null)
@@ -118,17 +114,14 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
   const socketListeners = (socket) => {
     socket.on('connect', () => {
       console.log("socket connected "+socket.id)
-      setServerConnected(true)
     })
 
     socket.on('connect_error', (error) => {
       console.log("connect_error "+error)
-      setServerConnected(false)
     })
 
     socket.on('disconnect', (reason) => {
       console.log("disconnect "+reason)
-      setServerConnected(false)
     })
   }
 
@@ -143,8 +136,6 @@ function App({ game, userid, team, setUsername, setTeam, setServerConnected }) {
       sendPositionPolling(socket)
       socketListeners(socket)
     }
-
-    
   }
 
   init()

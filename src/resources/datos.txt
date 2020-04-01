@@ -1,0 +1,171 @@
+[
+  {
+    background: 'wood',
+    welcomeMessage: 'Bienvenid@ a la Gymkhana de la Guerra de Sucesión',
+    joinPage: [
+      'danger_signal.png',
+      'danger_signal2.png'
+    ],
+    introPage: [
+      'injection.png'
+    ],
+    teams: 'Resistencia',
+    joinTeamMessage: 'Es 20 de septiembre de 1914. Hace 7 días que Barcelona ha sido ocupada por las tropas borbónicas de Felipe V de España y sus aliados franceses. A pesar de la rendición y os pactos, hoy han llegado de la corte de Madrid órdenes de encarcelar a todos los oficiales al mando en el bando catalán y están persiguiendo y matando a todos aquellos que se oponen al régimen. Tu nombre aparece en la lista',
+    introText: 'Antes de que anochezca deberás abandonar la ciudad si no quieres ser asesinado. Tu objetivo final es matar a esa persona permitiendo así el fin del asedio a Barcelona, y de esta manera alcanzar la fama, pasando a la historia como la persona más valiente y virtuosa que ha tenido Catalunya. Cuántas más proezas consigas más subiras en el escalafón.'
+  },
+  {
+    points: 1,
+    challengeText: 'Formáis parte de la milicia ciudadana que ha defendido Barcelona durante el asedio. Pero antes que nada, ¿cómo se llama esta milicia?',
+    textoSecundario: '',
+    placeholder: 'Nombre',
+    images: null,
+    time: null,
+    solution: 'Coronela '
+  },
+  {
+    points: 1,
+    challengeText: 'Vuestro batallón ha sido masacrado. Buscáis contactar con el Sargento del batallón del Borne. Sabéis que se encuentra en el 3r piso y que está organizando la fuga de los rebeldes. ',
+    textoSecundario: 'Él no os conoce. Debéis demostrar que verdaderamente sois de la milicia para que confíe en vosotros.',
+    notas: 'El sargento los dejará pasar e iniciará unas pruebas',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: 'muertealosborbones'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Descifra el código',
+    textoSecundario: '',
+    notas: '',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Practica tu puntería',
+    textoSecundario: '',
+    notas: 'Aviones de papel',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Constrúyete un arma',
+    textoSecundario: '',
+    notas: '',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Anima a tus conciudanos',
+    textoSecundario: '',
+    notas: '',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Demuestra tus habilidades con la brújula',
+    textoSecundario: '',
+    notas: '',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Prepara una estratégia para poder salir a la calle sin levantar las sospechas de las patrullas.',
+    textoSecundario: '',
+    notas: '',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Prueba: Demuestra tus habilidades con la localización de coordnadas',
+    textoSecundario: 'Una vez llegues al sitio, la contraseña la encontrarás en ...',
+    notas: 'Antes de salir de casa, entregar nota a X: Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es enviar las posiciones de los líderes rebeldes a medida que las vayas descubriendo, sin levantar sospechas. ',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '123'
+  },
+  {
+    points: 1,
+    challengeText: 'Algo .',
+    textoSecundario: '',
+    notas: 'Al entrar encontrarán una nota en la mesa del comedor que dice: Me han apresado. Y una contraseña',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: 'muerte a los borbónes'
+  },
+  {
+    points: 1,
+    challengeText: 'Vuestro compañero parece que no está. Por suerte, él suele esconder la llave en algún lugar de esta planta.',
+    textoSecundario: '',
+    notas: 'Al entrar encontrarán una nota en la mesa del comedor que dice: Me han apresado. Y una contraseña',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: 'muerte a los borbónes'
+  },
+  {
+    points: 1,
+    challengeText: 'Tenéis que poneros en contacto con la milicia ciudadana que defendió Barcelona durante el asedio. Pero antes que nada, ¿cómo se llama esta milicia?',
+    textoSecundario: '',
+    placeholder: 'Nombre',
+    images: null,
+    time: null,
+    solution: 'Coronela '
+  },
+  {
+    points: 1,
+    challengeText: 'Mandad una señal secreta a la milicia.',
+    textoSecundario: 'Cuela un mensaje por una ventana del edificio de enfrente y espera a la señal. Mientras esperas constrúyete un arma.',
+    nota: 'Entregar nota LEER EN PRIBADO. Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es encontrar al líder de los milicianos.',
+    placeholder: 'Espera la señal',
+    images: null,
+    time: null,
+    solution: 'Coronela '
+  },
+  {
+    points: 1,
+    challengeText: 'Para poder entrar en la milicia tienes que superar una serie de pruebas y demostrar tu valía',
+    textoSecundario: 'Sigue las instrucciones de la instructora.',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '000'
+  },
+  {
+    points: 1,
+    challengeText: 'Formas parte de la milicia. Recibirás las instrucciones de tu primera misión',
+    textoSecundario: 'Cuidado, las patrullas detienen a grupos de 2 personas o más.',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: '000'
+  },
+  {
+    points: 1,
+    challengeText: 'Averigua como se llama el duque que lidera las tropas borbónicas',
+    textoSecundario: 'Tienes que matarle',
+    placeholder: 'Contraseña',
+    images: null,
+    time: null,
+    solution: 'Pópoli '
+  }
+]

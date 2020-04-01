@@ -1,0 +1,60 @@
+[
+    {
+      welcomeMessage: 'Bienvenid@ a la Gymkhana de la Guerra de Sucesión',
+      joinPage: [
+        'danger_signal.png',
+        'danger_signal2.png'
+      ],
+      introPage: [
+        'injection.png'
+      ],
+      teams: 'Carlistas, Isabelinos y',
+      joinTeamMessage: 'Es 1713 y Barcelona ha sido sitiada. Las tropas borbónicas de Felipe V de España y sus aliados franceses rodean la ciudad. La estrategia que siguen es bloquear por tierra la ciudad para asfixiarla y centrar el resto de sus efectivos en la conquista de la fortaleza de Montjuic, ya que una vez tomada, la ciudad se verá obligada a la rendición. Puedes quedarte en casa y esperar tu muerte o actuar. Solo si deseas de verdad actuar, sigue adelante',
+      introText: 'Tu objetivo final es matar a esa persona permitiendo así el fin del asedio a Barcelona, y de esta manera alcanzar la fama, pasando a la historia como la persona más valiente y virtuosa que ha tenido Catalunya. Cuántas más proezas consigas más subiras en el escalafón.'
+    },
+    {
+      points: 1,
+      challengeText: 'Existe una milicia que está defendiendo Barcelona ¿Cómo se llama esta milicia?',
+      textoSecundario: '',
+      placeholder: 'Contraseña',
+      images: null,
+      time: null,
+      solution: 'Coronela '
+    },
+    {
+      points: 1,
+      challengeText: 'La Coronela está reclutando efectivos. Contáctalos para poder unirte.',
+      textoSecundario: 'Cuela un avión de papel por una ventana del edificio de enfrente y espera a la señal. Mientras esperas constrúyete un arma',
+      placeholder: 'Contraseña',
+      images: null,
+      time: null,
+      solution: 'Coronela '
+    },
+    {
+      points: 1,
+      challengeText: 'Para poder entrar en la milicia tienes que superar una serie de pruebas y demostrar tu valía',
+      textoSecundario: 'Sigue las instrucciones de la instructora.',
+      placeholder: 'Contraseña',
+      images: null,
+      time: null,
+      solution: '000'
+    },
+    {
+      points: 1,
+      challengeText: 'Formas parte de la milicia. Las instrucciones es llevar comida ',
+      textoSecundario: 'Sigue las instrucciones de la instructora.',
+      placeholder: 'Contraseña',
+      images: null,
+      time: null,
+      solution: '000'
+    },
+    {
+      points: 1,
+      challengeText: 'Averigua como se llama el duque que lidera las tropas borbónicas',
+      textoSecundario: 'Tienes que matarle',
+      placeholder: 'Contraseña',
+      images: null,
+      time: null,
+      solution: 'Pópoli '
+    }
+  ]

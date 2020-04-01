@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { setGame, setUserId, setUsername, setTeam, setTeamId, restartPoints } from '../js/actions/index'
+import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, restartPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -10,11 +10,11 @@ import { FaExclamationCircle} from 'react-icons/fa/'
 import "./styles/Home.css"
 import { SERVER_ENDPOINT  } from '../api-config'
 
-
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
+        setGameInfo: data => dispatch(setGameInfo(data)),
         //setBackground: game => dispatch(setBackground(game)),
         setUserId: name => dispatch(setUserId(name)),
         setUsername: name => dispatch(setUsername(name)),
@@ -26,7 +26,8 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => {
     return { 
-      game: state.game
+      game: state.game,
+      gameInfo: state.gameInfo
     }
 }
 
@@ -90,6 +91,7 @@ class Home extends React.Component {
                             this.setState({ invalidPinGame: true })
                         }
                         else {
+                            this.props.setGameInfo(res.data.result.info)
                             this.startGame(res.data.result.id)
                         }
                     })
@@ -97,6 +99,7 @@ class Home extends React.Component {
                 })
         }
     }
+
     startGame(gameId) {
         this.props.setGame(gameId)
         this.props.history.push('/join')
@@ -106,9 +109,6 @@ class Home extends React.Component {
         const inputError = (this.state.invalidPinGame || this.state.emptyInput) ? true : false
         const inputErrorClassName = inputError ? "g-input-error" : ""
 
-        // if(this.state.error) {
-        //     return <h1>Error: {this.state.error}</h1>
-        // }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
             {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}

@@ -10,7 +10,6 @@ import NotFound from '../pages/NotFound'
 import IosCheckmarkCircleOutline from 'react-ionicons/lib/IosCheckmarkCircleOutline' //TODO cambiarlo por react-icons 
 //TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
-import tanque from '../images/dios-neptuno.jpg' /**TODO Crear un componente para las imagenes */
 // import socketIOClient from "socket.io-client"
 import "./styles/Challenge.css";
 import { SERVER_ENDPOINT  } from '../api-config'
@@ -18,11 +17,10 @@ import { SERVER_ENDPOINT  } from '../api-config'
 //TODO usar socket de App.js
 // const socket = socketIOClient(SERVER_ENDPOINT)
 
-const pruebasObject = require('../resources/pruebas.json')
-
 const mapStateToProps = state => {
     return { 
         serverConnected: state.serverConnected, //TODO
+        gameInfo: state.gameInfo,
         username: state.username,
         userId: state.userId,
         teamId: state.teamId
@@ -44,20 +42,22 @@ class Challenge extends React.Component {
             answer : "",
             wrongAnswer : false,
         }
+        
         const id = this.props.match.params.id
-        if(pruebasObject.length <= id) {
+        if(this.props.gameInfo.length <= id) {
             return
         } 
+        const challengeInfo = this.props.gameInfo[id]
         this.id = id
         this.nextChallengeId = Number(id)+1
-        this.challengeText = pruebasObject[id].challengeText
-        this.textoSecundario = pruebasObject[id].textoSecundario
-        this.placeholder = pruebasObject[id].placeholder
-        this.points = pruebasObject[id].points
-        this.solution = pruebasObject[id].solution
-        this.images = pruebasObject[id].images
-        this.clue = pruebasObject[id].clue
-        this.time = pruebasObject[id].time
+        this.challengeText = challengeInfo.challengeText
+        this.textoSecundario = challengeInfo.textoSecundario
+        this.placeholder = challengeInfo.placeholder
+        this.points = challengeInfo.points
+        this.solution = challengeInfo.solution
+        this.images = challengeInfo.images
+        this.clue = challengeInfo.clue
+        this.time = challengeInfo.time
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
         this.handleChange = this.handleChange.bind(this)
@@ -80,8 +80,8 @@ class Challenge extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const answer = this.state.answer
-        const solution = this.solution.toLowerCase()
+        const answer = this.state.answer.toLowerCase().trim()
+        const solution = this.solution.toLowerCase().trim()
         if(answer !== solution && answer !== "000") { //TODO 000 temporal
             this.setState({wrongAnswer: true})
         }
@@ -103,12 +103,6 @@ class Challenge extends React.Component {
           wrongAnswer: false
         });
     }
-//TODO borar
-    goToNextChallenge(points) {
-        const nextChallengeId = this.id+1
-        this.props.addPoints(points)
-        this.props.history.push('/prueba'+nextChallengeId)
-    }
 
     handleClick(e) {
         this.points--
@@ -120,7 +114,7 @@ class Challenge extends React.Component {
             return <NotFound/>
         }
         if(this.state.passed) {
-            return <div className="container g-body challenge-container">
+            return <div className="container challenge-container">
                     <p>¡Mission cumplida!</p>
                     <Link to={'./'+this.nextChallengeId} className="App-link">
                         <Button className="g-start-btn" type="submit">Siguiente</Button>
@@ -128,13 +122,13 @@ class Challenge extends React.Component {
                 </div>
             // return <Redirect to={'/challenge/'+this.nextChallengeId} />
         }
-        return <div className="container g-body challenge-container">
+        return <div className="container challenge-container">
+            <h2 className="challenge-title">Misión #{this.id}</h2>
             <div className="row">
                 <div className="col-12" align="center">
-                    <h2 className="challenge-title">Misión #{this.id}</h2>
                     <p>{this.challengeText}</p>
                     <p className="challenge-subtext" >{this.textoSecundario}</p>
-                    {this.images ? <img src={tanque} alt="tanque" className="g-imagen"/>:"" }
+                    {this.images ? <img src={require("../images/"+this.images)} alt={this.images}/>:"" }
                     <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder={this.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />

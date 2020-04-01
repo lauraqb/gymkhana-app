@@ -23,7 +23,8 @@
         "challengeText": "Debes tomar precauciones. Separación mínima de 1 metro y medio con otras personas. Construyete una mascarilla casera",
         "textoSecundario": "Tómate tu tiempo. Solo una mascarilla bien hecha te permitirá seguir avanzando",
         "placeholder": "Contraseña",
-        "images" : "persona con mascarilla",
+        "images" : "monalisa.png",
+        "time": "10:00",
         "solution": "mascarillacasera"
     },
     {

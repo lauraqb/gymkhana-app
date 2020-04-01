@@ -1,6 +1,6 @@
 {
     "welcomeMessage" : "Bienvenid@ a la Gymkhana del Coronavirus",
-    "joinPage" : ["danger_virus.png", "danger-virus2.png"],
+    "joinPage" : ["danger_signal.png", "danger_signal2.png"],
     "introPage" : ["injection.png"],
     "joinTeamMessage" : "ATENCIÓN: Está en tus manos salvar vidas -incluida la tuya. Requisitos: pensar y actuar rápido, ser valiente y no tener vergüenza. ¿Estás preparado?",
     "introText" : "Te financia este país. Dependes de este país. Solo si actúas correctamente recibirás lo que necesitas para conseguir el objetivo final.",

@@ -1,4 +1,17 @@
-h2.g-intro-text {
+.g-intro-text {
+    background-color: #181818d1;
+    padding: 20px 20px;
+    margin-bottom: 20px;
+  }
+  
+  .g-intro-text h2 {
+    font-family: 'Boogaloo';
+    font-size: 2.6em;
+    text-shadow: 1px 1px 4px #080808;
+    padding-bottom: 20px;
+  }
+
+/* h2.g-intro-text {
     top: 100px;
     width: 100%;
     position: fixed;
@@ -6,10 +19,9 @@ h2.g-intro-text {
     background-color: #181818ba;
     padding: 5px 20px;
     box-shadow: 0 4px 8px 0 rgb(0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    /* margin-bottom: 50px */
-}
+} */
 
-p.g-intro-text {
+.g-intro-text p{
     text-shadow: 1px 1px 4px #080808;
     background-color: #181818ba;
     padding: 4px 20px;
