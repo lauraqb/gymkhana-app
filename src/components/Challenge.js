@@ -19,7 +19,6 @@ import { SERVER_ENDPOINT  } from '../api-config'
 
 const mapStateToProps = state => {
     return { 
-        serverConnected: state.serverConnected, //TODO
         gameInfo: state.gameInfo,
         username: state.username,
         userId: state.userId,
@@ -35,7 +34,6 @@ class Challenge extends React.Component {
    
         super(props)
         this.state = {
-            serverConnected : this.props.serverConnected,
             modal : false,
             textoModal : " ",
             passed : false,
@@ -156,11 +154,9 @@ class Challenge extends React.Component {
                             <Modal.Title><IosCheckmarkCircleOutline fontSize="60px" color="green" />¡Correcto!</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            {!this.state.serverConnected && <p>server disconnected</p>}
-                            {this.state.serverConnected && <center><div class="loader"></div></center>}
+                            <center><div class="loader"></div></center>
                             <br></br>
-                            {this.state.textoModal} 
-                            {/* <IosIonic fontSize="55px" color="#969ca2" /> */}
+                            {this.state.textoModal}
                         </Modal.Body>
                     </Modal>
 

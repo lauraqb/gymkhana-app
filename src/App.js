@@ -14,13 +14,15 @@ import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import { setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
+import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, restartPoints } from './js/actions/index'
 import socketIOClient from "socket.io-client";
 import { SERVER_ENDPOINT  } from './api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 const mapDispatchToProps = (dispatch) => {
   return {
+      setGame: game => dispatch(setGame(game)),
+      setGameInfo: data => dispatch(setGameInfo(data)),
       setUserId: name => dispatch(setUserId(name)),
       setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
@@ -56,6 +58,8 @@ function App({ game, userid, team, setUsername, setTeam }) {
     // o preguntar si se desea salir y hacer un   setGame(null)
       
     //reseteamos los valores del estado
+    setGame(null)
+    setGameInfo(null)
     setUserId(null)
     setUsername(null)
     setTeam(null)

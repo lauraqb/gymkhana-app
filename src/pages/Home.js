@@ -15,7 +15,6 @@ function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
         setGameInfo: data => dispatch(setGameInfo(data)),
-        //setBackground: game => dispatch(setBackground(game)),
         setUserId: name => dispatch(setUserId(name)),
         setUsername: name => dispatch(setUsername(name)),
         setTeam: team => dispatch(setTeam(team)),
