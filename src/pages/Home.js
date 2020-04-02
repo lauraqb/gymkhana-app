@@ -54,6 +54,7 @@ class Home extends React.Component {
             
         //reseteamos los valores del estado
         this.props.setGame(null)
+        this.props.setGameInfo(null)
         this.props.setUserId(null)
         this.props.setUsername(null)
         this.props.setTeam(null)

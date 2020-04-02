@@ -34,6 +34,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = state => {
   return {
     game: state.game,
+    gameInfo: state.gameInfo,
     userid: state.userid,
     team: state.team,
   }
@@ -47,23 +48,8 @@ window.addEventListener('resize', () => {
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 });
 
-function App({ game, userid, team, setUsername, setTeam }) {
+function App({ game, userid, team, setGame, setGameInfo, setUserId, setUsername, setTeam }) {
   const path = document.location.pathname
-  const resetValues = () => {
-      //Comentamos esto porque de momento no hay botón para salir del juego
-    //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
-    // if(this.props.game) {
-    //     this.props.history.push('/join')
-    // }
-    // o preguntar si se desea salir y hacer un   setGame(null)
-      
-    //reseteamos los valores del estado
-    setGame(null)
-    setGameInfo(null)
-    setUserId(null)
-    setUsername(null)
-    setTeam(null)
-  }
 
   const redirectToHomePageIfNecessary = () => {
       
@@ -132,10 +118,7 @@ function App({ game, userid, team, setUsername, setTeam }) {
   const init = () => {
     console.log("entra en App en path: "+path)
     redirectToHomePageIfNecessary()
-    if(path === "/") {
-      resetValues()
-    }
-    else {
+    if(!path === "/") {
       const socket = socketIOClient(SERVER_ENDPOINT);
       sendPositionPolling(socket)
       socketListeners(socket)

@@ -8,7 +8,6 @@ const mapStateToProps = state => {
     }
 }
 function Layout(props) {
-    
     const bg = (props.gameInfo && props.gameInfo[0] && props.gameInfo[0].background) ? props.gameInfo[0].background : ""
     let backgroundClassName = ""
     if (bg === "wood")          backgroundClassName = "App-bg-wood"

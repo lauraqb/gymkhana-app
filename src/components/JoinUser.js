@@ -22,7 +22,6 @@ const mapStateToProps = state => {
     return { 
         game: state.game,
         username: state.username,
-        // team: state.team
     }
 }
 
@@ -38,10 +37,6 @@ class Inicio extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-
-        // this.textoIntro = "Estás a punto de empezar la aventura más emocionante que ha ocurrido nunca en esta ciudad. "+
-       // "Un tesoro se esconde en estas tierras. Para poder encontrarlo, antes debéis demostrar que sois verdaderos piratas."
-        //"Solo el equipo que consiga demostrar mayor liderazgo, creatividad e ingenio, será digno de merecer este puesto al más valiente. "
     }
     
     handleChange(event) {
@@ -64,11 +59,14 @@ class Inicio extends React.Component {
         }
         else {
             this.setState({ loading: true })
-            axios.post(`${SERVER_ENDPOINT}/joinUser`, {username: username, game_id: this.props.game })
+            axios.post(`${SERVER_ENDPOINT}/joinUser`, {username: username, gameId: this.props.game })
             .then(res => {
                 this.setState({ loading: false, error: false })
                 if(res.data.duplicated) {
                     this.setState({ duplicatedName: true })
+                }
+                else if(res.data.error) {
+                    this.setState({ error: res.data.error.detail })
                 }
                 else {
                     this.props.setUserId(res.data.result.id)

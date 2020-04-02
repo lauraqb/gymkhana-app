@@ -1,60 +1,180 @@
 [
-    {
-      welcomeMessage: 'Bienvenid@ a la Gymkhana de la Guerra de Sucesión',
-      joinPage: [
-        'danger_signal.png',
-        'danger_signal2.png'
-      ],
-      introPage: [
-        'injection.png'
-      ],
-      teams: 'Carlistas, Isabelinos y',
-      joinTeamMessage: 'Es 1713 y Barcelona ha sido sitiada. Las tropas borbónicas de Felipe V de España y sus aliados franceses rodean la ciudad. La estrategia que siguen es bloquear por tierra la ciudad para asfixiarla y centrar el resto de sus efectivos en la conquista de la fortaleza de Montjuic, ya que una vez tomada, la ciudad se verá obligada a la rendición. Puedes quedarte en casa y esperar tu muerte o actuar. Solo si deseas de verdad actuar, sigue adelante',
-      introText: 'Tu objetivo final es matar a esa persona permitiendo así el fin del asedio a Barcelona, y de esta manera alcanzar la fama, pasando a la historia como la persona más valiente y virtuosa que ha tenido Catalunya. Cuántas más proezas consigas más subiras en el escalafón.'
-    },
-    {
-      points: 1,
-      challengeText: 'Existe una milicia que está defendiendo Barcelona ¿Cómo se llama esta milicia?',
-      textoSecundario: '',
-      placeholder: 'Contraseña',
-      images: null,
-      time: null,
-      solution: 'Coronela '
-    },
-    {
-      points: 1,
-      challengeText: 'La Coronela está reclutando efectivos. Contáctalos para poder unirte.',
-      textoSecundario: 'Cuela un avión de papel por una ventana del edificio de enfrente y espera a la señal. Mientras esperas constrúyete un arma',
-      placeholder: 'Contraseña',
-      images: null,
-      time: null,
-      solution: 'Coronela '
-    },
-    {
-      points: 1,
-      challengeText: 'Para poder entrar en la milicia tienes que superar una serie de pruebas y demostrar tu valía',
-      textoSecundario: 'Sigue las instrucciones de la instructora.',
-      placeholder: 'Contraseña',
-      images: null,
-      time: null,
-      solution: '000'
-    },
-    {
-      points: 1,
-      challengeText: 'Formas parte de la milicia. Las instrucciones es llevar comida ',
-      textoSecundario: 'Sigue las instrucciones de la instructora.',
-      placeholder: 'Contraseña',
-      images: null,
-      time: null,
-      solution: '000'
-    },
-    {
-      points: 1,
-      challengeText: 'Averigua como se llama el duque que lidera las tropas borbónicas',
-      textoSecundario: 'Tienes que matarle',
-      placeholder: 'Contraseña',
-      images: null,
-      time: null,
-      solution: 'Pópoli '
-    }
-  ]
+  {
+    "background": "wood",
+    "welcomeMessage": "Bienvenid@ a la Gymkhana de la Guerra de Sucesión",
+    "joinPage": ["danger_signal.png", "danger_signal2.png"],
+    "introPage": ["injection.png"],
+    "teams": "Resistencia",
+    "joinTeamMessage": "Es 20 de septiembre de 1914. Hace 8 días que Barcelona ha sido ocupada por las tropas borbónicas de Felipe V de España y sus aliados franceses. A pesar de la rendición y los pactos, hoy han llegado de la corte de Madrid órdenes de encarcelar a todos los oficiales al mando en el bando catalán y están persiguiendo y matando a todos aquellos que se oponen al régimen. Estás en peligro.",
+    "introText": "Antes de que anochezca deberás abandonar la ciudad si no quieres ser asesinado.",
+    "nota": "Tu objetivo final es matar a esa persona permitiendo así el fin del asedio a Barcelona, y de esta manera alcanzar la fama, pasando a la historia como la persona más valiente y virtuosa que ha tenido Catalunya. Cuántas más proezas consigas más subiras en el escalafón."
+  },
+  {
+    "points": 1,
+    "challengeText": "Formas parte de la milicia ciudadana que ha defendido Barcelona durante el asedio. ¿Cómo se le conoce a esta milicia?",
+    "textoSecundario": "",
+    "placeholder": "Nombre",
+    "images": null,
+    "time": null,
+    "solution": "Coronela"
+  },
+  {
+    "points": 1,
+    "challengeText": "Tu batallón ha sido masacrado. Has oído que el Sargento Mayor de la milicia, Félix Nicolás Monjo y de Corbera, puede ayudarte a salir de la ciudad. ",
+    "textoSecundario": "Él no te conoce. Debes demostrar que verdaderamente eres de la milicia para que confíe en tí.",
+    "notas": "El sargento los dejará pasar e iniciará unas pruebas. Mencionar que esconde las llaves de casa en el rellano",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "muertealosborbones"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Descifra el código",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "234"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Practica tu puntería",
+    "textoSecundario": "",
+    "notas": "Aviones de papel",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "807"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Constrúyete un arma",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": "pistol.png",
+    "time": null,
+    "solution": "210"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Demuestra que sabes subir la moral a tus conciudanos",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "921"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Demuestra tus habilidades con la brújula",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "decorativeImage": "brujula.png",
+    "time": null,
+    "solution": "443"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Demuestra tus habilidades para moverte en la oscuridad",
+    "textoSecundario": "",
+    "notas": "Tenemos que movernos en la noche",
+    "placeholder": "Contraseña",
+    "decorativeImage": "",
+    "time": null,
+    "solution": "571"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Prepara una estratégia para poder salir a la calle sin levantar la sospecha de la patrulla.",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "876"
+  },
+  {
+    "points": 1,
+    "challengeText": "Prueba: Demuestra tus habilidades con la localización de coordenadas",
+    "textoSecundario": "Una vez llegues al sitio, ¿Qué animal aparece junto al humano",
+    "notas": "Antes de salir de casa, entregar nota a X: Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es encontrar y asesinar a la máxima autoridad militar y política de Cataluña, Rafael Casanova. También debes enviar las posiciones de los líderes rebeldes a medida que las vayas descubriendo, sin levantar sospechas. ",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "caballo"
+  },
+  {
+    "points": 1,
+    "challengeText": "Vuelve al piso para la siguiente prueba.",
+    "textoSecundario": "Ayuda a tus compañeros en caso de que no hayan conseguido solucionarlo.",
+    "notas": [ "Al volver a casa, nadie abrirá. Tendrán que averiguar dónde está la llave.", 
+      "Al entrar encontrarán las sillas tiradas y un papel manchado de sangre y con un texto",
+      "poner música"
+    ],
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "tr41c10n"
+  },
+  {
+    "points": 1,
+    "challengeText": "p.83  - 5000 ref...",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "4862",
+    "pista": "es un libro"
+  },
+  {
+    "points": 1,
+    "challengeText": "Al fossar de les Moreres no s`hi enterra cap traïdor, fins perdent nostres banderes serà l`urna de l`honor.",
+    "textoSecundario": "",
+    "notas": "",
+    "placeholder": "Contraseña",
+    "images": null,
+    "decorative_image": null,
+    "time": null,
+    "solution": "muerte a los borbónes",
+    "pista" : "Preguntadle al gran oráculo llamado Google"
+  },
+  {
+    "points": 1,
+    "challengeText": "Descifra el mensaje",
+    "textoSecundario": "",
+    "notas": [
+      "Decidir si el código de descifrar es fácil o necesitna plantilla",
+      "Sargento Mayor, buenas noticias. Hemos asesinado al Marques Lede y capturado al Duque de Berwick. Necesitamos que envíes la señal X a las 6pm para movilizar a las tropas e iniciar el contraataque. Me reuniré contigo a esa hora. Firmado: Rafael Casanova",
+      "Entregar mensaje a Mattea: LEER EN PRIBADO - No confíes en nadie. Hay un espía entre vosotros, con la misión de matar a Rafael Casanova. Averigua quien es. Si te equivocas, todo estará perdido."
+    ],
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "berwick "
+  },
+  {
+    "points": 1,
+    "challengeText": "Un ejército sin líderes no es un ejército. Descubre como realizar esta señal. Sólo de tí depende obtener la victoria de TÚ BANDO.",
+    "textoSecundario": "Está en los documentos del Sargento que siempre ha guardado en lugar secreto.",
+    "nota": "Subir a la terraza y hacer luces a la catedral ",
+    "placeholder": "Espera la señal",
+    "images": null,
+    "time": null,
+    "solution": "traición "
+  },
+  {
+    "points": 1,
+    "challengeText": "¡Se ha descubierto al espía!",
+    "textoSecundario": "Subid a la terraza a batiros en duelo.",
+    "placeholder": "Contraseña",
+    "images": null,
+    "time": null,
+    "solution": "000"
+  }
+]

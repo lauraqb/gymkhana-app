@@ -42,7 +42,7 @@ class Challenge extends React.Component {
         }
         
         const id = this.props.match.params.id
-        if(this.props.gameInfo.length <= id) {
+        if(!this.props.gameInfo || this.props.gameInfo.length <= id) {
             return
         } 
         const challengeInfo = this.props.gameInfo[id]
@@ -55,8 +55,8 @@ class Challenge extends React.Component {
         this.solution = challengeInfo.solution
         this.clue = challengeInfo.clue
         this.time = challengeInfo.time
-        
-        this.image = challengeInfo.images ? this.tryRequire(challengeInfo.images) : null
+        this.image = challengeInfo.image ? this.tryRequire(challengeInfo.image) : null
+        this.decorativeImage = challengeInfo.decorativeImage ? this.tryRequire(challengeInfo.decorativeImage) : null
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
         this.handleChange = this.handleChange.bind(this)
@@ -74,9 +74,9 @@ class Challenge extends React.Component {
         
     }
     
-    tryRequire(image) {
+    tryRequire(imageFile) {
         try {
-         return require('../images/'+image);
+         return require('../images/'+imageFile);
         } catch (err) {
          return null;
         }
@@ -124,7 +124,7 @@ class Challenge extends React.Component {
         }
         if(this.state.passed) {
             return <div className="container challenge-container">
-                    <p>¡Mission cumplida!</p>
+                    <p>¡Objetivo superado!</p>
                     <Link to={'./'+this.nextChallengeId} className="App-link">
                         <Button className="g-start-btn" type="submit">Siguiente</Button>
                     </Link>
@@ -138,6 +138,7 @@ class Challenge extends React.Component {
                 <div className="col-12" align="center">
                     <p>{this.challengeText}</p>
                     <p className="challenge-subtext" >{this.textoSecundario}</p>
+                    {this.image ? <div className="challenge-main-img"><img src={this.image} alt={this.image}/></div>:"" }
                     <Form id="myForm" onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Control type="text" placeholder={this.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
@@ -149,17 +150,6 @@ class Challenge extends React.Component {
                             Enviar
                         </Button>
                     </Form>
-                    <Modal show={this.state.modal} aria-labelledby="contained-modal-title-vcenter" centered>
-                        <Modal.Header>
-                            <Modal.Title><IosCheckmarkCircleOutline fontSize="60px" color="green" />¡Correcto!</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <center><div class="loader"></div></center>
-                            <br></br>
-                            {this.state.textoModal}
-                        </Modal.Body>
-                    </Modal>
-
                     {this.time ? <Timer seconds={this.time} time={this.time}/>:"" }
                     {this.clue ? <div className="g-line">
             <p className="g-pista">¿Estás atascado? Pide una pista a cambio un punto</p>
@@ -171,7 +161,7 @@ class Challenge extends React.Component {
             </div>
             
         </div>
-        {this.image ? <div className="challenge-img-right"><img src={this.image} alt={this.image}/></div>:"" }
+        {this.decorativeImage ? <div className="challenge-img-right"><img src={this.decorativeImage} alt={this.decorativeImage}/></div>:"" }
         </React.Fragment>
     }
 }
