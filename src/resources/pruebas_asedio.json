@@ -2,10 +2,10 @@
   {
     "background": "wood",
     "welcomeMessage": "Bienvenid@ a la Gymkhana de la Guerra de Sucesión",
-    "joinPage": ["danger_signal.png", "danger_signal2.png"],
-    "introPage": ["injection.png"],
+    "joinPage": ["soldado2.png", "soldado1.png"],
+    "introPage": ["brujula.png"],
     "teams": "Resistencia",
-    "joinTeamMessage": "Es 20 de septiembre de 1914. Hace 8 días que Barcelona ha sido ocupada por las tropas borbónicas de Felipe V de España y sus aliados franceses. A pesar de la rendición y los pactos, hoy han llegado de la corte de Madrid órdenes de encarcelar a todos los oficiales al mando en el bando catalán y están persiguiendo y matando a todos aquellos que se oponen al régimen. Estás en peligro.",
+    "joinTeamMessage": "Es 20 de septiembre de 1914. Hace apenas unos días que Barcelona ha sido ocupada por las tropas borbónicas de Felipe V de España y sus aliados franceses. A pesar de la rendición y los pactos, acaban de llegar órdenes de la corte de tomar prisioneros a los oficiales militares que han luchado durante el sitio y están persiguiendo y matando a todos los rebeldes. Estás en peligro.",
     "introText": "Antes de que anochezca deberás abandonar la ciudad si no quieres ser asesinado.",
     "nota": "Tu objetivo final es matar a esa persona permitiendo así el fin del asedio a Barcelona, y de esta manera alcanzar la fama, pasando a la historia como la persona más valiente y virtuosa que ha tenido Catalunya. Cuántas más proezas consigas más subiras en el escalafón."
   },
@@ -15,7 +15,7 @@
     "textoSecundario": "",
     "placeholder": "Nombre",
     "images": null,
-    "time": null,
+    "speedReward": true,
     "solution": "Coronela"
   },
   {
@@ -32,7 +32,10 @@
     "points": 1,
     "challengeText": "Prueba: Descifra el código",
     "textoSecundario": "",
-    "notas": "",
+    "notas": [
+      "Tratado de Utrecht",
+      ","
+    ],
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
@@ -41,11 +44,12 @@
   {
     "points": 1,
     "challengeText": "Prueba: Practica tu puntería",
-    "textoSecundario": "",
-    "notas": "Aviones de papel",
+    "textoSecundario": "Debes colar un avión de papel por la ventana de un vecino.",
+    "notas": "Aviones de papel por una ventana",
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
+    "speedReward": true,
     "solution": "807"
   },
   {
@@ -56,6 +60,7 @@
     "placeholder": "Contraseña",
     "images": "pistol.png",
     "time": null,
+    "speedReward": true,
     "solution": "210"
   },
   {
@@ -66,6 +71,7 @@
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
+    "speedReward": true,
     "solution": "921"
   },
   {
@@ -86,6 +92,7 @@
     "placeholder": "Contraseña",
     "decorativeImage": "",
     "time": null,
+    "speedReward": true,
     "solution": "571"
   },
   {
@@ -101,7 +108,7 @@
   {
     "points": 1,
     "challengeText": "Prueba: Demuestra tus habilidades con la localización de coordenadas",
-    "textoSecundario": "Una vez llegues al sitio, ¿Qué animal aparece junto al humano",
+    "textoSecundario": "Una vez llegues al sitio, ¿Qué animal aparece junto al humano?",
     "notas": "Antes de salir de casa, entregar nota a X: Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es encontrar y asesinar a la máxima autoridad militar y política de Cataluña, Rafael Casanova. También debes enviar las posiciones de los líderes rebeldes a medida que las vayas descubriendo, sin levantar sospechas. ",
     "placeholder": "Contraseña",
     "images": null,

@@ -68,9 +68,9 @@ class Inicio extends React.Component {
             .then(res => {
                 this.setState({ loading: false, error: false })
                 if(res.data.error) {
-                    this.setState({ error: res.data.error })
+                    this.setState({ error: res.data.error.message ? res.data.error.message : "error"})
                 }
-                else if(!res.data.valid) {
+                else if(res.data.invalidKey) {
                     this.setState({ invalidKeyTeam: true })
                 }
                 else if(res.data.result) {

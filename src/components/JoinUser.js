@@ -21,6 +21,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = state => {
     return { 
         game: state.game,
+        userid: state.userid,
         username: state.username,
     }
 }

@@ -9,6 +9,7 @@
     height: 100%;
     background-color: #131313e6;
     box-sizing: content-box !important;
+    z-index:6
 }
 
 .css-p2p61k {

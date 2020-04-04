@@ -1,8 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import Alert from 'react-bootstrap/Alert'
+import Loading from '../components/Loading'
 import Modal from 'react-bootstrap/Modal'
 import axios from 'axios'
 import { FaExclamationCircle} from 'react-icons/fa/'
@@ -19,9 +21,10 @@ import { SERVER_ENDPOINT  } from '../api-config'
 
 const mapStateToProps = state => {
     return { 
+        gameId: state.game,
         gameInfo: state.gameInfo,
         username: state.username,
-        userId: state.userId,
+        userId: state.userid,
         teamId: state.teamId
     }
 }
@@ -57,10 +60,10 @@ class Challenge extends React.Component {
         this.time = challengeInfo.time
         this.image = challengeInfo.image ? this.tryRequire(challengeInfo.image) : null
         this.decorativeImage = challengeInfo.decorativeImage ? this.tryRequire(challengeInfo.decorativeImage) : null
+        this.speedReward = challengeInfo.speedReward
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
         this.handleChange = this.handleChange.bind(this)
-
 
         const This = this
         if (this.props.socket) {
@@ -70,8 +73,6 @@ class Challenge extends React.Component {
                 }
             })
         }
-        
-        
     }
     
     tryRequire(imageFile) {
@@ -95,10 +96,19 @@ class Challenge extends React.Component {
             this.setState({wrongAnswer: true})
         }
         else {
-            axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.id, userId: this.props.userId, teamId: this.props.teamId })
+            this.setState({ loading: true, error: false })
+            axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.id, gameId: this.props.gameId, userId: this.props.userId, teamId: this.props.teamId, speedReward: this.speedReward })
             .then(res => {
-                //this.setState({ loading: false, error: false })
-                this.setState({ passed: true });
+                this.setState({ loading: false })
+                debugger
+                if(res.data.error) {
+                    this.setState({ error: res.data.error.detail })
+                }
+                else {
+                    this.setState({ passed: true });
+                }
+                
+                
             })
             .catch(error => this.setState({ loading: false, error: error.message })) 
         }
@@ -132,8 +142,11 @@ class Challenge extends React.Component {
             // return <Redirect to={'/challenge/'+this.nextChallengeId} />
         }
         return <React.Fragment>
+            {this.state.loading && <Loading/>}
+            
         <div className="container challenge-container">
             <h2 className="challenge-title">Misión #{this.id}</h2>
+            {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
             <div className="row">
                 <div className="col-12" align="center">
                     <p>{this.challengeText}</p>
