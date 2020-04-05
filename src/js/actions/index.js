@@ -1,9 +1,8 @@
 import { SET_GAME, SET_GAME_INFO, SET_USERNAME, SET_USERID, SET_TEAM, SET_TEAMID } from "../constants/action-types"
-import { ADD_POINT } from "../constants/action-types"
+import { SET_POINTS } from "../constants/action-types"
 import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
-
 
 export function setGame(payload) {
     return { type: SET_GAME, payload }
@@ -23,8 +22,8 @@ export function setTeam(payload) {
 export function setTeamId(payload) {
     return { type: SET_TEAMID, payload }
 }
-export function addPoints(payload) {
-    return { type: ADD_POINT, payload }
+export function setPoints(payload) {
+    return { type: SET_POINTS, payload }
 }
 export function deletePoints(payload) {
     return { type: DELETE_POINTS, payload }

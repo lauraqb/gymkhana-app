@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import axios from 'axios'
 import './styles/App.css'
 import Layout from './components/Layout'
 import Navbar from './components/Navbar'
@@ -8,9 +7,6 @@ import Home from './pages/Home'
 import Join from './pages/Join'
 import Intro from './pages/Intro'
 import Challenge from './components/Challenge'
-import Prueba5 from './pages/Prueba5'
-import Prueba6 from './pages/Prueba6'
-import Prueba7 from './pages/Prueba7'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
@@ -54,21 +50,8 @@ function App({ game, userid, team, setGame, setGameInfo, setUserId, setUsername,
   const redirectToHomePageIfNecessary = () => {
       
     if(path !== "/" && !game) {
+      debugger
       document.location.href="/"
-    }
-    else if((path !== "/join" && path !== "/intro") && userid ) {
-      //TODO mirar que hace esto y si lo necesito
-      axios.post(`${SERVER_ENDPOINT}/checkPlayerInDB`, {player: userid})
-      .then(res => {
-        console.log(res)
-        if(res === 0) {
-          //TODO resetear todo, o sí estamos en la home que allí se resetee todo 
-          setUsername(null)
-          setTeam(null)
-          document.location.href="/"
-        }   
-      })
-      .catch(error => console.log("error en checkPlayerInDB"));
     }
   }
 
@@ -138,9 +121,6 @@ function App({ game, userid, team, setGame, setGameInfo, setUserId, setUsername,
             <Switch>
               <Route exact path="/intro" component={Intro} />
               <Route exact path="/challenge/:id" component={Challenge} />
-              <Route exact path="/prueba5" component={Prueba5} />
-              <Route exact path="/prueba6" component={Prueba6} />
-              <Route exact path="/prueba7" component={Prueba7} />
               <Route exact path="/final" component={Final} />
               <Route component={NotFound} />
             </Switch>
