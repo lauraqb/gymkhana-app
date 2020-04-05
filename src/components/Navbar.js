@@ -32,7 +32,6 @@ class Menu extends React.Component {
     )
   }
 }
-//<Navbar bg="light" variant="light" className="ec-navbar">
 
 const menuConnected = connect(mapStateToProps)(Menu);
 export default menuConnected;

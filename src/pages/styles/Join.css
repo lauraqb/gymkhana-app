@@ -65,10 +65,11 @@
 }
 @keyframes slideInFromLeft {
     0% {
-      transform: translateX(-100%) rotate(0.06turn);
+      transform: translateX(-100%);
     }
     100% {
-      transform: translateX(0) rotate(0.06turn);
+      transform: translateX(0);
+      /* transform: translateX(0) rotate(0.06turn); */
     }
 }
 .g-img-right {

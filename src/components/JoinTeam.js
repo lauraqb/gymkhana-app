@@ -78,7 +78,6 @@ class Inicio extends React.Component {
                     const teamId = res.data.result.id
                     this.props.setTeam(teamName)
                     this.props.setTeamId(teamId)
-                    
                     this.setState({ redirect: true })
                 }
             })

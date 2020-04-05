@@ -48,7 +48,7 @@ class Inicio extends React.Component {
           duplicatedName: false,
           emptyInput: false,
           error: null,
-        });
+        })
     }
 
     handleSubmit(e){
@@ -71,7 +71,7 @@ class Inicio extends React.Component {
                 }
                 else {
                     this.props.setUserId(res.data.result.id)
-                    this.props.setUsername(username) //esto provocará que se actualice el state y se renderice la página co joinTeam
+                    this.props.setUsername(username) //esto provocará que se actualice el state y se renderice la página con joinTeam
                 }
             })
             .catch(error => this.setState({ loading: false, error: error.message })) 

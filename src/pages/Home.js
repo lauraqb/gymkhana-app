@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, restartPoints } from '../js/actions/index'
+import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
         setUsername: name => dispatch(setUsername(name)),
         setTeam: team => dispatch(setTeam(team)),
         setTeamId: teamId => dispatch(setTeamId(teamId)),
-        restartPoints: points => dispatch(restartPoints())
+        setPoints: points => dispatch(setPoints(points))
     }
 }
 
@@ -45,19 +45,14 @@ class Home extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    componentWillMount() {
-        //Comentamos esto porque de momento no hay botón para salir del juego
-        //Si el usuario ya ha entrado en un juego, omitimos esta pantalla
-        // if(this.props.game) {
-        //     this.props.history.push('/join')
-        // }
-            
+    componentWillMount() {            
         //reseteamos los valores del estado
         this.props.setGame(null)
         this.props.setGameInfo(null)
         this.props.setUserId(null)
         this.props.setUsername(null)
         this.props.setTeam(null)
+        this.props.setPoints(0)
     }
         
     handleChange(event) {
@@ -72,7 +67,6 @@ class Home extends React.Component {
     
     handleSubmit(e) {
         e.preventDefault();
-        //this.props.restartPoints()
         const gamePin = this.state.gamePin
         switch(gamePin) {
             case "test":

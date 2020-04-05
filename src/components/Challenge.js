@@ -161,7 +161,6 @@ class Challenge extends React.Component {
             return <div className="container challenge-container">
                     <p>¡Objetivo superado!</p>
                     {/* <Link to={'./'+this.state.challengeData.id+1} className="App-link"> */}
-
                     <Button onClick={this.goToNextLevel} className="g-start-btn" type="submit">Siguiente</Button>
                 </div>
         }
@@ -184,7 +183,6 @@ class Challenge extends React.Component {
                         <Form.Group>
                             <Form.Control type="text" placeholder={challengeData.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
                             { this.state.wrongAnswer && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Respuesta incorrecta. ¡Sigue intentándolo!</Form.Text>}
-
                             <Form.Text className="text-muted">{this.props.textMuted}</Form.Text>
                         </Form.Group>
                         <Button variant="primary" type="submit">

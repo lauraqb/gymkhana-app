@@ -88,7 +88,7 @@
     "points": 1,
     "challengeText": "Prueba: Demuestra tus habilidades para moverte en la oscuridad",
     "textoSecundario": "",
-    "notas": "Tenemos que movernos en la noche",
+    "notas": "Tenemos que movernos en la noche. Atravesar el salón con una benda en los ojos, it hasta la puerta y tocarla. Cronometrar.",
     "placeholder": "Contraseña",
     "decorativeImage": "",
     "time": null,
@@ -97,7 +97,7 @@
   },
   {
     "points": 1,
-    "challengeText": "Prueba: Prepara una estratégia para poder salir a la calle sin levantar la sospecha de la patrulla.",
+    "challengeText": "Prueba: Prepara una estratégia para poder salir a la calle sin levantar la sospecha de las patrullas.",
     "textoSecundario": "",
     "notas": "",
     "placeholder": "Contraseña",
@@ -107,13 +107,13 @@
   },
   {
     "points": 1,
-    "challengeText": "Prueba: Demuestra tus habilidades con la localización de coordenadas",
-    "textoSecundario": "Una vez llegues al sitio, ¿Qué animal aparece junto al humano?",
-    "notas": "Antes de salir de casa, entregar nota a X: Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es encontrar y asesinar a la máxima autoridad militar y política de Cataluña, Rafael Casanova. También debes enviar las posiciones de los líderes rebeldes a medida que las vayas descubriendo, sin levantar sospechas. ",
+    "challengeText": "Prueba: Demuestra tus habilidades con la localización de coordenadas. 41°23'04.7\"N 2°10'47.2\"E",
+    "textoSecundario": "Mirando en dirección Noroeste, verás una palabra subrayada",
+    "notas": "Antes de salir de casa, entregar nota a X: Eres el espía. Trabajas para el bando borbónico. Tu misión secreta es encontrar y asesinar a la máxima autoridad militar y política de Cataluña, Rafael Casanova. No debes levantar sospechas. ",
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
-    "solution": "caballo"
+    "solution": "Feminista"
   },
   {
     "points": 1,
@@ -126,7 +126,7 @@
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
-    "solution": "tr41c10n"
+    "solution": "0476"
   },
   {
     "points": 1,
@@ -148,7 +148,7 @@
     "images": null,
     "decorative_image": null,
     "time": null,
-    "solution": "muerte a los borbónes",
+    "solution": "5142",
     "pista" : "Preguntadle al gran oráculo llamado Google"
   },
   {
@@ -156,8 +156,7 @@
     "challengeText": "Descifra el mensaje",
     "textoSecundario": "",
     "notas": [
-      "Decidir si el código de descifrar es fácil o necesitna plantilla",
-      "Sargento Mayor, buenas noticias. Hemos asesinado al Marques Lede y capturado al Duque de Berwick. Necesitamos que envíes la señal X a las 6pm para movilizar a las tropas e iniciar el contraataque. Me reuniré contigo a esa hora. Firmado: Rafael Casanova",
+      "Sargento Mayor, buenas noticias. Hemos capturado al Duque de Berwick. Reunete conmigo en el lugar habitual. movilizar a las tropas e iniciar el contraataque. Firmado: Rafael Casanova",
       "Entregar mensaje a Mattea: LEER EN PRIBADO - No confíes en nadie. Hay un espía entre vosotros, con la misión de matar a Rafael Casanova. Averigua quien es. Si te equivocas, todo estará perdido."
     ],
     "placeholder": "Contraseña",
@@ -167,8 +166,8 @@
   },
   {
     "points": 1,
-    "challengeText": "Un ejército sin líderes no es un ejército. Descubre como realizar esta señal. Sólo de tí depende obtener la victoria de TÚ BANDO.",
-    "textoSecundario": "Está en los documentos del Sargento que siempre ha guardado en lugar secreto.",
+    "challengeText": "Un ejército sin líderes no es un ejército. Descubre dónde es el lugar de reunión. Alguien de este edificio te puede ayudar.",
+    "textoSecundario": "",
     "nota": "Subir a la terraza y hacer luces a la catedral ",
     "placeholder": "Espera la señal",
     "images": null,
@@ -178,7 +177,7 @@
   {
     "points": 1,
     "challengeText": "¡Se ha descubierto al espía!",
-    "textoSecundario": "Subid a la terraza a batiros en duelo.",
+    "textoSecundario": "Es hora de batirse en duelo.",
     "placeholder": "Contraseña",
     "images": null,
     "time": null,
