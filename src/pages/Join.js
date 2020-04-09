@@ -1,16 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { restartPoints } from '../js/actions/index'
 import JoinTeam from '../components/JoinTeam'
 import JoinUser from '../components/JoinUser'
 import "./styles/Join.css"
-
-/** Redux function. Sirve para enviar (dispatch) acciones al store */
-function mapDispatchToProps(dispatch) {
-    return {
-        restartPoints: points => dispatch(restartPoints())
-    }
-}
 
 const mapStateToProps = state => {
     return {
@@ -67,5 +59,5 @@ class Inicio extends React.Component {
     }
 }
 
-const inicioConnected = connect(mapStateToProps, mapDispatchToProps)(Inicio)
+const inicioConnected = connect(mapStateToProps)(Inicio)
 export default inicioConnected;

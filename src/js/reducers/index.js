@@ -1,6 +1,5 @@
 import { SET_GAME, SET_GAME_INFO, SET_USERNAME, SET_USERID, SET_TEAM, SET_TEAMID } from "../constants/action-types"
 import { SET_POINTS } from "../constants/action-types"
-import { RESET_POINTS } from "../constants/action-types"
 import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
 
@@ -55,11 +54,6 @@ function rootReducer(state=initialState, action) {
     if(action.type === DELETE_POINTS) {
         return Object.assign({}, state, {
             points : state.points - action.payload
-        })
-    }
-    if(action.type === RESET_POINTS) {
-        return Object.assign({}, state, {
-            points : 0
         })
     }
     if(action.type ===  SET_TIME) {

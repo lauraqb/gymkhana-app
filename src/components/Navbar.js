@@ -1,7 +1,22 @@
 import React from "react"
 import { connect } from 'react-redux'
+import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
 import "./styles/Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
+import { FaSignOutAlt} from 'react-icons/fa/'
+
+/** Redux function. Sirve para enviar (dispatch) acciones al store */
+function mapDispatchToProps(dispatch) {
+  return {
+      setGame: game => dispatch(setGame(game)),
+      setGameInfo: data => dispatch(setGameInfo(data)),
+      setUserId: name => dispatch(setUserId(name)),
+      setUsername: name => dispatch(setUsername(name)),
+      setTeam: team => dispatch(setTeam(team)),
+      setTeamId: teamId => dispatch(setTeamId(teamId)),
+      setPoints: points => dispatch(setPoints(points))
+  }
+}
 
 const mapStateToProps = state => {
   return { 
@@ -12,6 +27,24 @@ const mapStateToProps = state => {
 }
 
 class Menu extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.logOut = this.logOut.bind(this)
+  }
+  
+  logOut(e) {
+    var r = window.confirm("¿Confirmas que deseas salir?");
+    if (!r) return
+    //reseteamos los valores del estado
+    this.props.setGame(null)
+    this.props.setGameInfo(null)
+    this.props.setUserId(null)
+    this.props.setUsername(null)
+    this.props.setTeam(null)
+    this.props.setPoints(0) 
+    this.props.history.push('/')
+  }
 
   render() {
     return (
@@ -24,6 +57,9 @@ class Menu extends React.Component {
           <Navbar.Brand className="g-navbar-points">
             {this.props.points}
           </Navbar.Brand>
+          <Navbar.Brand >
+            <FaSignOutAlt className="g-navbar-logout" onClick={this.logOut}/>
+          </Navbar.Brand>
             {/* <a href="https://wa.me/34670356948" target="_blank" rel="noopener noreferrer" className="App-link g-logo">
               <img src={helpIcon} alt="help" width={35} height={35}/>
             </a> */}
@@ -33,5 +69,5 @@ class Menu extends React.Component {
   }
 }
 
-const menuConnected = connect(mapStateToProps)(Menu);
+const menuConnected = connect(mapStateToProps, mapDispatchToProps)(Menu);
 export default menuConnected;

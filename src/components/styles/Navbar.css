@@ -21,3 +21,8 @@
 .g-logo {
     margin-left: 10px;
 }
+
+.g-navbar-logout {
+    cursor: pointer;
+    margin-right: 0;
+}

@@ -7,12 +7,11 @@ import Alert from 'react-bootstrap/Alert'
 import Loading from '../components/Loading'
 import axios from 'axios'
 import { FaExclamationCircle} from 'react-icons/fa/'
-//import NotFound from '../pages/NotFound'
-//TODO 2: desinstalar el ionicons este
 import Timer from './Timer'
-// import socketIOClient from "socket.io-client"
 import "./styles/Challenge.css";
 import { SERVER_ENDPOINT  } from '../api-config'
+//import NotFound from '../pages/NotFound'
+//import socketIOClient from "socket.io-client"
 
 //TODO usar socket de App.js
 // const socket = socketIOClient(SERVER_ENDPOINT)
@@ -36,6 +35,7 @@ const mapStateToProps = state => {
 class Challenge extends React.Component {
 
     constructor(props) {
+        
         super(props)
         this.state = {
             modal : false,
@@ -51,7 +51,7 @@ class Challenge extends React.Component {
             return
         } 
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleClick = this.handleClick.bind(this) //TODO renombrar a pista
+        this.showClue = this.showClue.bind(this)
         this.goToNextLevel = this.goToNextLevel.bind(this)
         this.handleChange = this.handleChange.bind(this)
 
@@ -69,9 +69,10 @@ class Challenge extends React.Component {
         this.getChallengeData()
     }
 
-    getChallengeData() {
+    getChallengeData() {      
+          
         this.setState({ loading: true })
-        axios.post(`${SERVER_ENDPOINT}/challengeData`, { gameId: this.props.gameId, userId: this.props.userId })
+        axios.post(`${SERVER_ENDPOINT}/challengeData`, { gameId: this.props.gameId, userId: this.props.userId }, {timeout: 10000})
             .then(res => {
                 this.setState({ loading: false })
                 if(res.data.error) {
@@ -84,14 +85,17 @@ class Challenge extends React.Component {
                     this.setState({ challengeData: res.data.result });
                 }
             })
-            .catch(error => this.setState({ loading: false, error: error.message })) 
+            .catch(error => {
+                debugger
+                this.setState({ loading: false, error: error.message })
+            }) 
     }
     
     tryRequire(imageFile) {
         try {
-         return require('../images/'+imageFile);
+            return require('../images/'+imageFile);
         } catch (err) {
-         return null;
+            return null;
         }
     }
     componentDidUpdate(prevProps) {
@@ -101,26 +105,30 @@ class Challenge extends React.Component {
     }
 
     getPoints() {
+
         axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
-            .then(res => {
-                if(typeof res.data.points === "number") {
-                    this.props.setPoints(res.data.points)
-                }
-                else {
-                    alert("error en getPoints")
-                }
-            })
+        .then(res => {
+            if(typeof res.data.points === "number") {
+                this.props.setPoints(res.data.points)
+            }
+            else {
+                alert("error en getPoints")
+            }
+        })
     }
 
     handleSubmit(event) {
+
         event.preventDefault();
         const answer = this.state.answer.toLowerCase().trim()
         const solution = this.state.challengeData.solution.toLowerCase().trim()
+
         if(answer !== solution && answer !== "---") { //TODO 000 temporal
             this.setState({wrongAnswer: true})
         }
         else {
             this.setState({ loading: true, error: false })
+
             axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.state.challengeData.id, gameId: this.props.gameId, userId: this.props.userId, teamId: this.props.teamId, speedReward: this.state.challengeData.speedReward })
             .then(res => {
                 this.setState({ loading: false })
@@ -145,7 +153,7 @@ class Challenge extends React.Component {
         });
     }
 
-    handleClick(e) {
+    showClue(e) {
         this.points--
         document.getElementById('pista').innerHTML = this.state.challengeData.clue
     }
@@ -157,6 +165,10 @@ class Challenge extends React.Component {
     }
 
     render() {
+        const challengeData = this.state.challengeData
+        if(this.state.error) {
+        return <div>Error: {this.state.error}</div>
+        }
         if(this.state.passed) {
             return <div className="container challenge-container">
                     <p>¡Objetivo superado!</p>
@@ -164,43 +176,43 @@ class Challenge extends React.Component {
                     <Button onClick={this.goToNextLevel} className="g-start-btn" type="submit">Siguiente</Button>
                 </div>
         }
-        if(!this.state.challengeData) {
+        if(this.state.loading) {
             return <Loading/>
         }
-        const challengeData = this.state.challengeData
-        return <React.Fragment>
-            {this.state.loading && <Loading/>}
-            
-        <div className="container challenge-container">
-            <h2 className="challenge-title">Misión #{challengeData.id}</h2>
-            {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
-            <div className="row">
-                <div className="col-12" align="center">
-                    <p>{challengeData.challengeText}</p>
-                    <p className="challenge-subtext" >{challengeData.textoSecundario}</p>
-                    {challengeData.image ? <div className="challenge-main-img"><img src={challengeData.image} alt={challengeData.image}/></div>:"" }
-                    <Form id="myForm" onSubmit={this.handleSubmit}>
-                        <Form.Group>
-                            <Form.Control type="text" placeholder={challengeData.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
-                            { this.state.wrongAnswer && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Respuesta incorrecta. ¡Sigue intentándolo!</Form.Text>}
-                            <Form.Text className="text-muted">{this.props.textMuted}</Form.Text>
-                        </Form.Group>
-                        <Button variant="primary" type="submit">
-                            Enviar
-                        </Button>
-                    </Form>
-                    {challengeData.time ? <Timer seconds={challengeData.time} time={challengeData.time}/>:"" }
-                    {challengeData.clue ? <div className="g-line">
-                        <p className="g-pista">¿Estás atascado? Pide una pista a cambio un punto</p>
-                        <Button variant="warning" onClick={this.handleClick}>
-                            Conseguir pista
-                        </Button>
-                        <p className="g-pista" id="pista"></p> </div>:"" }
+        
+        else if(!challengeData) {
+            return <div></div>
+        }
+        return <React.Fragment>   
+            <div className="container challenge-container">
+                <h2 className="challenge-title">Misión #{challengeData.id}</h2>
+                {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
+                <div className="row">
+                    <div className="col-12" align="center">
+                        <p>{challengeData.challengeText}</p>
+                        <p className="challenge-subtext" >{challengeData.textoSecundario}</p>
+                        {challengeData.image ? <div className="challenge-main-img"><img src={challengeData.image} alt={challengeData.image}/></div>:"" }
+                        <Form id="myForm" onSubmit={this.handleSubmit}>
+                            <Form.Group>
+                                <Form.Control type="text" placeholder={challengeData.placeholder} name="answer" value={this.state.answer} onChange={this.handleChange} />
+                                { this.state.wrongAnswer && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Respuesta incorrecta. ¡Sigue intentándolo!</Form.Text>}
+                                <Form.Text className="text-muted">{this.props.textMuted}</Form.Text>
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Enviar
+                            </Button>
+                        </Form>
+                        {challengeData.time ? <Timer seconds={challengeData.time} time={challengeData.time}/>:"" }
+                        {challengeData.clue ? <div className="g-line">
+                            <p className="g-pista">¿Estás atascado? Pide una pista a cambio un punto</p>
+                            <Button variant="warning" onClick={this.showClue}>
+                                Conseguir pista
+                            </Button>
+                            <p className="g-pista" id="pista"></p> </div>:"" }
+                    </div>
                 </div>
             </div>
-            
-        </div>
-        {challengeData.decorativeImage ? <div className="challenge-img-right"><img src={challengeData.decorativeImage} alt={challengeData.decorativeImage}/></div>:"" }
+            {challengeData.decorativeImage ? <div className="challenge-img-right"><img src={challengeData.decorativeImage} alt={challengeData.decorativeImage}/></div>:"" }
         </React.Fragment>
     }
 }

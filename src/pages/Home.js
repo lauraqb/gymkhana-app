@@ -25,8 +25,10 @@ function mapDispatchToProps(dispatch) {
 
 const mapStateToProps = state => {
     return { 
-      game: state.game,
-      gameInfo: state.gameInfo
+      gameId: state.game,
+      gameInfo: state.gameInfo,
+      userId: state.userid,
+      teamId: state.teamId
     }
 }
 
@@ -45,14 +47,15 @@ class Home extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
-    componentWillMount() {            
-        //reseteamos los valores del estado
-        this.props.setGame(null)
-        this.props.setGameInfo(null)
-        this.props.setUserId(null)
-        this.props.setUsername(null)
-        this.props.setTeam(null)
-        this.props.setPoints(0)
+    componentWillMount() {
+        if(this.props.gameId && this.props.userId && this.props.teamId) {
+            this.props.history.push('/challenge/current')
+        } 
+        else {
+            this.props.setGame(null)
+            this.props.setUsername(null)
+            this.props.setTeam(null)
+        }
     }
         
     handleChange(event) {
@@ -85,7 +88,6 @@ class Home extends React.Component {
                             this.setState({ invalidPinGame: true })
                         }
                         else {
-                            this.props.setGameInfo(res.data.result.info)
                             this.startGame(res.data.result.id)
                         }
                     })

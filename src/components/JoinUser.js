@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setUsername, setUserId, restartPoints } from '../js/actions/index'
+import { setUsername, setUserId } from '../js/actions/index'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
@@ -14,7 +14,6 @@ function mapDispatchToProps(dispatch) {
     return {
         setUsername: username => dispatch(setUsername(username)),
         setUserId: userid => dispatch(setUserId(userid)),
-        restartPoints: points => dispatch(restartPoints())
     }
 }
 
@@ -53,7 +52,6 @@ class Inicio extends React.Component {
 
     handleSubmit(e){
         e.preventDefault()
-        this.props.restartPoints()
         const username = this.state.username
         if(!username) {
             this.setState({ emptyInput: true })
