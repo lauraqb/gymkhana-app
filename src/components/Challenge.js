@@ -35,7 +35,7 @@ const mapStateToProps = state => {
 class Challenge extends React.Component {
 
     constructor(props) {
-        
+
         super(props)
         this.state = {
             modal : false,
@@ -45,11 +45,6 @@ class Challenge extends React.Component {
             wrongAnswer : false,
             challengeData : null,
         }
-        
-        const id = this.props.match.params.id
-        if(!this.props.gameInfo || this.props.gameInfo.length <= id) {
-            return
-        } 
         this.handleSubmit = this.handleSubmit.bind(this)
         this.showClue = this.showClue.bind(this)
         this.goToNextLevel = this.goToNextLevel.bind(this)
@@ -58,9 +53,10 @@ class Challenge extends React.Component {
         const This = this
         if (this.props.socket) {
             this.props.socket.on("server/challengePassed", function(data) {
-                if(data.teamId === id && data.teamId === this.props.teamId){
-                    This.setState({ passed: true });
-                }
+                debugger
+                // if(data.teamId === id && data.teamId === this.props.teamId){
+                //     This.setState({ passed: true });
+                // }
             })
         }
     }
@@ -69,8 +65,7 @@ class Challenge extends React.Component {
         this.getChallengeData()
     }
 
-    getChallengeData() {      
-          
+    getChallengeData() { 
         this.setState({ loading: true })
         axios.post(`${SERVER_ENDPOINT}/challengeData`, { gameId: this.props.gameId, userId: this.props.userId }, {timeout: 10000})
             .then(res => {
@@ -86,7 +81,6 @@ class Challenge extends React.Component {
                 }
             })
             .catch(error => {
-                debugger
                 this.setState({ loading: false, error: error.message })
             }) 
     }
@@ -105,7 +99,6 @@ class Challenge extends React.Component {
     }
 
     getPoints() {
-
         axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
         .then(res => {
             if(typeof res.data.points === "number") {
@@ -118,7 +111,6 @@ class Challenge extends React.Component {
     }
 
     handleSubmit(event) {
-
         event.preventDefault();
         const answer = this.state.answer.toLowerCase().trim()
         const solution = this.state.challengeData.solution.toLowerCase().trim()
@@ -150,7 +142,7 @@ class Challenge extends React.Component {
         this.setState({
           [name]: value,
           wrongAnswer: false
-        });
+        })
     }
 
     showClue(e) {

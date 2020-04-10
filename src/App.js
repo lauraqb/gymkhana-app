@@ -10,9 +10,10 @@ import Challenge from './components/Challenge'
 import Final from './pages/Final'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
-import socketIOClient from "socket.io-client";
+import socketIOClient from "socket.io-client"
 import { SERVER_ENDPOINT  } from './api-config'
-
+//import socket from './socket-config'
+const socket = socketIOClient(SERVER_ENDPOINT)//, {transports: ['websocket']})
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -53,10 +54,10 @@ function App({ game, userid, team }) {
 
   //hooks
   const [error, setError] = useState(null)
-  let socket = null
 
   const sendPosition = () => {
-    navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:10})
+    console.log("sendPosition")
+    navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:5000})
     function geo_success(position) {
       var coordenadas = {
           playerId: userid,
@@ -64,24 +65,24 @@ function App({ game, userid, team }) {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
       }
+      console.log("geo_success")
       socket.emit("coordenadas", coordenadas);
     }
     function geo_error(error) {
-      //TODO hacer un state con route que lo pinte en pantalla
-      console.error("error "+error.message)
+      console.error("geo_error: "+error.message)
       return false
     }
   }
 
   const sendPositionPolling = () => {
-    if (userid){
-      navigator.geolocation.getCurrentPosition((success)=> {
-        setInterval(sendPosition, 3000)
-      }, (error)=>{
-        console.log("error al intentar getCurrentPosition: "+error.message)
-        setError(error.message)
-      }, {timeout:10000})
-    }
+    if (!userid) return
+    console.log("sendPositionPolling")
+    navigator.geolocation.getCurrentPosition((success)=> {
+      setInterval(sendPosition, 6000)
+    }, (error)=>{
+      console.log("error al intentar getCurrentPosition: "+error.message)
+      setError(error.message)
+    }, {timeout:5000})
   }
 
 
@@ -89,13 +90,13 @@ function App({ game, userid, team }) {
 
     const path = document.location.pathname
     console.log("entra en App en path: "+path)
-
+    socket.emit("prueba", "hi")
     if(path !== "/") {
       redirectToHomePageIfNecessary(game)
-      socket = socketIOClient(SERVER_ENDPOINT)
       socketListeners(socket)
       sendPositionPolling(socket)
     }
+ 
   }
 
   init()
