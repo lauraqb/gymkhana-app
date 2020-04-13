@@ -38,7 +38,7 @@ class Inicio extends React.Component {
             teamKey: "",
             redirect: false
         }
-        this.userId = this.props.userid
+        this.userid = this.props.userid
         this.username = this.props.username
         this.gameId = this.props.game
         this.handleChange = this.handleChange.bind(this)
@@ -64,7 +64,7 @@ class Inicio extends React.Component {
         }
         else {
             this.setState({ loading: true })
-            axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userId: this.userId, key: teamKey, gameId: this.gameId })
+            axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userid: this.userid, key: teamKey, gameId: this.gameId })
             .then(res => {
                 this.setState({ loading: false, error: false })
                 if(res.data.error) {

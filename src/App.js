@@ -26,6 +26,7 @@ const mapStateToProps = state => {
     game: state.game,
     gameInfo: state.gameInfo,
     userid: state.userid,
+    username: state.username,
     team: state.team,
   }
 }
@@ -50,7 +51,7 @@ const socketListeners = (socket) => {
   socket.on('disconnect', (reason) => console.log("disconnect "+reason))
 }
 
-function App({ game, userid, team }) {
+function App({ game, userid, username, team }) {
 
   //hooks
   const [error, setError] = useState(null)
@@ -60,7 +61,8 @@ function App({ game, userid, team }) {
     navigator.geolocation.getCurrentPosition(geo_success, geo_error, {timeout:5000})
     function geo_success(position) {
       var coordenadas = {
-          playerId: userid,
+          userid: userid,
+          username: username,
           equipo: team,
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
@@ -78,7 +80,7 @@ function App({ game, userid, team }) {
     if (!userid) return
     console.log("sendPositionPolling")
     navigator.geolocation.getCurrentPosition((success)=> {
-      setInterval(sendPosition, 6000)
+      setInterval(sendPosition, 4000)
     }, (error)=>{
       console.log("error al intentar getCurrentPosition: "+error.message)
       setError(error.message)

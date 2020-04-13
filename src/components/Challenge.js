@@ -50,7 +50,7 @@ class Challenge extends React.Component {
         this.goToNextLevel = this.goToNextLevel.bind(this)
         this.handleChange = this.handleChange.bind(this)
 
-        const This = this
+        //const This = this
         if (this.props.socket) {
             this.props.socket.on("server/challengePassed", function(data) {
                 debugger
