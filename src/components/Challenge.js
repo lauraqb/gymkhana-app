@@ -153,7 +153,6 @@ class Challenge extends React.Component {
     goToNextLevel(e) {
         this.setState({ passed: false, loading: true, challengeData: null })
         this.getChallengeData()
-
     }
 
     render() {

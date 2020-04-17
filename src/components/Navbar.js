@@ -4,6 +4,8 @@ import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, setPo
 import "./styles/Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import { FaSignOutAlt} from 'react-icons/fa/'
+import axios from 'axios'
+import { SERVER_ENDPOINT  } from '../api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -31,10 +33,23 @@ class Menu extends React.Component {
   constructor(props) {
     super(props)
     this.logOut = this.logOut.bind(this)
+    // this.getPoints()
   }
+
+  getPoints() {
+    axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
+    .then(res => {
+        if(typeof res.data.points === "number") {
+            this.props.setPoints(res.data.points)
+        }
+        else {
+            alert("error en getPoints")
+        }
+    })
+}
   
   logOut(e) {
-    var r = window.confirm("¿Confirmas que deseas salir?");
+    var r = window.confirm("¿Confirmas que deseas salir?")
     if (!r) return
     //reseteamos los valores del estado
     this.props.setGame(null)

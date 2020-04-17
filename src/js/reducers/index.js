@@ -48,7 +48,7 @@ function rootReducer(state=initialState, action) {
     }
     if(action.type === SET_POINTS) {
         return Object.assign({}, state, {
-            points : state.points + action.payload
+            points : action.payload
         })
     }
     if(action.type === DELETE_POINTS) {
