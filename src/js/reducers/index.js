@@ -1,6 +1,5 @@
-import { SET_GAME, SET_GAME_INFO, SET_USERNAME, SET_USERID, SET_TEAM, SET_TEAMID } from "../constants/action-types"
+import { SET_GAME, SET_GAME_INFO, SET_USERNAME, SET_USERID, SET_TEAM, SET_TEAMID, SET_CHALLENGE_COMPLETED } from "../constants/action-types"
 import { SET_POINTS } from "../constants/action-types"
-import { DELETE_POINTS } from "../constants/action-types"
 import { SET_TIME } from "../constants/action-types"
 
 const initialState = {
@@ -11,57 +10,51 @@ const initialState = {
     team: null,
     teamId: null,
     points: 0,
-    time: 9
+    time: 9,
+    challengeCompleted: {}
 }
 
 function rootReducer(state=initialState, action) {
 
-    if(action.type === SET_GAME) {
-        return Object.assign({}, state, {
-            game : action.payload
-        })
+    switch(action.type) {
+        case SET_GAME:
+            return {
+                ...state, game : action.payload
+            }
+        case SET_GAME_INFO:
+            return {
+                ...state, gameInfo : action.payload
+            }
+        case SET_USERNAME:
+            return {
+                ...state, username : action.payload
+            }
+        case SET_USERID:
+            return {
+                ...state, userid : action.payload
+            }
+        case SET_TEAM:
+            return {
+                ...state, team : action.payload
+            }
+        case SET_TEAMID:
+            return {
+                ...state, teamId : action.payload
+            }
+        case SET_POINTS:
+            return {
+                ...state, points : action.payload
+            }
+        case  SET_TIME:
+            return {
+                ...state, time : action.payload
+            }
+        case  SET_CHALLENGE_COMPLETED:
+            return {
+                ...state, challengeCompleted : action.payload
+            }
+        default: return state
     }
-    if(action.type === SET_GAME_INFO) {
-        return Object.assign({}, state, {
-            gameInfo : action.payload
-        })
-    }
-    if(action.type === SET_USERNAME) {
-        return Object.assign({}, state, {
-            username : action.payload
-        })
-    }
-    if(action.type === SET_USERID) {
-        return Object.assign({}, state, {
-            userid : action.payload
-        })
-    }
-    if(action.type === SET_TEAM) {
-        return Object.assign({}, state, {
-            team : action.payload
-        })
-    }
-    if(action.type === SET_TEAMID) {
-        return Object.assign({}, state, {
-            teamId : action.payload
-        })
-    }
-    if(action.type === SET_POINTS) {
-        return Object.assign({}, state, {
-            points : action.payload
-        })
-    }
-    if(action.type === DELETE_POINTS) {
-        return Object.assign({}, state, {
-            points : state.points - action.payload
-        })
-    }
-    if(action.type ===  SET_TIME) {
-        return Object.assign({}, state, {
-            time : action.payload
-        })
-    }
-    return state
 }
 
 export default rootReducer

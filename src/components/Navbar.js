@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
+import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
 import "./styles/Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import { FaSignOutAlt} from 'react-icons/fa/'
@@ -11,7 +11,6 @@ import { SERVER_ENDPOINT  } from '../api-config'
 function mapDispatchToProps(dispatch) {
   return {
       setGame: game => dispatch(setGame(game)),
-      setGameInfo: data => dispatch(setGameInfo(data)),
       setUserId: name => dispatch(setUserId(name)),
       setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
@@ -53,7 +52,6 @@ class Menu extends React.Component {
     if (!r) return
     //reseteamos los valores del estado
     this.props.setGame(null)
-    this.props.setGameInfo(null)
     this.props.setUserId(null)
     this.props.setUsername(null)
     this.props.setTeam(null)

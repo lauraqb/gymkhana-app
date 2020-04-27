@@ -1,20 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
-import { setGame, setGameInfo, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
+import { Redirect } from 'react-router-dom'
+import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from 'js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import Loading from '../components/Loading'
+import Loading from 'components/Loading/Loading'
 import { FaExclamationCircle} from 'react-icons/fa/'
-import "./styles/Home.css"
-import { SERVER_ENDPOINT  } from '../api-config'
+import "./Home.css"
+import { SERVER_ENDPOINT  } from 'api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
-        setGameInfo: data => dispatch(setGameInfo(data)),
         setUserId: name => dispatch(setUserId(name)),
         setUsername: name => dispatch(setUsername(name)),
         setTeam: team => dispatch(setTeam(team)),
@@ -26,13 +26,12 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = state => {
     return { 
       gameId: state.game,
-      gameInfo: state.gameInfo,
       userId: state.userid,
       teamId: state.teamId
     }
 }
 
-class Home extends React.Component {
+export class Home extends React.Component {
 
     constructor(props) {
         super(props)
@@ -45,17 +44,6 @@ class Home extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-    componentWillMount() {
-        if(this.props.gameId && this.props.userId && this.props.teamId) {
-            this.props.history.push('/challenge/current')
-        } 
-        else {
-            this.props.setGame(null)
-            this.props.setUsername(null)
-            this.props.setTeam(null)
-        }
     }
         
     handleChange(event) {
@@ -98,13 +86,21 @@ class Home extends React.Component {
 
     startGame(gameId) {
         this.props.setGame(gameId)
-        this.props.history.push('/join')
     }
 
     render() {
         const inputError = (this.state.invalidPinGame || this.state.emptyInput) ? true : false
         const inputErrorClassName = inputError ? "g-input-error" : ""
-
+        if(this.props.gameId && this.props.userId && this.props.teamId) {
+            return <Redirect to='/challenge/current' />
+        } 
+        else if(this.props.gameId) {
+            return <Redirect to='/join' />
+        }
+        else {
+            this.props.setUsername(null)
+            this.props.setTeam(null)
+        }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
             {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
@@ -112,8 +108,8 @@ class Home extends React.Component {
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group>
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>
-                    { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
-                    { this.state.emptyInput && <Form.Text className="g-invalid-input-warning"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
+                    { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning" id="g-invalid-pin"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
+                    { this.state.emptyInput && <Form.Text className="g-invalid-input-warning" id="g-empty-input"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
                 </Form.Group>
                 <Button className="g-btn" variant="primary" type="submit">
                     Entrar

@@ -3,11 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './styles/App.css'
 import Layout from './components/Layout'
 import Navbar from './components/Navbar'
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import Join from './pages/Join'
 import Intro from './pages/Intro'
-import Challenge from './components/Challenge'
-import Final from './pages/Final'
+import Challenge from './pages/Challenge/Challenge'
 import NotFound from './pages/NotFound'
 import { connect } from 'react-redux'
 import socketIOClient from "socket.io-client"
@@ -118,7 +117,6 @@ function App({ game, userid, username, team }) {
             <Switch>
               <Route exact path="/intro" component={Intro} />
               <Route exact path="/challenge/:id" component={Challenge} />
-              <Route exact path="/final" component={Final} />
               <Route component={NotFound} />
             </Switch>
           </React.Fragment>

@@ -1,15 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setPoints } from '../js/actions/index'
+import { setPoints } from '../../js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import Loading from '../components/Loading'
+import Loading from '../../components/Loading/Loading'
 import axios from 'axios'
 import { FaExclamationCircle} from 'react-icons/fa/'
-import Timer from './Timer'
-import "./styles/Challenge.css";
-import { SERVER_ENDPOINT  } from '../api-config'
+import Timer from './Components/Timer'
+import "./Challenge.css";
+import { SERVER_ENDPOINT  } from '../../api-config'
 //import NotFound from '../pages/NotFound'
 //import socketIOClient from "socket.io-client"
 
@@ -32,14 +32,12 @@ const mapStateToProps = state => {
     }
 }
 
-class Challenge extends React.Component {
+export class Challenge extends React.Component {
 
     constructor(props) {
 
         super(props)
         this.state = {
-            modal : false,
-            textoModal : " ",
             passed : false,
             answer : "",
             wrongAnswer : false,
@@ -87,16 +85,16 @@ class Challenge extends React.Component {
     
     tryRequire(imageFile) {
         try {
-            return require('../images/'+imageFile);
+            return require('../../images/'+imageFile);
         } catch (err) {
             return null;
         }
     }
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.id !== prevProps.match.params.id) {
-            window.location.reload()
-        }
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (this.props.match.params.id !== prevProps.match.params.id) {
+    //         window.location.reload()
+    //     }
+    // }
 
     getPoints() {
         axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
@@ -120,7 +118,7 @@ class Challenge extends React.Component {
         }
         else {
             this.setState({ loading: true, error: false })
-
+//callengeId typo
             axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.state.challengeData.id, gameId: this.props.gameId, userId: this.props.userId, teamId: this.props.teamId, speedReward: this.state.challengeData.speedReward })
             .then(res => {
                 this.setState({ loading: false })
@@ -153,12 +151,13 @@ class Challenge extends React.Component {
     goToNextLevel(e) {
         this.setState({ passed: false, loading: true, challengeData: null })
         this.getChallengeData()
+        window.location.reload()
     }
 
     render() {
         const challengeData = this.state.challengeData
         if(this.state.error) {
-        return <div>Error: {this.state.error}</div>
+            return <div>Error: {this.state.error}</div>
         }
         if(this.state.passed) {
             return <div className="container challenge-container">
@@ -175,7 +174,7 @@ class Challenge extends React.Component {
             return <div></div>
         }
         return <React.Fragment>   
-            <div className="container challenge-container">
+            <div data-test="challengeComponent" className="container challenge-container">
                 <h2 className="challenge-title">Misión #{challengeData.id}</h2>
                 {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
                 <div className="row">
@@ -208,6 +207,5 @@ class Challenge extends React.Component {
     }
 }
 
-//export default Prueba
 const pruebaConnected = connect(mapStateToProps, mapDispatchToProps)(Challenge);
 export default pruebaConnected;

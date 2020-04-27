@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import Loading from '../components/Loading'
+import Loading from './Loading/Loading'
 import { SERVER_ENDPOINT  } from '../api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */

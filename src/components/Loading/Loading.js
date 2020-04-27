@@ -1,6 +1,6 @@
 import React from "react"
 import IconLoader from "react-spinners/MoonLoader" //GridLoader
-import "./styles/Loading.css";
+import "./Loading.css";
 
 
 class Loading extends React.Component {

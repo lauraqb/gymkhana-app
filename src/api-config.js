@@ -1,6 +1,6 @@
 let serverEndpoint;
 
-const hostname = window && window.location && window.location.hostname;
+//const hostname = window && window.location && window.location.hostname;
 
 // if(hostname === 'localhost') serverEndpoint = 'http://localhost:8000';
 // else

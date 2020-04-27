@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page renders correctly 1`] = `
+<Fragment>
+  <p
+    className="g-gymkhana"
+  >
+    Gymkhana!
+  </p>
+  <Form
+    inline={false}
+    onSubmit={[Function]}
+  >
+    <FormGroup>
+      <FormControl
+        className="g-input "
+        name="gamePin"
+        onChange={[Function]}
+        placeholder="Game PIN"
+        type="text"
+        value=""
+      />
+    </FormGroup>
+    <Button
+      active={false}
+      className="g-btn"
+      disabled={false}
+      type="submit"
+      variant="primary"
+    >
+      Entrar
+    </Button>
+  </Form>
+</Fragment>
+`;
