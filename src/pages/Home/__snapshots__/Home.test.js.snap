@@ -8,6 +8,7 @@ exports[`Home Page renders correctly 1`] = `
     Gymkhana!
   </p>
   <Form
+    id="home-form"
     inline={false}
     onSubmit={[Function]}
   >
@@ -25,6 +26,7 @@ exports[`Home Page renders correctly 1`] = `
       active={false}
       className="g-btn"
       disabled={false}
+      id="home-btn"
       type="submit"
       variant="primary"
     >

@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import { Provider } from 'react-redux'
 import ConnectedHome, { Home } from './Home'
 
@@ -15,7 +15,7 @@ describe('Home Page', () => {
     })
     it ('renders one input and one button', () => {
         expect(component.find('.g-input')).toHaveLength(1)
-        expect(component.find('.g-btn')).toHaveLength(1)
+        expect(component.find('#home-btn')).toHaveLength(1)
     })
     it ('Calls setUsername and setTeam when there is no gameId in props', () => {
         let i = 0
@@ -45,6 +45,15 @@ describe('Home Page', () => {
     })
     it ('Should not show empty Input pin message when emptyInput state is false (by default)', () => {
         expect(component.find('#g-empty-input')).toHaveLength(0)
+    })
+    it ('Changes emptyInput state when handleSubmit with empty input', () => {
+
+        const fakeEvent = { preventDefault: () => console.log('preventDefault') }
+        component.setState({ gamePin: ""})
+        expect(component.state().emptyInput).toEqual(false)
+        const form = component.find('#home-form').first();
+        form.simulate('submit', fakeEvent);
+        expect(component.state().emptyInput).toEqual(true)
     })
     
 })

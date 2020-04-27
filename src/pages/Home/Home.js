@@ -57,30 +57,27 @@ export class Home extends React.Component {
     }
     
     handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault()
         const gamePin = this.state.gamePin
-        switch(gamePin) {
-            case "test":
-                this.startGame("test")
-                break
-            case "" || null:
-                this.setState({ emptyInput: true })
-                break
-            default:
-                this.setState({ loading: true }, () => {                    
-                    axios.post(`${SERVER_ENDPOINT}/validateGame`, {pin: gamePin})
-                    .then(res => {
-                        this.setState({ loading: false, error: false })
-                        console.log(res.data);
-                        if(!res.data.valid) {
-                            this.setState({ invalidPinGame: true })
-                        }
-                        else {
-                            this.startGame(res.data.result.id)
-                        }
-                    })
-                    .catch(error => this.setState({ loading: false, error: error.message }))
+
+        if(!gamePin || gamePin === "") {
+            this.setState({ emptyInput: true })
+        }
+        else {
+            this.setState({ loading: true }, () => {                    
+                axios.post(`${SERVER_ENDPOINT}/validateGame`, {pin: gamePin})
+                .then(res => {
+                    this.setState({ loading: false, error: false })
+                    console.log(res.data);
+                    if(!res.data.valid) {
+                        this.setState({ invalidPinGame: true })
+                    }
+                    else {
+                        this.startGame(res.data.result.id)
+                    }
                 })
+                .catch(error => this.setState({ loading: false, error: error.message }))
+            })
         }
     }
 
@@ -105,13 +102,13 @@ export class Home extends React.Component {
             {this.state.loading && <Loading/>}
             {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
             <p className="g-gymkhana">Gymkhana!</p>
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} id="home-form">
                 <Form.Group>
                     <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>
                     { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning" id="g-invalid-pin"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
                     { this.state.emptyInput && <Form.Text className="g-invalid-input-warning" id="g-empty-input"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
                 </Form.Group>
-                <Button className="g-btn" variant="primary" type="submit">
+                <Button className="g-btn" variant="primary" type="submit" id="home-btn">
                     Entrar
                 </Button>
             </Form>     
