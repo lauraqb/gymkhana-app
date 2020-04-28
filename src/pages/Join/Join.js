@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import JoinTeam from '../components/JoinTeam'
-import JoinUser from '../components/JoinUser'
-import "./styles/Join.css"
+import JoinTeam from './components/JoinTeam'
+import JoinUser from './components/JoinUser'
+import "./Join.css"
 
 const mapStateToProps = state => {
     return {
@@ -34,7 +34,7 @@ class Inicio extends React.Component {
 
     tryRequire(image) {
         try {
-         return require('../images/'+image);
+         return require('images/'+image);
         } catch (err) {
          return null;
         }

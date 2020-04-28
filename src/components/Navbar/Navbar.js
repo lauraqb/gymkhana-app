@@ -1,11 +1,11 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from '../js/actions/index'
-import "./styles/Navbar.css"
+import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from 'js/actions/index'
+import "./Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import { FaSignOutAlt} from 'react-icons/fa/'
 import axios from 'axios'
-import { SERVER_ENDPOINT  } from '../api-config'
+import { SERVER_ENDPOINT  } from 'api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {

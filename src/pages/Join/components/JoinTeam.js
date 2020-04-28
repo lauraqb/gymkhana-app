@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { setTeam, setTeamId } from '../js/actions/index'
+import { setTeam, setTeamId } from 'js/actions/index'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import Loading from './Loading/Loading'
-import { SERVER_ENDPOINT  } from '../api-config'
+import Loading from 'components/Loading/Loading'
+import { SERVER_ENDPOINT  } from '../../../api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {

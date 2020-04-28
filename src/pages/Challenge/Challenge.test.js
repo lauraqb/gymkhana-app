@@ -1,8 +1,8 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Challenge } from './Challenge'
-import ChallengeContainer from './Components/ChallengeContainer'
-import ChallengeCompleted from './Components/ChallengeCompleted'
+import ChallengeContainer from './components/ChallengeContainer'
+import ChallengeCompleted from './components/ChallengeCompleted'
 import Loading from 'components/Loading/Loading'
 
 const mockChallengeData = {

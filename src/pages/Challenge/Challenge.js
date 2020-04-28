@@ -3,8 +3,8 @@ import { connect } from 'react-redux'
 import { addChallengeCompleted, fetchPoints } from '../../js/actions/index'
 import Loading from '../../components/Loading/Loading'
 import axios from 'axios'
-import ChallengeContainer from './Components/ChallengeContainer'
-import ChallengeCompleted from './Components/ChallengeCompleted'
+import ChallengeContainer from './components/ChallengeContainer'
+import ChallengeCompleted from './components/ChallengeCompleted'
 import "./Challenge.css";
 import { SERVER_ENDPOINT  } from 'api-config'
 

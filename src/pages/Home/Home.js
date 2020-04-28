@@ -73,16 +73,12 @@ export class Home extends React.Component {
                         this.setState({ invalidPinGame: true })
                     }
                     else {
-                        this.startGame(res.data.result.id)
+                        this.props.setGame(res.data.result.id)
                     }
                 })
                 .catch(error => this.setState({ loading: false, error: error.message }))
             })
         }
-    }
-
-    startGame(gameId) {
-        this.props.setGame(gameId)
     }
 
     render() {
