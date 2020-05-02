@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import { render, fireEvent, screen, cleanup, wait  } from '@testing-library/react'
+import { render, fireEvent, cleanup  } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import axiosMock from 'axios'
 import ConnectedHome, { Home } from './Home'
@@ -71,7 +71,6 @@ describe('Home Page', () => {
 
 
 describe('Home Page with axios', () => {
-
     it('displays a warning message when entering invalid Pin Game', async () => {
 
         axiosMock.post.mockResolvedValueOnce({
@@ -101,6 +100,5 @@ describe('Home Page with axios', () => {
         await expect(axiosMock.post).toHaveBeenCalled()
         expect(gameId).toBe('123')
     })
-
-
 })
+

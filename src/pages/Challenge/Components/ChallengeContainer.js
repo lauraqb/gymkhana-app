@@ -5,7 +5,7 @@ import { FaExclamationCircle} from 'react-icons/fa/'
 import Loading from 'components/Loading/Loading'
 import Timer from './Timer'
 
-class ChallengeComponent extends React.Component {
+class ChallengeContainer extends React.Component {
     
     constructor(props) {
         
@@ -73,4 +73,4 @@ class ChallengeComponent extends React.Component {
     }
 }
 
-export default ChallengeComponent;
+export default ChallengeContainer

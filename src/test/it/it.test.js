@@ -24,7 +24,6 @@ afterEach(cleanup)
 
 jest.mock('axios')
 
-
 describe('when entering valid pin game in HomPage', () => {
 
     axiosMock.post.mockResolvedValueOnce({
@@ -54,3 +53,22 @@ describe('when Home Page has game id in props', () => {
     await expect(history.location.pathname).toEqual('/join')
   })
 })
+
+// create any initial state needed
+// const initialState = {}; 
+// const mockStore = configureStore();
+// let wrapper;
+// let store;
+// beforeEach(() => {
+//     //creates the store with any initial state or middleware needed  
+//   store = mockStore(initialState)
+//   wrapper = shallow(<Login store={store}/>)
+        
+// // not suggested
+// //wrapper = mount(<Provider store={store}<Login /></Provider>)
+//  })
+// describe('Home Page with redux', ()=> {
+
+    
+
+// })
