@@ -65,7 +65,7 @@ export class Challenge extends React.Component {
 
     getChallengeData() { 
         this.setState({ loading: true })
-        axios.post(`${SERVER_ENDPOINT}/challengeData`, { gameId: this.props.gameId, userId: this.props.userId }, {timeout: 10000})
+        axios.post(`${SERVER_ENDPOINT}/game/challengeData`, { gameId: this.props.gameId, userId: this.props.userId }, {timeout: 10000})
             .then(res => {
                 this.setState({ loading: false })
                 if(res.data.error) {
@@ -97,7 +97,7 @@ export class Challenge extends React.Component {
     // }
 
     getPoints() {
-        axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
+        axios.post(`${SERVER_ENDPOINT}/game/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
         .then(res => {
             if(typeof res.data.points === "number") {
                 this.props.setPoints(res.data.points)
@@ -119,7 +119,7 @@ export class Challenge extends React.Component {
         else {
             this.setState({ loading: true, error: false })
 //callengeId typo
-            axios.post(`${SERVER_ENDPOINT}/challengeCompleted`, { callengeId: this.state.challengeData.id, gameId: this.props.gameId, userId: this.props.userId, teamId: this.props.teamId, speedReward: this.state.challengeData.speedReward })
+            axios.post(`${SERVER_ENDPOINT}/game/challengeCompleted`, { callengeId: this.state.challengeData.id, gameId: this.props.gameId, userId: this.props.userId, teamId: this.props.teamId, speedReward: this.state.challengeData.speedReward })
             .then(res => {
                 this.setState({ loading: false })
                 if(res.data.error) {

@@ -1,11 +1,9 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from 'js/actions/index'
+import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints, fetchPoints } from 'js/actions/index'
 import "./Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import { FaSignOutAlt} from 'react-icons/fa/'
-import axios from 'axios'
-import { SERVER_ENDPOINT  } from 'api-config'
 
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
@@ -15,12 +13,15 @@ function mapDispatchToProps(dispatch) {
       setUsername: name => dispatch(setUsername(name)),
       setTeam: team => dispatch(setTeam(team)),
       setTeamId: teamId => dispatch(setTeamId(teamId)),
-      setPoints: points => dispatch(setPoints(points))
+      setPoints: points => dispatch(setPoints(points)),
+      fetchPoints: data => dispatch(fetchPoints(data))
   }
 }
 
 const mapStateToProps = state => {
   return { 
+    userid: state.userid,
+    gameId: state.game,
     username: state.username,
     team: state.team,
     points: state.points
@@ -32,20 +33,13 @@ class Menu extends React.Component {
   constructor(props) {
     super(props)
     this.logOut = this.logOut.bind(this)
-    // this.getPoints()
+    this.getPoints()
   }
 
+
   getPoints() {
-    axios.post(`${SERVER_ENDPOINT}/getPoints`, {gameId: this.props.gameId, userId: this.props.userId})
-    .then(res => {
-        if(typeof res.data.points === "number") {
-            this.props.setPoints(res.data.points)
-        }
-        else {
-            alert("error en getPoints")
-        }
-    })
-}
+    this.props.fetchPoints({gameId: this.props.gameId, userId: this.props.userid})
+  }
   
   logOut(e) {
     var r = window.confirm("¿Confirmas que deseas salir?")

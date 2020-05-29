@@ -1,7 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { setTeam, setTeamId } from 'js/actions/index'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import Form from 'react-bootstrap/Form'
 import { FaExclamationCircle} from 'react-icons/fa/'
@@ -10,24 +7,8 @@ import Alert from 'react-bootstrap/Alert'
 import Loading from 'components/Loading/Loading'
 import { SERVER_ENDPOINT  } from '../../../api-config'
 
-/** Redux function. Sirve para enviar (dispatch) acciones al store */
-function mapDispatchToProps(dispatch) {
-    return {
-        setTeam: team => dispatch(setTeam(team)),
-        setTeamId: teamId => dispatch(setTeamId(teamId)),
-    }
-}
 
-const mapStateToProps = state => {
-    return { 
-        game: state.game,
-        username: state.username,
-        userid: state.userid,
-        team: state.team
-    }
-}
-
-class Inicio extends React.Component {
+class JoinTeam extends React.Component {
 
     constructor(props) {
         super(props)
@@ -36,11 +17,10 @@ class Inicio extends React.Component {
             error: null,
             invalidKeyTeam: false,
             teamKey: "",
-            redirect: false
         }
         this.userid = this.props.userid
         this.username = this.props.username
-        this.gameId = this.props.game
+        this.gameId = this.props.gameid
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -53,7 +33,7 @@ class Inicio extends React.Component {
           invalidKeyTeam: false,
           emptyInput: false,
           error: null,
-        });
+        })
     }
 
     handleSubmit(e){
@@ -64,21 +44,17 @@ class Inicio extends React.Component {
         }
         else {
             this.setState({ loading: true })
-            axios.post(`${SERVER_ENDPOINT}/joinTeam`, {userid: this.userid, key: teamKey, gameId: this.gameId })
-            .then(res => {
+            axios.post(`${SERVER_ENDPOINT}/game/joinTeam`, {userid: this.userid, key: teamKey, gameId: this.gameId })
+            .then(({data}) => {
                 this.setState({ loading: false, error: false })
-                if(res.data.error) {
-                    this.setState({ error: res.data.error.message ? res.data.error.message : "error"})
+                if(data.error) {
+                    this.setState({ error: data.error.message ? data.error.message : ""+data.error})
                 }
-                else if(res.data.invalidKey) {
+                else if(data.invalidKey) {
                     this.setState({ invalidKeyTeam: true })
                 }
-                else if(res.data.result) {
-                    const teamName = res.data.result.name
-                    const teamId = res.data.result.id
-                    this.props.setTeam(teamName)
-                    this.props.setTeamId(teamId)
-                    this.setState({ redirect: true })
+                else if(data.result) {
+                    this.props.setTeam(data.result.id, data.result.name)
                 }
             })
             .catch(error => this.setState({ loading: false, error: error.message })) 
@@ -88,18 +64,13 @@ class Inicio extends React.Component {
         const inputError = (this.state.invalidKeyTeam || this.state.emptyInput) ? true : false
         const inputErrorClassName = inputError ? "g-input-error" : ""
 
-        if(this.state.redirect) {
-            return <Redirect to='/intro' />
-        }
         return  <React.Fragment>
                 {this.state.loading && <Loading/>}
-                {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
+                {this.state.error && <Alert variant="danger">Error JoinTeam: {this.state.error}</Alert>}
                 <div className="join-team-message">
                     <h1>¡Hola {this.username}!</h1>
                     <p>{this.props.message}</p>
                 </div>
-                {/* <p className="join-team-message"></p>
-                <p className="g-message">{this.props.message}</p> */}
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Clave de tu equipo" name="teamKey" value={this.state.teamKey} onChange={this.handleChange} />
@@ -112,5 +83,4 @@ class Inicio extends React.Component {
     }
 }
 
-const inicioConnected = connect(mapStateToProps, mapDispatchToProps)(Inicio)
-export default inicioConnected;
+export default JoinTeam

@@ -32,8 +32,8 @@ export function setChallengeCompleted(payload) {
     return { type: SET_CHALLENGE_COMPLETED, payload }
 }
 
-export function addChallengeCompleted(options) {
-    const { challengeId, gameId, userId, teamId, speedReward } = options
+/** Envía al servidor los datos de la prueba que ha superado el usuario para que lo inserte en la base de datos*/
+export function addChallengeCompleted({ challengeId, gameId, userId, teamId, speedReward } ) {
     return dispatch => {
         dispatch(setChallengeCompleted({id: challengeId, loading: true}))
         return axios.post(`${SERVER_ENDPOINT}/game/challengeCompleted`, { challengeId: challengeId, gameId: gameId, userId: userId, teamId: teamId, speedReward: speedReward })
@@ -43,14 +43,17 @@ export function addChallengeCompleted(options) {
             }
             else {
                 dispatch(setChallengeCompleted({id: challengeId, passed: true}))
+                dispatch(fetchPoints({gameId, userId}))
             }
         })
         .catch(error => dispatch(setChallengeCompleted({id: challengeId, error: error.message})))
     }
 }
 
+
+
 export function fetchPoints({gameId, userId}) {
-    return dispatch => {
+    return dispatch => {    
         return axios.post(`${SERVER_ENDPOINT}/game/getPoints`, {gameId: gameId, userId: userId})
         .then(({ data }) => {
             dispatch(setPoints(data.points))

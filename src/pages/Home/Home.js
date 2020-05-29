@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints } from 'js/actions/index'
+import { setGame, setUserId, setUsername, setTeam } from 'js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -18,8 +18,6 @@ function mapDispatchToProps(dispatch) {
         setUserId: name => dispatch(setUserId(name)),
         setUsername: name => dispatch(setUsername(name)),
         setTeam: team => dispatch(setTeam(team)),
-        setTeamId: teamId => dispatch(setTeamId(teamId)),
-        setPoints: points => dispatch(setPoints(points))
     }
 }
 
@@ -65,10 +63,9 @@ export class Home extends React.Component {
         }
         else {
             this.setState({ loading: true }, () => {                    
-                axios.post(`${SERVER_ENDPOINT}/validateGame`, {pin: gamePin})
+                axios.post(`${SERVER_ENDPOINT}/game/validateGame`, {pin: gamePin})
                 .then(res => {
                     this.setState({ loading: false, error: false })
-                    console.log(res.data);
                     if(!res.data.valid) {
                         this.setState({ invalidPinGame: true })
                     }
@@ -96,7 +93,7 @@ export class Home extends React.Component {
         }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
-            {this.state.error && <Alert variant="danger">Error: {this.state.error}</Alert>}
+            {this.state.error && <Alert variant="danger">Error: [{SERVER_ENDPOINT}] {this.state.error}</Alert>}
             <p className="g-gymkhana">Gymkhana!</p>
             <Form onSubmit={this.handleSubmit} id="home-form">
                 <Form.Group>
@@ -113,4 +110,4 @@ export class Home extends React.Component {
 }
 
 const homeConnected = connect(mapStateToProps, mapDispatchToProps)(Home)
-export default homeConnected;
+export default homeConnected

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Join Page renders correctly 1`] = `
+<Fragment>
+  <div
+    className="join-container"
+  >
+    <JoinUser
+      setUser={[Function]}
+      welcomeMessage="Welcome"
+    />
+  </div>
+  <div />
+</Fragment>
+`;

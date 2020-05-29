@@ -4,6 +4,9 @@ import { render, fireEvent, cleanup  } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import axiosMock from 'axios'
 import ConnectedHome, { Home } from './Home'
+
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 jest.mock('axios')
 
 let component
@@ -71,6 +74,7 @@ describe('Home Page', () => {
 
 
 describe('Home Page with axios', () => {
+    
     it('displays a warning message when entering invalid Pin Game', async () => {
 
         axiosMock.post.mockResolvedValueOnce({
@@ -102,3 +106,23 @@ describe('Home Page with axios', () => {
     })
 })
 
+const renderWithRouterrender = (
+    ui,
+    {
+      route = '/',
+      history = createMemoryHistory({ initialEntries: [route] }),
+    } = {}
+) => {
+    return {
+        ...render(<Router history={history}>{ui}</Router>),
+        history,
+    }
+}
+
+describe('when Home Page has game id in props', () => {
+
+    it('redirects to joinPage', async () => {
+        const {getByText, getByPlaceholderText, history } = renderWithRouterrender(<Home gameId={1} setUsername={()=>{}} setTeam={()=>{}}/>)
+        await expect(history.location.pathname).toEqual('/join')
+    })
+})
