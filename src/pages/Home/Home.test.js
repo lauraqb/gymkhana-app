@@ -37,10 +37,11 @@ describe('Home Page', () => {
         expect(j).toBe(1)
     })
 
-    it ('Should not call setUsername when gameId is in props', () => {
+    it ('Should not call setUsername and setTeam when gameId is in props', () => {
         let i = 0
         const setUsernameSpy = () =>  i++
-        const comp = shallow(<Home setUsername={setUsernameSpy} setTeam={()=>{}} gameId={1}/>)
+        const setTeam = () =>  i++
+        const comp = shallow(<Home setUsername={setUsernameSpy} setTeam={setTeam} gameId={1}/>)
         expect(i).toBe(0)
     })
 

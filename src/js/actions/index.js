@@ -50,8 +50,6 @@ export function addChallengeCompleted({ challengeId, gameId, userId, teamId, spe
     }
 }
 
-
-
 export function fetchPoints({gameId, userId}) {
     return dispatch => {    
         return axios.post(`${SERVER_ENDPOINT}/game/getPoints`, {gameId: gameId, userId: userId})
@@ -61,8 +59,3 @@ export function fetchPoints({gameId, userId}) {
     }
 
 }
-
-
-// { type: 'FETCH_POSTS_REQUEST' }
-// { type: 'FETCH_POSTS_FAILURE', error: 'Oops' }
-// { type: 'FETCH_POSTS_SUCCESS', response: { ... } }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
@@ -42,6 +42,16 @@ export class Home extends React.Component {
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.resetValues()
+    }
+
+    resetValues() {
+        if(!this.props.gameId) {
+            //TODO: is this necessary?
+            this.props.setUsername(null)
+            this.props.setTeam(null)
+            //this.props.setUserId(null)
+        }
     }
         
     handleChange(event) {
@@ -57,7 +67,6 @@ export class Home extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         const gamePin = this.state.gamePin
-
         if(!gamePin || gamePin === "") {
             this.setState({ emptyInput: true })
         }
@@ -79,17 +88,12 @@ export class Home extends React.Component {
     }
 
     render() {
-        const inputError = (this.state.invalidPinGame || this.state.emptyInput) ? true : false
-        const inputErrorClassName = inputError ? "g-input-error" : ""
+        const inputErrorClassName = (this.state.invalidPinGame || this.state.emptyInput) ? "g-input-error" : ""
         if(this.props.gameId && this.props.userId && this.props.teamId) {
             return <Redirect to='/challenge/current' />
         } 
         else if(this.props.gameId) {
             return <Redirect to='/join' />
-        }
-        else {
-            this.props.setUsername(null)
-            this.props.setTeam(null)
         }
         return <React.Fragment>
             {this.state.loading && <Loading/>}
