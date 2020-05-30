@@ -45,6 +45,7 @@ class Menu extends React.Component {
     var r = window.confirm("¿Confirmas que deseas salir?")
     if (!r) return
     //reseteamos los valores del estado
+    //resetValues
     this.props.setGame(null)
     this.props.setUserId(null)
     this.props.setUsername(null)

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { setGame, setUserId, setUsername, setTeam } from 'js/actions/index'
+import { setGame, resetValues } from 'js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -15,9 +15,7 @@ import { SERVER_ENDPOINT  } from 'api-config'
 function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
-        setUserId: name => dispatch(setUserId(name)),
-        setUsername: name => dispatch(setUsername(name)),
-        setTeam: team => dispatch(setTeam(team)),
+        resetValues: name => dispatch(resetValues(name)),
     }
 }
 
@@ -29,88 +27,74 @@ const mapStateToProps = state => {
     }
 }
 
-export class Home extends React.Component {
+export const Home = (props) => {
+    const [loading, setLoading] = useState(null)
+    const [error, setError] = useState(null)
+    const [gamePin, setGamePin] = useState("")
+    const [invalidGamePin, setInvalidGamePin] = useState(false)
+    const [emptyInput, setEmptyInput] = useState(false)
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            loading: false,
-            error: null,
-            gamePin: "",
-            invalidPinGame: false,
-            emptyInput: false
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.resetValues()
-    }
-
-    resetValues() {
-        if(!this.props.gameId) {
-            //TODO: is this necessary?
-            this.props.setUsername(null)
-            this.props.setTeam(null)
-            //this.props.setUserId(null)
-        }
-    }
-        
-    handleChange(event) {
-        const value = event.target.value
-        const name = event.target.name
-        this.setState({
-          [name]: value,
-          invalidPinGame: false,
-          emptyInput: false
-        })
+    const handleChange = (event) => {
+        setGamePin(event.target.value)
+        setInvalidGamePin(false)
+        setEmptyInput(false)
     }
     
-    handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        const gamePin = this.state.gamePin
         if(!gamePin || gamePin === "") {
-            this.setState({ emptyInput: true })
+            setEmptyInput(true)
         }
         else {
-            this.setState({ loading: true }, () => {                    
-                axios.post(`${SERVER_ENDPOINT}/game/validateGame`, {pin: gamePin})
-                .then(res => {
-                    this.setState({ loading: false, error: false })
-                    if(!res.data.valid) {
-                        this.setState({ invalidPinGame: true })
-                    }
-                    else {
-                        this.props.setGame(res.data.result.id)
-                    }
-                })
-                .catch(error => this.setState({ loading: false, error: error.message }))
+            setLoading(true)                   
+            axios.post(`${SERVER_ENDPOINT}/game/validateGame`, {pin: gamePin})
+            .then(res => {
+                setLoading(false)
+                setError(false)
+                if(!res.data.valid) {
+                    setInvalidGamePin(true)
+                }
+                else {
+                    props.setGame(res.data.result.id)
+                }
+            })
+            .catch(error => {
+                setLoading(false)
+                setError(error.message )
             })
         }
     }
 
-    render() {
-        const inputErrorClassName = (this.state.invalidPinGame || this.state.emptyInput) ? "g-input-error" : ""
-        if(this.props.gameId && this.props.userId && this.props.teamId) {
-            return <Redirect to='/challenge/current' />
-        } 
-        else if(this.props.gameId) {
-            return <Redirect to='/join' />
+    useEffect(() => {
+        if(!props.gameId || !props.userid) {
+            props.resetValues()
         }
-        return <React.Fragment>
-            {this.state.loading && <Loading/>}
-            {this.state.error && <Alert variant="danger">Error: [{SERVER_ENDPOINT}] {this.state.error}</Alert>}
+    })
+
+    const inputErrorClassName = (invalidGamePin || emptyInput) ? "g-input-error" : ""
+    if(props.gameId && props.userid && props.username && props.teamId) {
+        return <Redirect to='/challenge/current' />
+    } 
+    else if(props.gameId && props.userid && props.username && !props.teamId) {
+        return <Redirect to='/join' />
+    }
+    return (
+        <React.Fragment>
+            {loading && <Loading/>}
+            {error && <Alert variant="danger">Error: [{SERVER_ENDPOINT}] {error}</Alert>}
             <p className="g-gymkhana">Gymkhana!</p>
-            <Form onSubmit={this.handleSubmit} id="home-form">
+            <Form onSubmit={handleSubmit} id="home-form">
                 <Form.Group>
-                    <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={this.state.gamePin} onChange={this.handleChange}/>
-                    { this.state.invalidPinGame && <Form.Text className="g-invalid-input-warning" id="g-invalid-pin"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
-                    { this.state.emptyInput && <Form.Text className="g-invalid-input-warning" id="g-empty-input"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
+                    <Form.Control className={"g-input "+ inputErrorClassName} type="text" placeholder="Game PIN" name="gamePin" value={gamePin} onChange={handleChange}/>
+                    { invalidGamePin && <Form.Text className="g-invalid-input-warning" data-testid="invalid-pin"><FaExclamationCircle/> ¡PIN inválido!</Form.Text>}
+                    { emptyInput && <Form.Text className="g-invalid-input-warning" data-testid="empty-input"><FaExclamationCircle/> Ups! Necesitas indicar el PIN</Form.Text>}
                 </Form.Group>
                 <Button className="g-btn" variant="primary" type="submit" id="home-btn">
                     Entrar
                 </Button>
             </Form>     
         </React.Fragment>
-    }
+    )
 }
 
 const homeConnected = connect(mapStateToProps, mapDispatchToProps)(Home)

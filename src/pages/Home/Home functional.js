@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { setGame, setUserId, setUsername, setTeam } from 'js/actions/index'
+import { setGame, resetValues } from 'js/actions/index'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
@@ -15,9 +15,7 @@ import { SERVER_ENDPOINT  } from 'api-config'
 function mapDispatchToProps(dispatch) {
     return {
         setGame: game => dispatch(setGame(game)),
-        setUserId: name => dispatch(setUserId(name)),
-        setUsername: name => dispatch(setUsername(name)),
-        setTeam: team => dispatch(setTeam(team)),
+        resetValues: name => dispatch(resetValues(name)),
     }
 }
 
@@ -35,15 +33,6 @@ export const Home = (props) => {
     const [gamePin, setGamePin] = useState(null)
     const [invalidGamePin, setInvalidGamePin] = useState(false)
     const [emptyInput, setEmptyInput] = useState(false)
-
-    const resetValues = () => {
-        if(!this.props.gameId) {
-            //TODO: is this necessary?
-            this.props.setUsername(null)
-            this.props.setTeam(null)
-            //this.props.setUserId(null)
-        }
-    }
 
     const handleChange = (event) => {
         const value = event.target.value
@@ -79,14 +68,16 @@ export const Home = (props) => {
     }
 
     useEffect(() => {
-        resetValues()
+        if(!this.props.gameId || !this.props.userid) {
+            this.props.resetValues()
+        }
     })
 
     const inputErrorClassName = (this.state.invalidPinGame || this.state.emptyInput) ? "g-input-error" : ""
-    if(this.props.gameId && this.props.userId && this.props.teamId) {
+    if(this.props.gameId && this.props.userid && this.props.username && this.props.teamId) {
         return <Redirect to='/challenge/current' />
     } 
-    else if(this.props.gameId) {
+    else if(this.props.gameId && this.props.userid && this.props.username && !this.props.teamId) {
         return <Redirect to='/join' />
     }
     return (

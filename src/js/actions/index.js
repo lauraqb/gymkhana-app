@@ -32,6 +32,17 @@ export function setChallengeCompleted(payload) {
     return { type: SET_CHALLENGE_COMPLETED, payload }
 }
 
+export const resetValues = () => {
+    return dispatch => {
+        dispatch(setGame(null))
+        dispatch(setUserId(null))
+        dispatch(setUsername(null))
+        dispatch(setTeam(null))
+        dispatch(setPoints(0))
+        dispatch(setGame(null))
+    }
+}
+
 /** Envía al servidor los datos de la prueba que ha superado el usuario para que lo inserte en la base de datos*/
 export function addChallengeCompleted({ challengeId, gameId, userId, teamId, speedReward } ) {
     return dispatch => {
@@ -57,5 +68,4 @@ export function fetchPoints({gameId, userId}) {
             dispatch(setPoints(data.points))
         })
     }
-
 }
