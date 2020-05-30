@@ -51,7 +51,7 @@ describe('Home Page', () => {
         })
         fireEvent.change(screen.getByPlaceholderText('Game PIN'), { target: { value: '123' } })
         fireEvent.click(screen.getByText('Entrar'))
-        await waitFor(() => screen.getByRole('invalid-pin'))
+        await waitFor(() => screen.getByText('¡PIN inválido!'))
         //await expect(axiosMock.post).toHaveBeenCalled()
         expect(axiosMock.post).toHaveBeenCalled()
         expect(screen.getByText('¡PIN inválido!')).toBeInTheDocument()
