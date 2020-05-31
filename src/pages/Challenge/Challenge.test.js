@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import { Challenge } from './Challenge'
-import ChallengeContainer from './components/ChallengeContainer'
+import ChallengeDescription from './components/ChallengeDescription'
 import ChallengeCompleted from './components/ChallengeCompleted'
 import Loading from 'components/Loading/Loading'
 
@@ -15,12 +15,12 @@ const mockChallengeData = {
 describe('Challenge Container Component', () => {
 
     it ('renders without challengeData', () => {
-        const component = shallow(<ChallengeContainer/>)
-        const wrapper = component.find('[data-test="ChallengeContainer"]')
+        const component = shallow(<ChallengeDescription/>)
+        const wrapper = component.find('[data-test="ChallengeDescription"]')
         expect(wrapper.length).toBe(1)
     })
     it ('renders with challengeData', () => {
-        const component = shallow(<ChallengeContainer challengeData={mockChallengeData}/>)
+        const component = shallow(<ChallengeDescription challengeData={mockChallengeData}/>)
         expect(component.find('#challenge-text').text()).toBe(mockChallengeData.challengeText)
         expect(component.find('.challenge-subtext').text()).toBe(mockChallengeData.textoSecundario)
     })

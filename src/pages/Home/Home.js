@@ -49,12 +49,14 @@ export const Home = (props) => {
             setLoading(true)                   
             axios.post(`${SERVER_ENDPOINT}/game/validateGame`, {pin: gamePin})
             .then(res => {
+                debugger
                 setLoading(false)
                 setError(false)
                 if(!res.data.valid) {
                     setInvalidGamePin(true)
                 }
                 else {
+                    props.resetValues()
                     props.setGame(res.data.result.id)
                 }
             })
@@ -66,7 +68,7 @@ export const Home = (props) => {
     }
 
     useEffect(() => {
-        if(!props.gameId || !props.userid) {
+        if(!props.gameId) {
             props.resetValues()
         }
     })
@@ -75,7 +77,7 @@ export const Home = (props) => {
     if(props.gameId && props.userid && props.username && props.teamId) {
         return <Redirect to='/challenge/current' />
     } 
-    else if(props.gameId && props.userid && props.username && !props.teamId) {
+    else if(props.gameId) {
         return <Redirect to='/join' />
     }
     return (

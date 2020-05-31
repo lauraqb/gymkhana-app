@@ -52,7 +52,6 @@ describe('Home Page', () => {
         fireEvent.change(screen.getByPlaceholderText('Game PIN'), { target: { value: '123' } })
         fireEvent.click(screen.getByText('Entrar'))
         await waitFor(() => screen.getByText('¡PIN inválido!'))
-        //await expect(axiosMock.post).toHaveBeenCalled()
         expect(axiosMock.post).toHaveBeenCalled()
         expect(screen.getByText('¡PIN inválido!')).toBeInTheDocument()
     })
@@ -73,42 +72,41 @@ describe('Home Page', () => {
     })
 })
 
-// describe("sin beforeeach", ()=> {
-//     it('updates props.idGame when entering valid Pin Game', async () => {
-//         axiosMock.post.mockResolvedValueOnce({
-//             data: {valid:true, result:{id:1}}
-//         })
+describe("Homepage sin beforeeach", ()=> {
+    it('updates props.idGame when entering valid Pin Game', async () => {
+        axiosMock.post.mockResolvedValueOnce({
+            data: {valid:true, result:{id:1}}
+        })
 
-//         let gameId = null
-//         const setGameSpy = (id) => {
-//             gameId = '123'
-//         }
-//         render(<Home setGame={setGameSpy} resetValues={()=>{}} />)
-//         fireEvent.change(screen.getByPlaceholderText('Game PIN'), { target: { value: '123' } })
-//         fireEvent.click(screen.getByText('Entrar'))
-//         await expect(axiosMock.post).toHaveBeenCalled()
-//         expect(gameId).toBe('123')
-//     })
-// })
+        let gameId = null
+        const setGameSpy = (id) => {
+            gameId = '123'
+        }
+        render(<Home setGame={setGameSpy} resetValues={()=>{}} />)
+        fireEvent.change(screen.getByPlaceholderText('Game PIN'), { target: { value: '123' } })
+        fireEvent.click(screen.getByText('Entrar'))
+        await waitFor(() => expect(axiosMock.post).toHaveBeenCalled())
+        expect(gameId).toBe('123')
+    })
+})
 
+const renderWithRouterrender = (
+    ui,
+    {
+      route = '/',
+      history = createMemoryHistory({ initialEntries: [route] }),
+    } = {}
+) => {
+    return {
+        ...render(<Router history={history}>{ui}</Router>),
+        history,
+    }
+}
 
-// const renderWithRouterrender = (
-//     ui,
-//     {
-//       route = '/',
-//       history = createMemoryHistory({ initialEntries: [route] }),
-//     } = {}
-// ) => {
-//     return {
-//         ...render(<Router history={history}>{ui}</Router>),
-//         history,
-//     }
-// }
+describe('when Home Page has gameId in props', () => {
 
-// describe('when Home Page has gameId, userid and nameid in props', () => {
-
-//     it('redirects to joinPage', async () => {
-//         const {getByText, getByPlaceholderText, history } = renderWithRouterrender(<Home gameId={1} userid={1} username="test" resetValues={()=>{}} />)
-//         await expect(history.location.pathname).toEqual('/join')
-//     })
-// })
+    it('redirects to joinPage', async () => {
+        const {history } = renderWithRouterrender(<Home gameId={1} resetValues={()=>{}} />)
+        await waitFor(() => expect(history.location.pathname).toEqual('/join'))
+    })
+})

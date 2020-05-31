@@ -5,7 +5,7 @@ import { FaExclamationCircle} from 'react-icons/fa/'
 import Loading from 'components/Loading/Loading'
 import Timer from './Timer'
 
-class ChallengeContainer extends React.Component {
+class ChallengeDescription extends React.Component {
     
     constructor(props) {
         
@@ -48,7 +48,7 @@ class ChallengeContainer extends React.Component {
         const challengeData = this.challengeData
         return <React.Fragment>
             {this.state.loading && <Loading/>}
-            <div data-test="ChallengeContainer" className="container challenge-container">
+            <div data-test="ChallengeDescription" className="container challenge-container">
                 <h2 className="challenge-title">Misión #{challengeData.id}</h2>
                 <div className="row">
                     <div className="col-12" align="center">
@@ -73,4 +73,4 @@ class ChallengeContainer extends React.Component {
     }
 }
 
-export default ChallengeContainer
+export default ChallengeDescription
