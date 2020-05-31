@@ -3,7 +3,8 @@ import { shallow } from 'enzyme'
 import { Join } from './Join'
 import JoinUser from './components/JoinUser'
 import JoinTeam from './components/JoinTeam'
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import '@testing-library/jest-dom/extend-expect'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
@@ -20,13 +21,14 @@ const renderWithRouterrender = (
     }
 }
 
-let component
 
-beforeEach(() => {
-    component = shallow(<Join/>);
-})
 
 describe('Join Page', () => {
+    let component
+
+    beforeEach(() => {
+        component = shallow(<Join/>);
+    })
     it('renders correctly', () => {
         expect(component).toMatchSnapshot()
     })
@@ -46,5 +48,12 @@ describe('Join Page', () => {
     it('redirects to intro page when username and team are defined', async () => {
         const { history } = renderWithRouterrender(<Join userid='1' team='1'/>)
         await expect(history.location.pathname).toEqual('/intro')
+    })
+})
+
+describe('Join Team Component', () => {
+    it('displays welcome message with the username when username is in props', () => {
+        render(<JoinTeam username="Laura"/>)
+        expect(screen.getByText(/Hola Laura/i)).toBeInTheDocument()
     })
 })
