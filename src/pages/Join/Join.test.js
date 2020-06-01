@@ -40,13 +40,13 @@ describe('Join Page', () => {
     })
     
     it('displays joinTeam Component when username is defined but team is not', () => {
-        const component = shallow(<Join userid='1'/>)
+        const component = shallow(<Join userid='1' username='test'/>)
         expect(component.find(JoinUser).length).toBe(0)
         expect(component.find(JoinTeam).length).toBe(1)
     })
 
-    it('redirects to intro page when username and team are defined', async () => {
-        const { history } = renderWithRouterrender(<Join userid='1' team='1'/>)
+    it('redirects to intro page when userid, username and team are defined', async () => {
+        const { history } = renderWithRouterrender(<Join userid='1' username='test' team='1'/>)
         await expect(history.location.pathname).toEqual('/intro')
     })
 })

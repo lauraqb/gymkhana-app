@@ -31,38 +31,13 @@ export const ChallengePage = (props) => {
     const [challengeData, setChallengeData] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
+
     if (props.socket) {
         props.socket.on("server/challengePassed", function(data) {
             debugger
         })
     }
 
-    useEffect(() => {
-        getChallengeData()
-    })
-
-    const getChallengeData = () => {
-        setLoading(true)
-        axios.post(`${SERVER_ENDPOINT}/game/challengeData`, { gameId: props.gameId, userId: props.userid }, {timeout: 2000})
-        .then(res => {
-            setLoading(false)
-            if(res.data.error) {
-                setError(res.data.error.detail)
-
-            }
-            else {
-                const result = res.data.result
-                result.image = result.image ? tryRequire(result.image) : null
-                result.decorativeImage = result.decorativeImage ? tryRequire(result.decorativeImage) : null
-                setChallengeData(res.data.result)
-            }
-        })
-        .catch(error => {
-            setLoading(false)
-            setError(error.message)
-        }) 
-    }
-    
     const tryRequire = (imageFile) => {
         try {
             return require('../../images/'+imageFile);
@@ -82,9 +57,37 @@ export const ChallengePage = (props) => {
     const goToNextLevel = (e) => {
         setLoading(true)
         setChallengeData(null)
-        getChallengeData()
+        //getChallengeData()
         window.location.reload()
     }
+
+    useEffect(() => {
+        const getChallengeData = () => {
+            setLoading(true)
+            axios.post(`${SERVER_ENDPOINT}/game/challengeData`, { gameId: props.gameId, userId: props.userid }) //, {timeout: 2000}
+            .then(res => {
+                setLoading(false)
+                if(res.data.error) {
+                    setError(res.data.error.detail)
+                }
+                else {
+                    const result = res.data.result
+                    result.image = result.image ? tryRequire(result.image) : null
+                    result.decorativeImage = result.decorativeImage ? tryRequire(result.decorativeImage) : null
+                    setChallengeData(res.data.result)
+                }
+            })
+            .catch(error => {
+                setLoading(false)
+                setError(error.message)
+            }) 
+        }
+
+        if(!challengeData) {
+            getChallengeData()
+        }
+
+    }, [props, challengeData])
 
     const currentChallengeCompleted = challengeData && props.challengeCompleted && (props.challengeCompleted.id === challengeData.id) ? props.challengeCompleted: null
     

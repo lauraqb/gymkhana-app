@@ -37,6 +37,7 @@ export const resetValues = () => {
         dispatch(setGame(null))
         dispatch(setUserId(null))
         dispatch(setUsername(null))
+        dispatch(setTeamId(null))
         dispatch(setTeam(null))
         dispatch(setPoints(0))
         dispatch(setGame(null))

@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { setGame, setUserId, setUsername, setTeam, setTeamId, setPoints, fetchPoints } from 'js/actions/index'
+import { resetValues, setGame, fetchPoints } from 'js/actions/index'
 import "./Navbar.css"
 import Navbar from 'react-bootstrap/Navbar'
 import { FaSignOutAlt} from 'react-icons/fa/'
@@ -8,12 +8,8 @@ import { FaSignOutAlt} from 'react-icons/fa/'
 /** Redux function. Sirve para enviar (dispatch) acciones al store */
 function mapDispatchToProps(dispatch) {
   return {
+      resetValues: data => dispatch(resetValues(data)),
       setGame: game => dispatch(setGame(game)),
-      setUserId: name => dispatch(setUserId(name)),
-      setUsername: name => dispatch(setUsername(name)),
-      setTeam: team => dispatch(setTeam(team)),
-      setTeamId: teamId => dispatch(setTeamId(teamId)),
-      setPoints: points => dispatch(setPoints(points)),
       fetchPoints: data => dispatch(fetchPoints(data))
   }
 }
@@ -44,13 +40,8 @@ class Menu extends React.Component {
   logOut(e) {
     var r = window.confirm("¿Confirmas que deseas salir?")
     if (!r) return
-    //reseteamos los valores del estado
-    //resetValues
     this.props.setGame(null)
-    this.props.setUserId(null)
-    this.props.setUsername(null)
-    this.props.setTeam(null)
-    this.props.setPoints(0) 
+    this.props.resetValues()
     this.props.history.push('/')
   }
 

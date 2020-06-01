@@ -57,17 +57,18 @@ export class Join extends React.Component {
     }
 
     render() {
-        if(this.props.userid && this.props.team) {
+        const userSetted = (this.props.userid && this.props.username) ? true : false
+        if(userSetted && this.props.team) {
             return <Redirect to='/intro' />
         }
         return (
             <React.Fragment>
                 <div className="join-container">
-                    {!this.props.userid && 
+                    {!userSetted && 
                         <JoinUser   welcomeMessage={this.welcomeMessage} 
                                     gameid={this.props.gameid} 
                                     setUser={this.setUser}/>  }
-                    {this.props.userid && 
+                    {userSetted && 
                         <JoinTeam   message = {this.joinTeamMessage} 
                                     gameid = {this.props.gameid} 
                                     username = {this.props.username}
